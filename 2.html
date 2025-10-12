@@ -1,66 +1,80 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" style="direction: rtl;">
 <head>
   <meta charset="UTF-8">
-  <title>نموذج البيانات - نظام موجز</title>
+  <title>نموذج البيانات</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
     body {
       background: #fafafa;
       font-family: 'Tajawal', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
-    .container {
-      min-height: 100vh;
+    .header {
       display: flex;
       align-items: center;
-      justify-content: center;
-    }
-    .login-card {
-      display: flex;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 2px 32px rgba(90,109,183,.085);
-      width: 100%;
-      max-width: 900px;
-      min-width: 320px;
-      overflow: hidden;
-    }
-    .login-left {
-      width: 400px;
+      justify-content: flex-end;
       background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
+      padding: 14px 0 14px 0;
+      box-shadow: 0 2px 12px rgba(90,109,183,.09);
+      min-height: 100px;
+    }
+    .logo-frame {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px;
+      margin-left: auto;
+      margin-right: 0;
+      padding-right: 24px;
+      width: 110px;
+      height: 100px;
+      background: none;
+      border-radius: 0;
     }
-    .login-left img {
-      max-width: 260px;
-      width: 100%;
-      max-height: 180px;
-      margin: auto;
-      display: block;
+    .header img {
+      width: 100px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 15px;
+      border: 1.5px solid #eee;
       background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(100,100,200,0.07);
-      padding: 8px 10px;
+      padding: 0;
+      display: block;
+      margin: 0;
+      box-shadow: 0 2px 8px rgba(60,60,140,0.08);
     }
-    .login-right {
-      flex: 1;
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 40px 0 0 0;
+      min-height: calc(100vh - 160px);
+    }
+    .form-card {
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 6px 36px rgba(90,109,183,.18);
+      width: 100%;
+      max-width: 500px;
+      padding: 38px 32px 28px 32px;
+      margin: 0 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 42px 30px;
     }
     .form-title {
-      font-size: 2rem;
+      font-size: 1.9rem;
+      color: #6463d5;
       font-weight: bold;
-      color: #333;
-      text-align: center;
-      margin-bottom: 18px;
-      border-bottom: 1px solid #e9e9e9;
+      margin-bottom: 28px;
+      border-bottom: 1.7px solid #e9e9e9;
       padding-bottom: 12px;
+      width: 100%;
+      text-align: center;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #f7fafd 80%, #eaf3ff 100%);
+      border-radius: 10px;
     }
     .form-group {
       margin-bottom: 20px;
@@ -68,39 +82,40 @@
     }
     label {
       display: block;
-      margin-bottom: 8px;
-      color: #515151;
-      font-weight: bold;
-      font-size: 1rem;
+      margin-bottom: 7px;
+      color: #444;
+      font-weight: 500;
+      font-size: 1.07rem;
     }
     .form-control {
       width: 100%;
-      padding: 16px 14px;
-      font-size: 1.1rem;
+      padding: 15px;
+      font-size: 1.07rem;
       border-radius: 8px;
-      border: 1px solid #dfe1e5;
+      border: 1.8px solid #dfe1e5;
       background: #f7fafd;
       box-sizing: border-box;
+      margin-bottom: 3px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-control:focus {
+      border-color: #6463d5;
+      outline: none;
+      background: #eef3fa;
     }
     .options-group {
       display: flex;
-      gap: 20px;
+      gap: 19px;
       margin-top: 7px;
-      margin-bottom: 2px;
-      flex-wrap: wrap;
-      justify-content: flex-start;
     }
     .option-label {
-      font-size: 1rem;
+      font-size: 1.07rem;
       display: flex;
       align-items: center;
       gap: 6px;
-      color: #555;
       font-weight: 400;
-    }
-    .options-group input[type="radio"] {
-      accent-color: #5e48da;
-      margin-left: 3px;
+      color: #555;
+      margin-bottom: 0;
     }
     .desire-details {
       margin-top: 17px;
@@ -113,60 +128,59 @@
     }
     .submit-btn {
       width: 100%;
-      padding: 14px;
-      background: #5e48da;
+      padding: 15px 0;
+      background: linear-gradient(92deg, #5e48da 65%, #28bfc6 100%);
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       color: #fff;
       font-weight: bold;
-      font-size: 1.08rem;
+      font-size: 1.15rem;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.3s;
+      margin-top: 18px;
+      box-shadow: 0 2px 10px rgba(90,109,183,.10);
+      transition: background 0.25s, box-shadow 0.25s;
     }
     .submit-btn:hover {
-      background: #4737b3;
+      background: linear-gradient(92deg, #28bfc6 60%, #5e48da 100%);
+      box-shadow: 0 4px 18px rgba(45,60,140,.14);
     }
     .footer {
       text-align: center;
       color: #888;
-      font-size: 0.88rem;
-      margin-top: 24px;
+      font-size: 1rem;
+      margin: 55px 0 12px 0;
       width: 100%;
+      padding-bottom: 5px;
+      background: none;
     }
-
-    @media (max-width: 1000px) {
-      .login-card {
-        flex-direction: column;
-        max-width: 98vw;
-      }
-      .login-left, .login-right {
-        width: 100%;
-        min-height: 150px;
-        padding: 24px 12px;
-      }
-      .form-title { font-size: 1.5rem; }
-    }
-
     @media (max-width: 600px) {
-      .login-card {
-        border-radius: 0;
-        max-width: 100vw;
-        min-width: 0;
-        box-shadow: none;
+      .logo-frame {
+        width: 62px;
+        height: 48px;
+        padding-right: 7px;
       }
-      .login-left, .login-right {
-        padding: 16px 4vw;
+      .header {
+        padding: 4px 0 4px 0;
+        min-height: 54px;
       }
-      .login-left img {
-        max-width: 80vw;
-        max-height: 28vw;
+      .header img {
+        width: 48px;
+        height: 38px;
+        border-radius: 7px;
       }
-      .form-title { font-size: 1.2rem; padding-bottom: 8px; }
-      .form-control { padding: 12px 10px; font-size: 0.98rem; }
-    }
-    button, input, textarea {
-      outline: none;
+      .main-content {
+        margin-top: 17px;
+        min-height: unset;
+      }
+      .form-card {
+        max-width: 97vw;
+        padding: 15px 4px 8px 4px;
+      }
+      .form-title {
+        font-size: 1.3rem;
+        padding-bottom: 7px;
+        margin-bottom: 14px;
+      }
     }
   </style>
   <script>
@@ -192,14 +206,16 @@
   </script>
 </head>
 <body>
-<div class="container">
-  <div class="login-card">
-    <div class="login-left">
-      <img src="image.jpg" alt="Logo">
+  <div class="header">
+    <div class="logo-frame">
+      <img src="image.jpg" alt="شعار نظام موجز">
     </div>
-    <div class="login-right">
-      <form style="width:100%;max-width:350px;" onsubmit="event.preventDefault(); window.location.href='3.html';">
-        <div class="form-title">الرجاء تعبئة البيانات التالية</div>
+  </div>
+  <div class="main-content">
+    <div class="form-card">
+      <div class="form-title">الرجاء تعبئة البيانات التالية</div>
+      <!-- REDIRECT IS HERE -->
+      <form style="width:100%;max-width:370px;" onsubmit="event.preventDefault(); window.location.href='3.html';">
         <div class="form-group">
           <label for="job_id">الرقم الوظيفي:</label>
           <input type="text" id="job_id" name="job_id" class="form-control">
@@ -227,12 +243,16 @@
           <div id="details-0" class="desire-details" style="display:none;">
             <label for="current_position">الوظيفة الحالية</label>
             <input type="text" id="current_position" name="current_position" class="form-control">
+
             <label for="current_grade" style="margin-top:12px;">الدرجة الحالية</label>
             <input type="text" id="current_grade" name="current_grade" class="form-control">
+
             <label for="experience_years" style="margin-top:12px;">سنوات الخبرة</label>
             <input type="number" id="experience_years" name="experience_years" class="form-control">
+
             <label for="qualifications" style="margin-top:12px;">المؤهلات أو الدورات</label>
             <input type="text" id="qualifications" name="qualifications" class="form-control">
+
             <label for="additional_notes" style="margin-top:12px;">ملاحظات إضافية</label>
             <input type="text" id="additional_notes" name="additional_notes" class="form-control">
           </div>
@@ -249,11 +269,10 @@
         </div>
         <button type="submit" class="submit-btn">إرسال البيانات</button>
       </form>
-      <div class="footer">
-        © 2022 - 2025 الإدارة العامة لتقنية المعلومات - الأنظمة والحلول - اصدار v1.1.2
-      </div>
     </div>
   </div>
-</div>
+  <div class="footer">
+    © 2022 - 2025 الإدارة العامة لتقنية المعلومات - الأنظمة والحلول - اصدار v1.1.2
+  </div>
 </body>
 </html>
