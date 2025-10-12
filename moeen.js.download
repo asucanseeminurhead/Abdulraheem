@@ -1,0 +1,899 @@
+﻿var moeen = moeen || {};
+moeen._options = { disableTabIndex: true, alertDataAttribute: 'data-alert' };
+
+(function ($) {
+    moeen.initGlobal = function initGlobal(formId) {
+        if (moeen.formRepeater !== undefined)
+            moeen.formRepeater.init(formId);
+
+        if (typeof setupDate !== 'undefined' && setupDate !== undefined)
+            setupDate();
+
+        if (moeen.initFlatpickr !== undefined)
+            moeen.initFlatpickr();
+
+        if (typeof initAspSelect2 !== 'undefined' && initAspSelect2 !== undefined)
+            initAspSelect2(formId);
+
+        if (typeof moeen.initAspSelectize !== 'undefined' && moeen.initAspSelectize !== undefined)
+            moeen.initAspSelectize(formId);
+
+        setupMaxLength(formId);
+
+        KTApp.initTooltips();
+
+        moeen.setupSlick();
+        moeen.setupGLightbox();
+    };
+
+    moeen.setActiveMenuItem = function () {
+        if (typeof KTLayoutAsideMenu === undefined)
+            return;
+
+        var asideMenu = KTLayoutAsideMenu.getMenu();
+
+        var currentPath = location.pathname;
+
+        var activeMenuItem = document.querySelector("#kt_aside_menu [class^='menu-link'][href='" + currentPath + "']")
+        var isSubMenu = false;
+        var parentMenu;
+        var parentMenuItem;
+
+        if (activeMenuItem === null) {
+            var asideMenuLinks = $("#kt_aside [class^='menu-link']");
+
+            $.each(asideMenuLinks, function () {
+                var otherLinks = $(this).data('other-links');
+                if (otherLinks) {
+                    var splittedPath = currentPath.split('/');
+                    var activePath = "";
+                    if (splittedPath.length > 1) {
+                        activePath = splittedPath[1];
+                    }
+                    else if (splittedPath.length > 0) {
+                        activePath = splittedPath[0];
+                    }
+
+                    if (otherLinks.includes(activePath)) {
+                        activeMenuItem = $(this);
+                        return;
+                    }
+                }
+            });
+        }
+        else {
+            parentMenu = $(activeMenuItem).closest('.navi');
+
+            if (parentMenu.length > 0) {
+                parentMenu = $(activeMenuItem).parents('.dropdown-menu');
+                parentMenuItem = $(parentMenu).parents('.menu-item');
+                parentMenu = $(parentMenu).find('.has-sub-menu');
+                isSubMenu = true;
+            }
+        }
+
+        if (activeMenuItem === undefined || activeMenuItem == null)
+            return;
+
+        $("#kt_aside [class^='menu-link']").removeClass('active');
+        $(activeMenuItem).addClass('active');
+        if (isSubMenu && typeof parentMenu !== "undefined") {
+            $(parentMenu).addClass('active');
+        }
+
+        if (activeMenuItem === undefined || activeMenuItem == null)
+            return;
+
+        asideMenu.setActiveItem(activeMenuItem.parentNode);
+
+        if (isSubMenu && typeof parentMenuItem !== "undefined") {
+            $(parentMenuItem).addClass('menu-item-active');
+        }
+    }
+
+    moeen.showModal = function (modalEl) {
+        $(modalEl).modal('show');
+    }
+
+    moeen.hideModal = function (modalEl) {
+        $(modalEl).modal('hide');
+    }
+
+    moeen.clearFormAlert = function (formId) {
+        var form = $(formId);
+        if (typeof form !== undefined)
+            form.find('[' + moeen._options.alertDataAttribute + ']').empty();
+    }
+
+    moeen.emptyContent = function (el) {
+        if (el) {
+            $(el).empty();
+        }
+    }
+
+    moeen.setupHistoryGoBackButton = function (el) {
+        if (typeof el === undefined || !el)
+            el = '.goback-btn';
+
+        if (window.history.length <= 1) {
+            $(el).css('display', 'none');
+        }
+    };
+
+    moeen.disableTabIndex = function disableTabIndex($form) {
+        if (typeof $form !== 'undefined') {
+
+            if (typeof $form === 'string') {
+                $form = $($form);
+            }
+
+            $form.find('input,textarea,select,a,button,.select2-search__field,.select2-selection,.select2-containe').each(function (i, v) {
+                var originalTabIndex = $(v).attr('tabindex');
+                $(v).data('original-tabindex', originalTabIndex);
+
+                if (typeof originalTabIndex !== 'undefined') {
+                    $(v).data('enforce-reset-tabindex', true);
+                    $(v).prop('tabindex', '-1');
+                }
+                else
+                    $(v).attr('tabindex', '-1');
+
+            });
+        }
+    };
+
+    moeen.enableTabIndex = function enableTabIndex($form) {
+        if (typeof $form !== 'undefined') {
+
+            if (typeof $form === 'string') {
+                $form = $($form);
+            }
+
+            $form.find('input,textarea,select,a,button,.select2-search__field,.select2-selection,.select2-container').each(function (i, v) {
+                var originalTabIndex = $(v).data('original-tabindex');
+                if (typeof originalTabIndex !== 'undefined') {
+                    $(v).attr('tabindex', originalTabIndex);
+                    $(v).removeData('enforce-reset-tabindex');
+                }
+                else
+                    $(v).removeAttr('tabindex');
+            });
+        }
+    };
+
+    moeen.blockUI = function (el) {
+        if ($.blockUI) {
+            var html = '<div class="loader"></div>';
+            var options = {};
+            var $el = $(el);
+
+            if ($el.height() <= ($(window).height())) {
+                options.centerY = true;
+            }
+
+            var scrollHeight = '100%';
+            if (typeof $el[0] !== 'undefined') {
+                scrollHeight = $el[0].scrollHeight + 'px';
+            }
+
+            $el.block({
+                message: html,
+                baseZ: 1000,
+                centerY: options.centerY !== undefined ? options.centerY : false,
+                css: {
+                    top: '10%',
+                    border: '0',
+                    padding: '0',
+                    backgroundColor: 'none'
+                },
+                overlayCSS: {
+                    backgroundColor: '#555',
+                    opacity: 0.05,
+                    cursor: 'wait',
+                    height: scrollHeight
+                }
+            });
+
+            if (moeen._options.disableTabIndex !== undefined && moeen._options.disableTabIndex) {
+                var $form = $el.find('form');
+                moeen.disableTabIndex($form);
+            }
+        }
+        else {
+            console.warn('jquery.BlockUI is not defined.');
+        }
+    };
+
+    moeen.unblockUI = function (el) {
+        if ($.blockUI) {
+            var $el = $(el);
+            $el.unblock();
+
+            if (moeen._options.disableTabIndex !== undefined && moeen._options.disableTabIndex) {
+                var $form = $el.find('form');
+                moeen.enableTabIndex($form);
+            }
+        }
+        else {
+            console.warn('jquery.BlockUI is not defined.');
+        }
+    };
+
+    moeen.setupConfirmModal = function () {
+        $("#confirm-modal").on("show.bs.modal", function (event) {
+            var button = $(event.relatedTarget);
+
+            var action = button.data("action");
+
+            $("#confirm-form").attr("action", action);
+        });
+
+        $("#confirm-ajax-modal").on("show.bs.modal", function (event) {
+            //Remove old ajax error alert when opening it again with another item
+            $("#confirm-ajax-alert").html("");
+            var $confirmEl = $("#confirm-ajax-form");
+            var button = $(event.relatedTarget);
+
+            var action = button.data("action");
+            var onSuccessMethods = button.data("on-success");
+            var overrideSuccessMethods = button.data("override-default-success");
+            var shouldOverrideSuccessMethod = false;
+            var defaultSuccessMethod = $confirmEl.attr("data-default-success");
+
+            var $messageContentEl = $confirmEl.find('.message-content');
+            if (typeof $messageContentEl !== 'undefined') {
+                $messageContentEl.text(culture.resource['commonText:AreYouSure']);
+
+                var defaultMessage = $messageContentEl.data('default-text');
+                if (typeof defaultMessage !== 'undefined') {
+                    $messageContentEl.text(defaultMessage);
+                    //var cleanHTML = DOMPurify.sanitize(message, { SAFE_FOR_JQUERY: true })
+                }
+
+                var extraContent = button.data("append-to-delete-message");
+                if (typeof extraContent !== 'undefined') {
+
+                    var msg = culture.resource['commonText:AreYouSureYouWantToDoThis'].format(extraContent);
+                    $messageContentEl.text(msg);
+                }
+            }
+
+            if (typeof overrideSuccessMethods !== 'undefined' && (overrideSuccessMethods === true || overrideSuccessMethods === 'true')) {
+                shouldOverrideSuccessMethod = true;
+            }
+
+            var defaultOnSuccess = $confirmEl.attr("data-ajax-success");
+
+            if (!onSuccessMethods && !shouldOverrideSuccessMethod) {
+                onSuccessMethods = "moeen.updatePagedList();";
+            }
+
+            if (typeof defaultSuccessMethod === 'undefined') {
+                defaultSuccessMethod = defaultOnSuccess;
+                $confirmEl.attr("data-default-success", defaultSuccessMethod);
+            }
+            else {
+                defaultOnSuccess = defaultSuccessMethod;
+            }
+
+            if (onSuccessMethods !== '' && !shouldOverrideSuccessMethod) {
+                var splittedOnSuccessMethods = onSuccessMethods.split(';');
+                var finalOnSuccessMethods = '';
+
+                $.each(splittedOnSuccessMethods, function (i, v) {
+                    if (!defaultOnSuccess.includes(v) && v !== '') {
+                        finalOnSuccessMethods += v + ';';
+                    }
+                });
+
+                if (finalOnSuccessMethods !== '') {
+                    $confirmEl.attr(
+                        "data-ajax-success",
+                        defaultOnSuccess + ";" + finalOnSuccessMethods
+                    );
+                }
+            }
+
+            if (shouldOverrideSuccessMethod) {
+                $confirmEl.attr("data-ajax-success", onSuccessMethods);
+            }
+
+            $confirmEl.attr("action", action);
+        });
+    };
+
+    moeen.setupActionConfirmModal = function () {
+        $("#action-confirm-modal").on("show.bs.modal", function (event) {
+            var button = $(event.relatedTarget);
+
+            var action = button.data("action");
+
+            $("#action-confirm-form").attr("action", action);
+        });
+
+        $("#action-confirm-ajax-modal").on("show.bs.modal", function (event) {
+            //Remove old ajax error alert when opening it again with another item
+            $("#action-confirm-ajax-alert").html("");
+            var $confirmEl = $("#action-confirm-ajax-form");
+            var button = $(event.relatedTarget);
+
+            var action = button.data("action");
+            var onSuccessMethods = button.data("on-success");
+            var overrideSuccessMethods = button.data("override-default-success");
+            var shouldOverrideSuccessMethod = false;
+            var defaultSuccessMethod = $confirmEl.attr("data-default-success");
+
+            var $messageContentEl = $confirmEl.find('.message-content');
+            if (typeof $messageContentEl !== 'undefined') {
+                $messageContentEl.text(culture.resource['commonText:AreYouSure']);
+
+                var defaultMessage = $messageContentEl.data('default-text');
+                if (typeof defaultMessage !== 'undefined') {
+                    $messageContentEl.text(defaultMessage);
+                    //var cleanHTML = DOMPurify.sanitize(message, { SAFE_FOR_JQUERY: true })
+                }
+
+                var extraContent = button.data("append-to-delete-message");
+                if (typeof extraContent !== 'undefined') {
+
+                    var msg = culture.resource['commonText:AreYouSureYouWantToDoThis'].format(extraContent);
+                    $messageContentEl.text(msg);
+                }
+            }
+
+            if (typeof overrideSuccessMethods !== 'undefined' && (overrideSuccessMethods === true || overrideSuccessMethods === 'true')) {
+                shouldOverrideSuccessMethod = true;
+            }
+
+            var defaultOnSuccess = $confirmEl.attr("data-ajax-success");
+
+            if (!onSuccessMethods && !shouldOverrideSuccessMethod) {
+                onSuccessMethods = "moeen.updatePagedList();";
+            }
+
+            if (typeof defaultSuccessMethod === 'undefined') {
+                defaultSuccessMethod = defaultOnSuccess;
+                $confirmEl.attr("data-default-success", defaultSuccessMethod);
+            }
+            else {
+                defaultOnSuccess = defaultSuccessMethod;
+            }
+
+            if (onSuccessMethods !== '' && !shouldOverrideSuccessMethod) {
+                var splittedOnSuccessMethods = onSuccessMethods.split(';');
+                var finalOnSuccessMethods = '';
+
+                $.each(splittedOnSuccessMethods, function (i, v) {
+                    if (!defaultOnSuccess.includes(v) && v !== '') {
+                        finalOnSuccessMethods += v + ';';
+                    }
+                });
+
+                if (finalOnSuccessMethods !== '') {
+                    $confirmEl.attr(
+                        "data-ajax-success",
+                        defaultOnSuccess + ";" + finalOnSuccessMethods
+                    );
+                }
+            }
+
+            if (shouldOverrideSuccessMethod) {
+                $confirmEl.attr("data-ajax-success", onSuccessMethods);
+            }
+
+            $confirmEl.attr("action", action);
+        });
+    };
+
+    moeen.clearFormValidation = function (formId) {
+        if (typeof formId === undefined) return;
+        var form = $(formId);
+
+        //Clear validation summary
+        form
+            .find("[data-valmsg-summary=true]")
+            .removeClass("validation-summary-errors")
+            .addClass("validation-summary-valid")
+            .find("ul")
+            .empty();
+
+        //reset unobtrusive field level, if it exists
+        form
+            .find("[data-valmsg-replace]")
+            .removeClass("field-validation-error")
+            .addClass("field-validation-valid")
+            .empty();
+
+        form.find("[data-val=true]").removeClass("text-danger");
+
+        form
+            .find(".form-group")
+            .removeClass("is-invalid")
+            .removeClass("is-valid");
+
+        form
+            .find(".form-control")
+            .removeClass("is-invalid")
+            .removeClass("is-valid");
+
+        form
+            .find(".selectize-control")
+            .removeClass('form-control');
+
+        form.find('[' + moeen._options.alertDataAttribute + ']').empty();
+    };
+
+    moeen.clearSearch = function (keyword, btn, autoSubmit = true) {
+        var form = $(btn).closest('form');
+
+        if (typeof btn === undefined || form.length === 0)
+            form = $(keyword).closest('form');
+
+        var id = $(keyword, form).data("id");
+        $(id).val('');
+        $(keyword, form).val('');
+
+        var typeAheadInstance = $('.typeahead-auto', form);
+        if (typeof typeAheadInstance !== undefined && typeAheadInstance.length > 0) {
+            typeAheadInstance.typeahead('val', '');
+        }
+
+        $(form).trigger("reset");
+
+        $('select', form).each(function (index) {
+            var hasDefaultOption = $(this).data('set-default-index');
+            if (hasDefaultOption || hasDefaultOption >= 0) {
+                $(this).prop("selectedIndex", hasDefaultOption);
+            }
+        });
+
+        $('.selectized', form).each(function (index) {
+            var $select = $(this);
+            var control = $select[0].selectize;
+            if (control) {
+                control.clear();
+            }
+        });
+
+        if (initAspSelect2 !== undefined)
+            initAspSelect2('#' + form.attr('id'));
+
+        $(":radio", form).each(function () {
+            var value = false;
+            var isDefaultOption = $(this).data('is-default-option');
+            var parentClassToClear = $(this).data('clear-parent-class');
+
+            if (isDefaultOption || isDefaultOption === 'true') {
+                value = true;
+            }
+            else if (typeof parentClassToClear !== 'undefined' && parentClassToClear !== '') {
+                var $parentClass = $(this).closest('.' + parentClassToClear);
+                if (typeof $parentClass !== 'undefined') {
+                    $parentClass.removeClass(parentClassToClear);
+                }
+            }
+
+            $(this).prop("checked", value)
+                .prop("selected", value);
+        });
+
+        if (autoSubmit)
+            $(form).submit();
+    }
+
+    moeen.clearFormData = function (formId) {
+        if (typeof formId === 'undefined') return;
+
+        $(":input", formId)
+            .not(":button, :submit, :radio, :reset, :hidden, :checkbox")
+            .val("")
+            .prop("checked", false)
+            .prop("selected", false);
+
+        $(":checkbox", formId)
+            .prop("checked", false)
+            .prop("selected", false);
+
+        $(":radio", formId).each(function () {
+            var value = false;
+            var isDefaultOption = $(this).data('is-default-option');
+            var parentClassToClear = $(this).data('clear-parent-class');
+
+            if (isDefaultOption || isDefaultOption === 'true') {
+                value = true;
+            }
+            else if (typeof parentClassToClear !== 'undefined' && parentClassToClear !== '') {
+                var $parentClass = $(this).closest('.' + parentClassToClear);
+                if (typeof $parentClass !== 'undefined') {
+                    $parentClass.removeClass(parentClassToClear);
+                }
+            }
+
+            $(this).prop("checked", value)
+                .prop("selected", value);
+        });
+
+        $('select', formId).each(function (index) {
+            var hasDefaultOption = $(this).data('set-default-index');
+            if (hasDefaultOption || hasDefaultOption >= 0) {
+                $(this).prop("selectedIndex", hasDefaultOption);
+            }
+        });
+
+        $('textarea', formId).css('height', 'auto');
+
+        $('.selectized', formId).each(function (index) {
+            var $select = $(this);
+            var control = $select[0].selectize;
+            if (control) {
+                control.clear();
+            }
+        });
+
+        $(":input", formId).each(function (index) {
+            var hasFileUpload = $(this).data("fileinput");
+
+            if (hasFileUpload) $(this).fileinput("clear");
+        });
+
+        initAspSelect2();
+        moeen.formRepeater.clearRepeater(formId);
+
+        if (typeof removeImageData !== 'undefined') {
+            removeImageData(formId);
+        }
+
+        if (typeof resetConfirmationGroupLogo !== 'undefined') {
+            resetConfirmationGroupLogo(formId);
+        }
+    };
+
+    moeen.setupResetForms = function () {
+        var selector = '[data-reset-form*="true"]';
+
+        $(selector).on("show.bs.modal", function (event) {
+            var modal = $(event.target);
+            var form = modal.find("form");
+
+            if (form) {
+                if (initAspSelect2 !== undefined)
+                    initAspSelect2('#' + form.attr('id'));
+
+                if (initAspSelect2 !== undefined)
+                    initAspSelect2('#' + form.attr('id'));
+
+                moeen.refreshUnobtrusiveValidation(form);
+                moeen.clearFormValidation(form);
+
+                if (typeof KTWizard1 !== 'undefined' && KTWizard1 !== undefined)
+                    KTWizard1.reinit();
+            }
+        });
+
+        $(selector).on("shown.bs.modal", function (event) {
+            var modal = $(event.target);
+            var form = modal.find("form");
+            moeen.clearFormData(form);
+        });
+    };
+
+    moeen.refreshUnobtrusiveValidation = function (formSelector) {
+        if (typeof formSelector === undefined) return;
+        var $form = $(formSelector);
+        var skipValidation = $form.attr('skipvalidation');
+
+        if (typeof skipValidation !== 'undefined') {
+            return;
+        }
+
+        $form.removeData("validator");
+        $form.removeData("unobtrusiveValidation");
+
+        $.validator.unobtrusive.parse($form);
+
+        //$form.validateBootstrap(true);
+    };
+
+    moeen.updatePagedList = function (url, divToUpdate, replaceType) {
+        if (url === undefined) {
+            console.warn('url is ' + url);
+            url = '';
+        }
+
+        var foundPage = $("[data-page]", divToUpdate);
+
+        if (foundPage) {
+            var page = foundPage.attr("data-page");
+
+            if (url.includes("?")) url += "&PageNumber=" + page;
+            else if (typeof page !== "undefined") url += "?PageNumber=" + page;
+        }
+
+        var options = {
+            method: "GET",
+            blockElement: divToUpdate,
+            replaceElement: divToUpdate,
+            replaceType: replaceType
+        };
+
+        return moeen.request(url, options);
+    };
+
+    moeen.request = function (url, options) {
+        // options: { method, data, blockElement, modalToHide, alertElement, replaceElement, formElement, replaceType }
+
+        var _method = options.method || "POST";
+        var _alertElement = options.alertElement || "";
+
+        var ajax = $.ajax(url, {
+            method: _method,
+            data: options.data || {},
+            beforeSend: function () {
+                moeen.onAjax.begin(options.blockElement);
+            }
+        });
+
+        ajax.done(function (data, status) {
+            if (typeof options.replaceDefaultOnSuccess === 'undefined' || options.replaceDefaultOnSuccess === false) {
+                moeen.onAjax.success(data, status, options.modalToHide);
+            }
+
+            if (options.onSuccessCallback)
+                options.onSuccessCallback(data, status);
+        });
+
+        ajax.fail(function (xhr, status, error) {
+            if (typeof options.replaceDefaultOnFail === 'undefined' || options.replaceDefaultOnFail === false) {
+                moeen.onAjax.failed(xhr);
+            }
+
+            if (options.onFailCallback)
+                options.onFailCallback(xhr, status, error);
+        });
+
+        ajax.always(function (xhr, status, error) {
+            if (typeof options.replaceDefaultOnComplete === 'undefined' || options.replaceDefaultOnComplete === false) {
+                moeen.onAjax.complete(
+                    xhr,
+                    status,
+                    options.blockElement,
+                    _alertElement,
+                    options.replaceElement,
+                    options.formElement,
+                    options.replaceType
+                );
+            }
+
+            if (options.onCompleteCallback)
+                options.onCompleteCallback(xhr, status, error);
+        });
+
+        return ajax;
+    };
+
+    moeen.callFunction = function (func) {
+        if (moeen.isFunction(func))
+            func();
+    };
+
+    moeen.isFunction = function isFunction(str) {
+        var func = eval(str);
+        return typeof func === "function";
+    };
+
+    moeen.ajaxTab = function (tabNavEl, options) {
+        var $firstTab;
+        var $tabItem = $('[data-toggle="tab"]');
+
+        var _options = {
+            historyEnabled: true
+        };
+
+        function _init(tabNavEl, options) {
+            $firstTab = $('li:first > a', tabNavEl);
+
+            if (options !== undefined)
+                _options = $.extend({}, _options, options || {});
+
+            $tabItem.on('show.bs.tab', _requestAjaxContent);
+
+            _setSelectedTab();
+
+            _registerPopStateEvent();
+        }
+
+        function _setSelectedTab() {
+            var hash = location.hash;
+
+            if (hash === '' && $firstTab !== undefined) {
+                $('a[href="' + $firstTab[0].hash + '"]').tab('show');
+            }
+        }
+
+        function _extractRequestOptions() {
+            var requestOptions = {};
+
+            if (_options.blockElement)
+                requestOptions.blockElement = _options.blockElement;
+            if (_options.replaceElement)
+                requestOptions.replaceElement = _options.replaceElement;
+
+            if (_options.alertElement)
+                requestOptions.alertElement = _options.alertElement;
+
+            return requestOptions;
+        }
+
+        function _requestAjaxContent(e) {
+            var $current = $(e.currentTarget)[0];
+            var $previous = $(e.relatedTarget)[0] || undefined;
+
+            var targetId = $current.hash;
+            var $target = $(targetId);
+
+            _options.replaceElement = targetId;
+            _pushToHistoryState(targetId);
+
+
+            var url = $target.data('href');
+
+            if (url === undefined)
+                return;
+
+            var completeCallback = $target.data('complete-callback');
+
+            if ($target.data('block-element'))
+                _options.blockElement = $target.data('block-element');
+
+            if ($target.data('alert-element'))
+                _options.alertElement = $target.data('alert-element');
+
+            if ($previous !== undefined && $($previous.hash).data('href') !== undefined)
+                $($previous.hash).html('');
+
+            moeen.request(url, _extractRequestOptions())
+                .always(function () { moeen.callFunction(completeCallback); });
+
+
+        }
+
+        function _pushToHistoryState(targetId) {
+            if (!_options.historyEnabled)
+                return;
+
+            if (window.history.pushState)
+                window.history.pushState(null, "", targetId);
+            else
+                location.hash = targetId;
+        }
+
+        function _registerPopStateEvent() {
+            if (!_options.historyEnabled)
+                return;
+
+            window.addEventListener("popstate",
+                function (e) {
+                    var activeTab = $('[href="' + location.hash + '"]');
+                    if (activeTab.length) {
+                        activeTab.tab('show');
+                    } else {
+                        $firstTab.tab('show');
+                    }
+                });
+        }
+
+        _init(tabNavEl, options);
+    };
+
+    moeen.setupGLightbox = function () {
+        if (typeof GLightbox === undefined)
+            return;
+
+        const lightbox = GLightbox({
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: true,
+            preload: false,
+            svg: {
+                next: '',
+                prev: ''
+            }
+        });
+    }
+
+    moeen.setupSlick = function () {
+
+        var $slicks = $('[data-slick]');
+        if ($.fn.slick === undefined || $slicks.length === 0)
+            return;
+
+
+        $slicks.each(function () {
+            var $slick = $(this);
+
+            if ($slick.hasClass('slick-initialized'))
+                return;
+
+            var options = {
+                dots: true,
+                speed: 600,
+                autoplaySpeed: 5000,
+                lazyLoad: "progressive",
+                cssEase: 'cubic-bezier(0.87, 0.03, 0.41, 0.9)',
+                infinite: true,
+                rtl: true,
+                prevArrow: '<span class="slick-prev slick-arrow"><i class="flaticon2-right-arrow"></i></span>',
+                nextArrow: '<span class="slick-next slick-arrow"><i class="flaticon2-left-arrow"></i></span>'
+            };
+
+            options = Object.assign(options, $slick.data())
+
+            $slick.on('init', function (slick) {
+                slick = $(slick.currentTarget);
+                //setTimeout(function () {
+                //    _playPauseVideo(slick, "play");
+                //}, 1000);
+            });
+
+            $slick.on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+
+                if (slick.$slides.length > 0) {
+                    var $nextSlide = $(slick.$slides[nextSlide]);
+
+                    var $firstEl = $($nextSlide.children(":first"));
+                    var properHeight = $firstEl.height();
+
+                    var $sliderListEl = $(slick.$slider).find('.slick-list');
+
+                    if ($sliderListEl.length > 0 && properHeight !== 0)
+                        $sliderListEl.height(properHeight);
+                }
+
+                slick = $(slick.$slider);
+                _playPauseVideo(slick, "pause");
+            });
+
+            $slick.on("afterChange", function (event, slick) {
+                slick = $(slick.$slider);
+                //_playPauseVideo(slick, "play");
+            });
+
+            $slick.slick(options);
+
+        });
+
+
+        function _playPauseVideo(slick, control) {
+            var currentSlide, slideType, video;
+
+            currentSlide = slick.find(".slick-current");
+            slideType = currentSlide.data('slick-type');
+
+            if (slideType == 'video') {
+                video = currentSlide.children("video").get(0);
+                if (video != null) {
+                    if (control === "play") {
+                        video.play();
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    moeen.setEmptyBlockAsContent = function (element, emptyContainer) {
+        if (typeof emptyContainer === undefined || typeof emptyContainer === 'undefined')
+            emptyContainer = true;
+
+        if (emptyContainer) {
+            $(element).empty();
+        }
+
+        var noDataText = culture.resource['commonText:EmptyData'];
+        $(element).append('<div class="note note-info"><h4 class="block text-center"> ' + noDataText + ' </h4></div>');
+    };
+
+    return this;
+})(jQuery);

@@ -1,0 +1,12 @@
+﻿"use strict";
+var valGetParentContainer = function (element) {
+    var element = $(element);
+
+    if ($(element).closest('.form-group-sub').length > 0) {
+        return $(element).closest('.form-group-sub')
+    } else if ($(element).closest('.bootstrap-select').length > 0) {
+        return $(element).closest('.bootstrap-select')
+    } else {
+        return $(element).closest('.form-group');
+    }
+}

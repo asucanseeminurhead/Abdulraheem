@@ -1,0 +1,368 @@
+﻿document.addEventListener("DOMContentLoaded", function () {
+    yall({
+        observeChanges: true
+    });
+});
+
+var isClearSearchClicked = false;
+
+
+function setClearSearch(flag) {
+    isClearSearchClicked = flag;
+}
+
+function setupMaxHeight(el, reset) {
+    reset = reset || false;
+
+    var heightDict = {};
+    $(el).children().each(function (i, v) {
+        var $currentChild = $(this);
+        var top = $currentChild.position().top;
+        var foundObject = heightDict[top];
+
+        $currentChild.attr('original-top', top);
+
+        if (typeof foundObject === 'undefined') {
+            heightDict[top] = {
+
+            };
+        }
+
+        $currentChild.find("[class*='match-height-']").each(function () {
+
+            if (reset) {
+                $(this).height('auto');
+            }
+
+            var currentHeight = $(this)[0].offsetHeight;
+
+            var targetClass = $.grep(this.className.split(" "), function (v, i) {
+                return v.indexOf('match-height-') === 0;
+            }).join();
+
+            var foundMaxHeight = heightDict[top][targetClass];
+
+            if (typeof foundMaxHeight === 'undefined') {
+                heightDict[top][targetClass] = 0
+                foundMaxHeight = 0;
+            }
+
+            if (currentHeight > foundMaxHeight) {
+                heightDict[top][targetClass] = currentHeight;
+            }
+        });
+
+    });
+
+    $(el).children().each(function (i, v) {
+        var originalTop = $(this).attr('original-top');
+        var top = originalTop || $(this).position().top;
+        var foundObject = heightDict[top];
+
+        if (typeof foundObject !== 'undefined') {
+            $(this).find("[class*='match-height-']").each(function () {
+                var targetClass = $.grep(this.className.split(" "), function (v, i) {
+                    return v.indexOf('match-height-') === 0;
+                }).join();
+                var foundMaxHeight = foundObject[targetClass];
+
+                if (typeof foundMaxHeight !== 'undefined') {
+                    $(this).css('min-height', foundMaxHeight);
+                }
+            });
+        }
+    });
+}
+
+function setupMarkAsReadBtnListener() {
+    $('.mark-as-read').on('click', function (e) {
+        e.stopPropagation();
+    });
+}
+
+$(function () {
+    KTApp.initAbsoluteDropdown('.absolute-dropdown');
+
+    $('#notification_container').on('click', function (e) {
+        var $target = $(e.target);
+        if (($target.is('a') || $target.is('button')) && (!$target.is('button.mark-as-read-btn') && !$target.is('i.mark-as-read-btn'))) {
+            //ignore..
+        }
+        else {
+            var isParentAClickableEl = $target.parents('a');
+            if (typeof isParentAClickableEl !== 'undefined' && isParentAClickableEl.length > 0) {
+                //ignore..
+            }
+            else {
+                e.stopPropagation();
+            }
+        }
+    });
+
+    moeen.initGlobal();
+    moeen.setActiveMenuItem();
+    moeen.setupResetForms();
+    moeen.setupHistoryGoBackButton();
+    moeen.setupConfirmModal();
+    moeen.setupActionConfirmModal();
+    //getLatestNotification();
+
+    if (typeof moeen.initAspSelectize !== 'undefined' && moeen.initAspSelectize !== undefined)
+        moeen.initAspSelectize();
+
+    $(document).on("shown.bs.modal", function (event) {
+        var modal = $(event.target);
+        var form = modal.find("form");
+
+        if (form) {
+            moeen.refreshUnobtrusiveValidation(form);
+            moeen.clearFormValidation(form);
+
+            var modalBodyEl = modal.find('.modal-body');
+            var $firstEl = modalBodyEl.find('input,input[type=select-multiple],textarea,select').filter(':visible:first');
+            if ($firstEl.length > 0) {
+                $firstEl.focus();
+                $firstEl.setCursorToTextEnd();
+            }
+        }
+    });
+
+    $(document).on("show.bs.modal", function (event) {
+        var modal = $(event.target);
+        var form = modal.find("form");
+
+        if (form) {
+            $('textarea', form).css('height', 'auto');
+        }
+    });
+
+    $('form[novalidate]').each(function () {
+        var $validatr = $(this).data('validator');
+        if ($validatr) {
+            var settngs = $validatr.settings;
+            settngs.onkeyup = function (element, eventType) {
+            };
+            settngs.onfocusout = false;
+        }
+    });
+
+    $(document).on('click', '.dropdown-menu.keep-open', function (e) {
+        e.stopPropagation();
+    })
+
+});
+
+function replaceUrlParam(url, paramName, paramValue) {
+    if (paramValue == null) {
+        paramValue = '';
+    }
+    var pattern = new RegExp('\\b(' + paramName + '=).*?(&|#|$)');
+    if (url.search(pattern) >= 0) {
+        return url.replace(pattern, '$1' + paramValue + '$2');
+    }
+    url = url.replace(/[?#]$/, '');
+    return url + (url.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+}
+
+
+function setupMaxLength(formId) {
+    var opts = {
+        threshold: 100,
+        warningClass: "label-primary label label-rounded label-inline",
+        limitReachedClass: "label-danger label label-rounded label-inline",
+        twoCharLinebreak: false,
+        appendToParent: true
+    };
+
+    if (formId) {
+        $('[maxlength]:not([skipMaxLengthTooltip=true],.max-inited)', formId).maxlength(opts);
+        $('[maxlength]:not([skipMaxLengthTooltip=true],.max-inited)', formId).addClass('max-inited');
+    }
+    else {
+        $('[maxlength]:not([skipMaxLengthTooltip=true],.max-inited)').maxlength(opts);
+        $('[maxlength]:not([skipMaxLengthTooltip=true],.max-inited)').addClass('max-inited');
+
+    }
+}
+
+function onAjaxCompleteDisplayWarningAlert(xhr, status, blockDiv, alertElement, divToReplace, formId, replacementType) {
+    if (typeof replacementType === 'undefined')
+        replacementType = 'replace';
+
+    var data = xhr.responseJSON;
+
+    if (!data) {
+        data = xhr;
+    }
+
+    if (data && typeof data === 'string')
+        _displayContent(data, divToReplace, replacementType);
+    else if (data) {
+        if (typeof data.alert !== 'undefined' && data.alert.alertType === 1) {
+            moeen.notification.show(data.alert, alertElement);
+        }
+    }
+}
+
+function initPerfectScroll(element) {
+    var $pss = $('[data-scroll="true"]');
+
+    if (element) {
+        $pss = $(element).find('[data-scroll="true"]');
+    }
+
+    $pss.each(function () {
+        var el = $(this);
+        KTUtil.scrollInit(this, {
+            mobileNativeScroll: true,
+            handleWindowResize: true,
+            rememberPosition: (el.data('remember-position') === 'true' ? true : false),
+            height: function () {
+                if (KTUtil.isInResponsiveRange('tablet-and-mobile') && el.data('mobile-height')) {
+                    return el.data('mobile-height');
+                } else {
+                    return el.data('height');
+                }
+            }
+        });
+    });
+}
+
+function setInputFilter(el, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
+        el.on(event, function () {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+                this.value = "";
+            }
+        });
+    });
+}
+
+function updateLocationHash(hash) {
+    if (typeof hash !== 'undefined')
+        window.location.hash = '#' + hash;
+}
+
+function htmlDecode(input) {
+    var e = document.createElement('textarea');
+    e.innerHTML = input;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+}
+
+function getLatestNotification() {
+    var notificationController = '/Notification';
+    var latesNotificationList = '#latest_notifications_list';
+
+    var url = notificationController + '/Latest';
+    moeen.request(url, {
+        method: "GET",
+        blockElement: latesNotificationList,
+        replaceElement: latesNotificationList,
+        onCompleteCallback: function (xhr, status, error) {
+            _toggleNotificationColor();
+        }
+    });
+
+    var id = window.location.hash;
+
+    if ((id === '#notifications' || id === 'notifications') && typeof $('#notifications-link') !== "undefined") {
+        updateList();
+    }
+}
+
+function changeFormActionUrl(button) {
+    var $btn = $(button);
+    var url = $btn.attr('data-action-url');
+    var ajax = $btn.attr('data-ajax');
+    
+
+    var form = $btn.closest('form');
+
+    form.attr('action', url);
+    form.attr('data-ajax', ajax);
+    if (ajax === "true") {
+        form.attr('data-ajax-begin', $btn.attr('data-ajax-begin'))
+        form.attr('data-ajax-failure', $btn.attr('data-ajax-failure'))
+        form.attr('data-ajax-complete', $btn.attr('data-ajax-complete'))
+        form.attr('data-ajax-success', $btn.attr('data-ajax-success'))
+
+    }
+    else {
+        form.removeAttr('data-ajax-begin');
+        form.removeAttr('data-ajax-complete');
+        form.removeAttr('data-ajax-failure');
+        form.removeAttr('data-ajax-success');
+
+    }
+
+    return false;
+}
+
+function _toggleNotificationColor() {
+    var totalNewCount = $('#notifications-new-count').html();
+    var $notificationTopbarIconEl = $('#notification_topbar_icon');
+
+    if (totalNewCount > 0) {
+        $notificationTopbarIconEl.addClass('pulse pulse-primary');
+        $notificationTopbarIconEl.find('.svg-icon').addClass('svg-icon-primary');
+    }
+    else {
+        $notificationTopbarIconEl.removeClass('pulse pulse-primary');
+    }
+}
+
+/**
+ * @params {File[]} files Array of files to add to the FileList
+ * @return {FileList}
+ */
+function FileListItems(files) {
+    var b = new ClipboardEvent("").clipboardData || new DataTransfer()
+    for (var i = 0, len = files.length; i < len; i++) b.items.add(files[i])
+    return b.files
+}
+
+var settings = {
+    validClass: "is-valid",
+    errorClass: "is-invalid",
+    ignore: ':hidden:not([class~=selectized]),:hidden > .selectized, .selectized-control .selectize-input input',
+    showErrors: function (errorMap, errorList) {
+        $('.selectize-input').removeClass('form-control is-invalid');
+
+        $.each(errorList, function (i, v) {
+            var $element = $(v.element);
+            if ($element.hasClass('selectized')) {
+                $element.next('.selectize-control').addClass('form-control is-invalid');
+            }
+
+            if ($element.hasClass('select2-hidden-accessible')) {
+                var $validationElement = $element.next('.select2-container').find('.select2-selection__rendered');
+                $validationElement.addClass('form-control is-invalid');
+                $validationElement.css('display', 'block');
+            }
+        });
+
+        this.defaultShowErrors();
+    }
+};
+
+$.validator.setDefaults(settings);
+$.validator.unobtrusive.options = settings;
+$.fn.setCursorToTextEnd = function () {
+    var $initialVal = this.val();
+    this.val('').val($initialVal);
+};
+
+String.prototype.format = function () {
+    var a = this;
+    for (var k in arguments) {
+        a = a.replace(new RegExp("\\{" + k + "\\}", 'g'), arguments[k]);
+    }
+    return a;
+};

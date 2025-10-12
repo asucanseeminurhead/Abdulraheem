@@ -1,0 +1,857 @@
+﻿:root {
+    --primary-color-500-rgb: rgb(92,77,184);
+    --primary-color-100: #e9e7f5;
+    --primary-color-300: #6a5aca;
+    --primary-color-500: #5c4db8;
+    --primary-color-800: #493aa0;
+    --gray-color-100: #f8f8f8;
+    --gray-color-300: #ebedf3;
+    --gray-color-400: #99999b;
+    --gray-color-500: #707070;
+    --gray-color-800: #505050;
+    --gray-light-blue-color-050: #f3f4f5;
+    --gray-light-blue-color-100: #dce7eb;
+    --gray-light-blue-color-300: #a9c4d0;
+    --green-color-100: #c8f3f1;
+    --green-color-500: #00a39e;
+    --green-color-800: #018a86;
+    --red-color-100: #fddcdc;
+    --red-color-500: #db5d5d;
+    --red-color-800: #d44141;
+    --black-color-500: #3c3d4d;
+    --portlet-border-radius: .7rem;
+}
+
+body {
+    background: var(--gray-color-100);
+}
+
+i {
+    color: var(--primary-color-500);
+}
+
+.table.table-head-bg thead th, .table.table-head-bg thead tr {
+    letter-spacing: normal;
+}
+
+.bg-primary {
+    background-color: var(--primary-color-500) !important;
+}
+
+.selectize-control.single .selectize-input:after {
+    border-color: var(--primary-color-500) transparent transparent transparent;
+}
+
+.selectize-control.single .selectize-input.dropdown-active:after {
+    border-color: transparent transparent var(--primary-color-500) transparent;
+}
+
+.header {
+    background-color: var(--gray-color-100);
+}
+
+.user-topbar {
+    min-width: 10.6rem;
+    max-width: 30rem;
+}
+
+.topbar {
+    margin-top: 1rem;
+    min-width: 19rem;
+    max-width: 40rem;
+}
+
+.extra-items {
+    cursor: pointer;
+}
+
+.accordion .card .card-header, .accordion .extra-items .extra-items {
+    background-color: white;
+    border-radius: 5px;
+}
+
+    .accordion.accordion-toggle-arrow .card .card-header .card-title, .accordion .card .card-header .card-title > i, .accordion.accordion-toggle-arrow .card .card-header .card-title:after,
+    .accordion.accordion-toggle-arrow .extra-items .extra-items-header .extra-items-title, .accordion .extra-items .extra-items-header .card-title > i, .accordion.accordion-toggle-arrow .card .card-header .card-title:after {
+        color: var(--primary-color-500);
+    }
+
+.accordion.accordion-svg-toggle .extra-items .extra-items-header .extra-items-title.collapsed .svg-icon svg {
+    transition: all .15s ease;
+    transform: rotate(0);
+}
+
+.accordion.accordion-svg-toggle .extra-items .extra-items-header .extra-items-title .svg-icon svg {
+    transition: all .15s ease;
+    transform: rotate(-90deg);
+}
+
+.card-full-radius {
+    background-color: white !important;
+    border-radius: calc(var(--portlet-border-radius) - 1px) !important;
+}
+
+.no-bg {
+    background: none !important;
+    background-color: none !important;
+}
+
+.no-box-shadow {
+    box-shadow: none !important;
+}
+
+.bg-light-gray-100 {
+    background: var(--gray-color-100) !important;
+}
+
+.text-dark {
+    color: var(--black-color-500) !important;
+}
+
+.text-dark-75 {
+    color: var(--gray-color-500) !important;
+}
+
+.text-muted {
+    color: var(--gray-color-400) !important;
+}
+
+.text-primary {
+    color: var(--primary-color-500) !important;
+}
+
+.text-danger {
+    color: var(--red-color-500) !important;
+}
+
+.table.table-foot-custom tfoot td, .table.table-foot-custom tfoot th, .table.table-head-custom thead th, .table.table-head-custom thead tr {
+    color: var(--gray-color-500) !important;
+}
+
+.container-title {
+    color: var(--primary-color-500) !important;
+}
+
+.card-header, .card-footer {
+    border-color: var(--gray-light-blue-color-050);
+}
+
+.card-bordered {
+    border: 1px solid white !important;
+    border-radius: var(--portlet-border-radius);
+}
+
+.modal-content {
+    border-radius: var(--portlet-border-radius);
+}
+
+.apexcharts-tooltip {
+    right: auto;
+}
+
+.card-bordered-light {
+    border: 1px solid var(--gray-light-blue-color-050) !important;
+}
+
+.card.card-custom {
+    box-shadow: 0 0 10px 0 rgb(82 63 105 / 5%);
+}
+
+.bg-main-gradient {
+    background: rgb(59 139 176);
+    background: linear-gradient(340deg, rgba(107 94 190) 0%, rgba(104 97 190) 35%, rgba(87 115 185) 60%, rgb(95 139 176) 100%);
+}
+
+.radio > input:checked ~ span {
+    background-color: var(--primary-color-500);
+}
+
+.navi .navi-item .navi-link.active .navi-icon i, .navi .navi-item .navi-link.active .navi-text, .accordion .card .card-header .card-title {
+    color: var(--primary-color-500);
+}
+
+.breadcrumb .breadcrumb-item.active a, .breadcrumb .breadcrumb-item.active i, .breadcrumb .breadcrumb-item:hover a, .breadcrumb .breadcrumb-item:hover i {
+    color: var(--primary-color-500) !important;
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-color-500);
+    border-color: var(--primary-color-500);
+}
+
+.page-link {
+    color: var(--primary-color-500);
+}
+
+    .page-link:hover {
+        color: var(--primary-color-500);
+    }
+
+.between-lines {
+    position: relative;
+    font-size: 30px;
+    z-index: 1;
+    overflow: hidden;
+    text-align: center;
+}
+
+    .between-lines:before, .between-lines:after {
+        position: absolute;
+        top: 51%;
+        overflow: hidden;
+        width: 45%;
+        height: 2px;
+        content: '\a0';
+        background-color: var(--gray-light-blue-color-100);
+    }
+
+    .between-lines:before {
+        margin-right: -50%;
+        text-align: right;
+    }
+
+    .between-lines:after {
+        margin-right: 5%;
+    }
+
+.btn.btn-default.focus:not(.btn-text), .btn.btn-default:focus:not(.btn-text), .btn.btn-default:hover:not(.btn-text):not(:disabled):not(.disabled),
+.btn.btn-default:not(:disabled):not(.disabled).active, .btn.btn-default:not(:disabled):not(.disabled):active:not(.btn-text), .show .btn.btn-default.btn-dropdown, .show > .btn.btn-default.dropdown-toggle {
+    color: var(--primary-color-500);
+}
+
+    .btn.btn-default.focus:not(.btn-text) i, .btn.btn-default:focus:not(.btn-text) i, .btn.btn-default:hover:not(.btn-text):not(:disabled):not(.disabled) i,
+    .btn.btn-default:not(:disabled):not(.disabled).active i, .btn.btn-default:not(:disabled):not(.disabled):active:not(.btn-text) i, .show .btn.btn-default.btn-dropdown i, .show > .btn.btn-default.dropdown-toggle i {
+        color: var(--primary-color-500);
+    }
+
+a:hover {
+    color: var(--primary-color-500);
+}
+
+.text-success {
+    color: var(--green-color-500) !important;
+}
+
+.toast-success {
+    background-color: var(--green-color-500) !important;
+    border-color: var(--green-color-500) !important;
+}
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    border-color: var(--green-color-500);
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    border-color: var(--red-color-500);
+}
+
+.btn-success {
+    background-color: var(--green-color-500) !important;
+    border-color: var(--green-color-500) !important;
+}
+
+    .btn-success:hover {
+        background-color: var(--green-color-800) !important;
+        border-color: var(--green-color-800) !important;
+    }
+
+.btn-outline-success {
+    color: var(--primary-color-300) !important;
+    border-color: var(--primary-color-300) !important;
+}
+
+    .btn-outline-success:hover {
+        color: var(--primary-color-500) !important;
+        background-color: var(--primary-color-500) !important;
+        border-color: var(--primary-color-500) !important;
+    }
+
+.btn.btn-outline-success i {
+    color: var(--primary-color-300);
+}
+
+.post-view-switch i {
+    color: var(--gray-light-blue-color-300);
+}
+
+.post-view-switch:hover i, .post-view-switch.active i {
+    color: var(--primary-color-500);
+}
+
+.btn.btn-outline-success:not(:disabled):not(.disabled).active, .btn.btn-outline-success:not(:disabled):not(.disabled):active:not(.btn-text), .show .btn.btn-outline-success.btn-dropdown, .show > .btn.btn-outline-success.dropdown-toggle {
+    background-color: var(--primary-color-500) !important;
+    border-color: var(--primary-color-500) !important;
+}
+
+
+.btn.btn-primary:not(:disabled):not(.disabled).active, .btn.btn-primary:not(:disabled):not(.disabled):active:not(.btn-text), .show .btn.btn-primary.btn-dropdown, .show > .btn.btn-primary.dropdown-toggle,
+.btn.btn-outline-primary:not(:disabled):not(.disabled).active, .btn.btn-outline-primary:not(:disabled):not(.disabled):active:not(.btn-text), .show .btn.btn-outline-primary.btn-dropdown, .show > .btn.btn-outline-primary.dropdown-toggle {
+    background-color: var(--primary-color-500) !important;
+    border-color: var(--primary-color-500) !important;
+}
+
+.btn-link-light:not(:hover) i {
+    color: var(--gray-color-400) !important;
+}
+
+.btn.btn-link-primary {
+    color: var(--primary-color-500);
+}
+
+    .btn.btn-link-primary i,
+    .btn.btn-link-primary:not(:disabled):not(.disabled):active:not(.btn-text) i,
+    .btn.btn-link-primary:focus:not(:hover):not(.btn-text) i {
+        color: var(--primary-color-500);
+    }
+
+    .btn.btn-link-primary:hover:not(.btn-text):not(:disabled):not(.disabled) i,
+    .btn.btn-link-primary:hover:not(:disabled):not(.disabled):active:not(.btn-text) i,
+    .btn.btn-link-primary:hover:focus:not(.btn-text) i {
+        color: white !important;
+    }
+
+.btn.btn-clean {
+    color: var(--gray-color-500);
+}
+
+    .btn.btn-clean.focus:not(.btn-text), .btn.btn-clean:focus:not(.btn-text), .btn.btn-clean:hover:not(.btn-text):not(:disabled):not(.disabled),
+    .btn.btn-clean:not(:disabled):not(.disabled).active, .btn.btn-clean:not(:disabled):not(.disabled):active:not(.btn-text), .show .btn.btn-clean.btn-dropdown, .show > .btn.btn-clean.dropdown-toggle {
+        color: var(--gray-color-500);
+    }
+
+        .btn.btn-clean.focus:not(.btn-text) i, .btn.btn-clean:focus:not(.btn-text) i, .btn.btn-clean:hover:not(.btn-text):not(:disabled):not(.disabled) i,
+        .btn.btn-clean:not(:disabled):not(.disabled).active i, .btn.btn-clean:not(:disabled):not(.disabled):active:not(.btn-text) i, .show .btn.btn-clean.btn-dropdown i, .show > .btn.btn-clean.dropdown-toggle i {
+            color: var(--gray-color-500);
+        }
+
+.nav.nav-pills .nav-link.active, .nav.nav-pills .show > .nav-link {
+    background-color: var(--primary-color-500);
+}
+
+.nav .nav-link:hover:not(.disabled), .nav .nav-link:hover:not(.disabled,.active) .nav-icon i, .nav .nav-link:hover:not(.disabled) .nav-text, .nav .nav-link:hover:not(.disabled) .nav-text, .nav .nav-link:hover:not(.disabled,.active):after {
+    color: var(--primary-color-300);
+}
+
+.nav.nav-pills .nav-link.active:after, .nav.nav-pills .show > .nav-link:after {
+    color: white;
+}
+
+.nav.nav-pills .nav-link.active .nav-icon i, .nav.nav-pills .show > .nav-link .nav-icon i {
+    color: white;
+}
+
+.nav.nav-pills .nav-link.active, .nav.nav-pills .nav-link.active .nav-text, .nav.nav-pills .show > .nav-link, .nav.nav-pills .show > .nav-link .nav-text {
+    color: white;
+}
+
+.checkbox > input:checked ~ span {
+    background-color: var(--primary-color-300);
+}
+
+.symbol.symbol-light-success .symbol-label {
+    background-color: var(--green-color-100);
+    color: var(--green-color-100);
+}
+
+.symbol.symbol-light-primary .symbol-label {
+    background-color: var(--primary-color-100);
+    color: var(--primary-color-500);
+}
+
+.aside {
+    background-color: var(--primary-color-500) !important;
+}
+
+.aside-menu {
+    background-color: var(--primary-color-500) !important;
+}
+
+.brand .btn.active .svg-icon svg g [fill], .brand .btn:hover .svg-icon svg g [fill] {
+    transition: fill .3s ease;
+    fill: var(--primary-color-100) !important;
+}
+
+.brand .btn .svg-icon svg g [fill] {
+    transition: fill .3s ease;
+    fill: var(--primary-color-100) !important;
+}
+
+.menu-item {
+    margin: 2px 15px !important;
+}
+
+.menu-icon i {
+    color: white;
+}
+
+.menu-link {
+    border-radius: 12px;
+}
+
+.aside-menu .menu-nav > .menu-item:hover > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item:hover > .menu-link .menu-text {
+    display: block !important;
+}
+
+.aside-menu .menu-nav > .menu-item:hover > .menu-heading .menu-icon i, .aside-menu .menu-nav > .menu-item:hover > .menu-link .menu-icon i {
+    color: var(--primary-color-500);
+}
+
+.menu-item-active .menu-icon i {
+    color: var(--primary-color-500) !important;
+}
+
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon.svg-icon svg g [fill] {
+    transition: fill .3s ease;
+    fill: white !important;
+}
+
+.aside-menu .menu-nav > .menu-item:hover > .menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav > .menu-item:hover > .menu-link .menu-icon.svg-icon svg g [fill] {
+    transition: fill .3s ease;
+    fill: var(--primary-color-500) !important;
+}
+
+.aside-menu .menu-nav > .menu-section .menu-icon, .aside-menu .menu-nav > .menu-section .menu-text {
+    color: var(--primary-color-100) !important;
+}
+
+.menu-link {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: white !important;
+}
+
+    .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon.svg-icon svg g [fill], .navi .navi-item .navi-link.active .navi-icon svg g [fill] {
+        fill: var(--primary-color-500) !important;
+    }
+
+    .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text {
+        display: block !important;
+        color: var(--primary-color-500) !important;
+    }
+
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item > .menu-link .menu-text {
+    color: var(--primary-color-500) !important;
+}
+
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+    background-color: white !important;
+}
+
+.label.label-success {
+    background-color: var(--green-color-500) !important;
+    border-color: var(--green-color-500) !important;
+}
+
+.label.label-light-success {
+    color: var(--green-color-500);
+    background-color: var(--green-color-100);
+}
+
+.label.label-light-danger {
+    color: var(--red-color-500);
+    background-color: var(--red-color-100);
+}
+
+.label-primary {
+    background-color: var(--primary-color-300) !important;
+    border-color: var(--primary-color-300) !important;
+}
+
+.btn.btn-primary {
+    background-color: var(--primary-color-500);
+    border-color: var(--primary-color-500);
+}
+
+    .btn.btn-primary.focus:not(.btn-text), .btn.btn-primary:focus:not(.btn-text), .btn.btn-primary:hover:not(.btn-text):not(:disabled):not(.disabled) {
+        background-color: var(--primary-color-800);
+        border-color: var(--primary-color-800);
+    }
+
+.btn.btn-danger {
+    background-color: var(--red-color-500);
+    border-color: var(--red-color-500);
+}
+
+    .btn.btn-danger.focus:not(.btn-text), .btn.btn-danger:focus:not(.btn-text), .btn.btn-danger:hover:not(.btn-text):not(:disabled):not(.disabled) {
+        background-color: var(--red-color-800);
+        border-color: var(--red-color-800);
+    }
+
+.btn.btn-light-danger {
+    background-color: var(--red-color-100);
+    border-color: var(--red-color-100);
+    color: var(--red-color-500);
+}
+
+    .btn.btn-light-danger.focus:not(.btn-text), .btn.btn-light-danger:focus:not(.btn-text), .btn.btn-light-danger:hover:not(.btn-text):not(:disabled):not(.disabled) {
+        background-color: var(--red-color-500);
+        border-color: var(--red-color-500);
+    }
+
+    .btn.btn-light-danger i {
+        color: var(--red-color-500);
+    }
+
+.btn.btn-outline-primary i {
+    color: var(--primary-color-500);
+}
+
+.btn.btn-outline-primary {
+    color: var(--primary-color-500);
+    border-color: var(--primary-color-500);
+}
+
+    .btn.btn-outline-primary.focus:not(.btn-text), .btn.btn-outline-primary:focus:not(.btn-text), .btn.btn-outline-primary:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-light-primary.focus:not(.btn-text), .btn.btn-light-primary:focus:not(.btn-text), .btn.btn-light-primary:hover:not(.btn-text):not(:disabled):not(.disabled),
+    .btn.btn-light-primary:not(:disabled):not(.disabled).active, .btn.btn-light-primary:not(:disabled):not(.disabled):active:not(.btn-text), .show .btn.btn-light-primary.btn-dropdown, .show > .btn.btn-light-primary.dropdown-toggle {
+        background-color: var(--primary-color-500);
+        border-color: var(--primary-color-500);
+        color: white !important;
+    }
+
+.btn.btn-hover-primary.focus:not(.btn-text), .btn.btn-hover-primary:focus:not(.btn-text), .btn.btn-hover-primary:hover:not(.btn-text):not(:disabled):not(.disabled) {
+    background-color: var(--primary-color-500) !important;
+    border-color: var(--primary-color-500) !important;
+}
+
+.label.label-light-primary, .btn.btn-light-primary, .btn.btn-hover-light-primary.focus:not(.btn-text), .btn.btn-hover-light-primary:focus:not(.btn-text), .btn.btn-hover-light-primary:hover:not(.btn-text):not(:disabled):not(.disabled) {
+    color: var(--primary-color-300);
+    background-color: var(--primary-color-100);
+    border-color: transparent;
+}
+
+    .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-arrow, .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-label .wizard-title, .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=done] .wizard-arrow, .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=done] .wizard-label .wizard-title, .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-label .wizard-icon, .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=done] .wizard-label .wizard-icon, .navi .navi-item .navi-link:hover .navi-icon i, .navi .navi-item .navi-link:hover .navi-text, .btn.btn-hover-light-primary.focus:not(.btn-text) i, .btn.btn-hover-light-primary:focus:not(.btn-text) i, .btn.btn-hover-light-primary:hover:not(.btn-text):not(:disabled):not(.disabled) i, .btn.btn-light-primary i {
+        color: var(--primary-color-300);
+    }
+
+
+.navi .navi-item .navi-link:hover, .text-hover-primary:hover, .text-hover-primary:hover i, a.text-hover-primary:hover, a.text-hover-primary:hover i {
+    color: var(--primary-color-500) !important;
+}
+
+    .svg-icon.svg-icon-primary:not(.svg-icon-danger) svg g [fill], .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-arrow svg g [fill], .wizard.wizard-1 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=done] .wizard-arrow svg g [fill],
+    .navi .navi-item .navi-link:hover .navi-icon svg g [fill] {
+        fill: var(--primary-color-500) !important;
+    }
+
+.svg-icon.svg-icon-success svg g [fill] {
+    fill: var(--green-color-500) !important;
+}
+
+.svg-icon.svg-icon-danger svg g [fill] {
+    fill: var(--red-color-500) !important;
+}
+
+.option input[type=checkbox]:checked ~ span {
+    background: var(--gray-color-100);
+}
+
+.option-hover:hover, .active-option {
+    border-color: var(--primary-color-500);
+    background: var(--primary-color-100);
+}
+
+    .active-option .option-label .option-head .option-title, .option-hover:hover .option-label .option-head .option-title {
+        color: var(--primary-color-500);
+        font-weight: bold;
+    }
+
+.form-control:focus {
+    border-color: var(--primary-color-500);
+}
+
+.selectize-input.focus {
+    border-color: var(--primary-color-300);
+    box-shadow: 0 0 0 2px var(--primary-color-100);
+}
+
+.selectize-dropdown .active {
+    background-color: var(--gray-color-300);
+    color: var(--primary-color-300);
+}
+
+.bootstrap-datetimepicker-widget .picker-switch.accordion-toggle table td:hover a span, .bootstrap-datetimepicker-widget .datepicker table thead th.prev:hover span, .bootstrap-datetimepicker-widget .datepicker table thead th.next:hover span {
+    color: var(--primary-color-500);
+}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.today {
+    background: var(--primary-color-100) !important;
+    color: var(--primary-color-500) !important;
+}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.active, .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.active, .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.active, .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.active, .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.active, .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.active {
+    background-color: var(--primary-color-300) !important;
+}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.today:before {
+    border-bottom-color: var(--primary-color-500);
+    border-top-color: var(--primary-color-500);
+}
+
+.bootstrap-datetimepicker-widget .datepicker table thead th.picker-switch:hover {
+    color: var(--primary-color-500);
+}
+
+.bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.active {
+    background: var(--primary-color-500) !important;
+    color: white !important;
+}
+
+.aside {
+    width: 110px;
+}
+
+.input-group-text {
+    border: none;
+}
+
+.modal-footer {
+    justify-content: start;
+}
+
+.modal .modal-header .close:hover, .modal .modal-header .close:hover .ki, .modal .modal-header .close:hover i {
+    color: var(--gray-color-500);
+}
+
+.delete-icon {
+    height: 80px !important;
+    width: 80px !important;
+    background: white !important;
+    border: 3px solid var(--red-color-500) !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--primary-color-500);
+}
+
+.workspace-item-container {
+    padding-right: 0px;
+    margin-left: 0.5rem;
+    display: inline-block;
+}
+
+    .workspace-item-container:last-child {
+        padding-left: 0px;
+    }
+
+    .workspace-item-container:hover .workspace-item {
+        background-color: var(--primary-color-500);
+    }
+
+        .workspace-item-container:hover .workspace-item a, .workspace-item-container:hover .workspace-item .workspace-settings i {
+            color: white !important;
+        }
+
+.workspace-item, .workspace-loadmore-button .btn.btn-block.btn-light {
+    border-radius: 25px;
+}
+
+    .workspace-item a {
+        color: var(--primary-color-500) !important;
+    }
+
+    .workspace-item:hover a {
+        color: white !important;
+    }
+
+    .workspace-item.active {
+        background-color: var(--primary-color-500);
+    }
+
+        .workspace-item.active a {
+            color: white !important;
+        }
+
+
+        .workspace-item:hover .workspace-settings > i,
+        .workspace-item.active .workspace-settings > i {
+            color: white;
+        }
+
+        .workspace-item.active:hover .btn.btn-link-primary:focus i {
+            color: white !important;
+        }
+
+.wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-wrapper .wizard-number {
+    background-color: var(--primary-color-500);
+}
+
+.wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-wrapper .wizard-label .wizard-title {
+    color: var(--primary-color-500);
+}
+
+.wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step .wizard-wrapper .wizard-number {
+    background-color: var(--primary-color-100);
+    color: var(--primary-color-500);
+}
+
+.form-group label {
+    font-size: 1.25rem;
+}
+
+.breadcrumb-item {
+    align-items: center;
+}
+
+    .breadcrumb-item + .breadcrumb-item::before, .breadcrumb.breadcrumb-dot .breadcrumb-item:after {
+        font-family: 'Font Awesome 5 Free';
+        color: var(--gray-color-500);
+        content: "\f053";
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+.details-tabs .nav-item .nav-link i, .details-tabs .nav-item .nav-link .nav-text, .nav-link:after {
+    color: var(--gray-color-500);
+}
+
+.details-tabs .nav-item {
+    margin-left: 0 !important;
+    background: var(--gray-color-100);
+}
+
+    .details-tabs .nav-item:first-child {
+        border-bottom-right-radius: .42rem;
+        border-top-right-radius: .42rem;
+    }
+
+    .details-tabs .nav-item:last-child {
+        border-bottom-left-radius: .42rem;
+        border-top-left-radius: .42rem;
+    }
+
+
+.l-n-20 {
+    left: -30px !important;
+}
+
+.t-n-75 {
+    top: -75px !important;
+}
+
+.main-menu-sub {
+    width: 16rem!important;
+}
+
+.main-menu-sub .navi-hover .nav-item .sub-menu-text {
+    display: flex;
+    padding-block: 0.5rem;
+    padding-right: 0.2rem;
+}
+
+.main-menu-sub .navi-hover .nav-item:not(:last-child) .sub-menu-text {
+    border-bottom: 1px solid var(--gray-color-300);
+}
+
+.main-menu-sub .navi-hover .nav-item .sub-menu-text:hover {
+    background: var(--gray-color-100);
+}
+
+.main-menu-sub .menu-link {
+    padding-block: 0;
+}
+
+.main-menu-sub .nav-link.menu-link {
+    padding: 0rem 1rem !important;
+}
+
+.main-menu-sub .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+    .main-menu-sub .menu-link.active .sub-menu-text {
+        background: var(--gray-color-100);
+    }
+
+@media (max-width: 991.98px) {
+    .l-n-20 {
+        left: -203px !important;
+    }
+
+    .t-n-75 {
+        top: -74px !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .brand {
+        background-color: var(--primary-color-500) !important;
+    }
+
+    .header-fixed.subheader-fixed.subheader-enabled .wrapper {
+        padding-top: 78px;
+    }
+
+    .aside-fixed .wrapper {
+        padding-right: 110px;
+    }
+
+    .aside-enabled .header.header-fixed {
+        right: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .user-topbar {
+        min-width: auto;
+        max-width: auto;
+    }
+
+    .topbar {
+        margin-top: auto;
+        min-width: none;
+        max-width: none;
+    }
+
+    .topbar, .user-topbar {
+        width: auto;
+    }
+
+    .brand {
+        display: flex !important;
+    }
+
+    .header-mobile {
+        background-color: var(--primary-color-300);
+    }
+
+        .header-mobile .burger-icon span, .header-mobile .burger-icon span:after, .header-mobile .burger-icon span:before {
+            background-color: var(--primary-color-100);
+        }
+
+        .header-mobile .btn .svg-icon svg g [fill] {
+            fill: var(--primary-color-100);
+        }
+
+        .header-mobile .burger-icon-active span, .header-mobile .burger-icon-active span:after, .header-mobile .burger-icon-active span:before, .header-mobile .burger-icon:hover span, .header-mobile .burger-icon:hover span:after, .header-mobile .burger-icon:hover span:before {
+            background-color: var(--primary-color-800);
+        }
+
+        .header-mobile .btn.active .svg-icon svg g [fill], .header-mobile .btn:hover .svg-icon svg g [fill] {
+            fill: var(--primary-color-800);
+        }
+
+    .header-fixed.subheader-fixed.subheader-enabled .wrapper {
+        padding-top: 78px;
+    }
+}
+
+.first-row-radius {
+
+}
+
+.no-file {
+    background: #ffeded;
+}
+
+.first-row-radius .no-file:first-child th {
+    border-top-right-radius: .42rem;
+}
+
+.first-row-radius .no-file:first-child td:last-child {
+    border-top-left-radius: .42rem;
+}

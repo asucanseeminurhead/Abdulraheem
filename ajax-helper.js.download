@@ -1,0 +1,106 @@
+﻿var moeen = moeen || {};
+
+(function ($) {
+    moeen.onAjax = (function () {
+
+        let _publicApi = null;
+
+        function _onAjaxBegin(blocElement, errorDiv) {
+            moeen.blockUI(blocElement);
+
+            errorDiv = errorDiv || '';
+            if (errorDiv !== '') {
+                moeen.emptyContent(errorDiv);
+            }
+        }
+
+        function _onAjaxFailed(xhr, status, error, alertElement, formId) {
+            var data = xhr.responseJSON;
+            if (!data) {
+                data = xhr;
+            }
+
+            if (status === 401) {
+                location.reload();
+            }
+        }
+
+        function _onAjaxSuccess(xhr, status, modalToHide) {
+            //TODO: find a way to deal with ModalManager..
+            //by getting the current opened modal.
+            if (modalToHide) {
+                $(modalToHide).modal('hide');
+            }
+        }
+
+        function _displayContent(content, divToReplace, type) {
+            if (type === 'replace')
+                $(divToReplace).html(content);
+            else if (type === 'before')
+                $(divToReplace).before(content);
+            else if (type === 'after')
+                $(divToReplace).after(content);
+            else if (type === 'prepend')
+                $(divToReplace).prepend(content);
+            else if (type === 'append')
+                $(divToReplace).append(content);
+        }
+
+        function _onAjaxComplete(xhr, status, blockDiv, alertElement, divToReplace, formId, replacementType) {
+            //if (xhr.status === 401) {
+            //    location.reload();
+            //}
+
+            if (typeof triggerSessionDurations === 'function') {
+                triggerSessionDurations(xhr);
+            }
+
+            if (typeof replacementType === 'undefined')
+                replacementType = 'replace';
+
+            var data = xhr.responseJSON;
+
+            if (!data) {
+                data = xhr;
+            }
+
+            if (data && typeof data === 'string')
+                _displayContent(data, divToReplace, replacementType);
+            else if (data) {
+
+                if (data.isRedirect)
+                    window.location.href = data.redirectUrl;
+
+                if (data.success || status === 'success') {
+                    var content = "";
+                    if (data.partialViewHtml)
+                        content = data.partialViewHtml;
+                    else
+                        content = data.responseText;
+
+                    _displayContent(content, divToReplace, replacementType);
+                    moeen.clearFormAlert(formId);
+                }
+
+                moeen.notification.show(data.alert, alertElement);
+            }
+            moeen.refreshUnobtrusiveValidation(formId);
+            moeen.initGlobal(formId);
+            moeen.unblockUI(blockDiv);
+
+            if (typeof KTWizard1 !== 'undefined' && KTWizard1 !== undefined)
+                KTWizard1.reinit();
+        }
+
+
+        _publicApi = {
+            begin: _onAjaxBegin,
+            failed: _onAjaxFailed,
+            success: _onAjaxSuccess,
+            complete: _onAjaxComplete
+        };
+
+        return _publicApi;
+    })();
+})(jQuery);
+

@@ -1,0 +1,349 @@
+﻿
+.bootstrap-datetimepicker-widget.dropdown-menu {
+    width: auto;
+}
+
+.bootstrap-datetimepicker-widget table td.day {
+    height: 30px;
+}
+
+.datepicker tbody tr > td.day.today:before {
+    bottom: 2px;
+}
+
+
+.bootstrap-datetimepicker-widget {
+    border: 1px solid #EBEDF3;
+    border-radius: 0.42rem;
+}
+
+    .bootstrap-datetimepicker-widget.dropdown-menu {
+        border: 0;
+        width: 100%!important;
+        padding: 0;
+    }
+
+    .bootstrap-datetimepicker-widget .datepicker {
+        width: 100%;
+        padding: 10px;
+    }
+
+        .bootstrap-datetimepicker-widget .datepicker table {
+            width: 100%;
+        }
+
+            .bootstrap-datetimepicker-widget .datepicker table thead th {
+                display: table-cell;
+            }
+
+                .bootstrap-datetimepicker-widget .datepicker table thead th.picker-switch {
+                    color: #3F4254;
+                    font-weight: 500;
+                    display: table-cell;
+                    font-size: 1rem;
+                }
+
+                    .bootstrap-datetimepicker-widget .datepicker table thead th.picker-switch:hover {
+                        color: #3699FF;
+                        background: #F3F6F9 !important;
+                    }
+
+                .bootstrap-datetimepicker-widget .datepicker table thead th.prev span, .bootstrap-datetimepicker-widget .datepicker table thead th.next span {
+                    font-size: 0.8rem;
+                    color: #7E8299;
+                }
+
+                .bootstrap-datetimepicker-widget .datepicker table thead th.prev:hover span, .bootstrap-datetimepicker-widget .datepicker table thead th.next:hover span {
+                    color: #3699FF;
+                }
+
+                .bootstrap-datetimepicker-widget .datepicker table thead th.disabled {
+                    color: #B5B5C3;
+                    cursor: not-allowed;
+                }
+
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tr td,
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tr th {
+            font-size: 1rem;
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            font-weight: regular;
+            vertical-align: middle;
+            text-align: center;
+            border-radius: 0.42rem;
+        }
+
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td {
+            color: #7E8299;
+        }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td:hover {
+                background: #F3F6F9;
+            }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.old {
+                color: #7E8299;
+            }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.new {
+                color: #3F4254;
+            }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.active {
+                background: #3699FF !important;
+                color: #ffffff !important;
+            }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.selected {
+                background: #E1F0FF;
+                color: #3699FF;
+            }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.disabled {
+                color: #B5B5C3;
+                cursor: not-allowed;
+            }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.today {
+                position: relative;
+                background: #E1F0FF !important;
+                color: #3699FF !important;
+            }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-days table tbody tr > td.today:before {
+                    content: '';
+                    display: inline-block;
+                    border: solid transparent;
+                    border-width: 0 7px 7px 0;
+                    border-bottom-color: #3699FF;
+                    border-top-color: #3699FF;
+                    position: absolute;
+                    bottom: 4px;
+                    left: 4px;
+                }
+
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td,
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th,
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td,
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th,
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td,
+        .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th {
+            font-size: 1rem;
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            font-weight: regular;
+            vertical-align: middle;
+            text-align: center;
+            border-radius: 0.42rem;
+        }
+
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span,
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span,
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span,
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span,
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span,
+            .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span {
+                color: #7E8299;
+            }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span:hover,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span:hover,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span:hover,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span:hover,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span:hover,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span:hover {
+                    background: #F3F6F9;
+                }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.old,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.old,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.old,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.old,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.old,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.old {
+                    color: #7E8299;
+                }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.new,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.new,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.new,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.new,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.new,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.new {
+                    color: #3F4254;
+                }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span:focus, .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.active,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span:focus,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.active,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span:focus,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.active,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span:focus,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.active,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span:focus,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.active,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span:focus,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.active {
+                    background: #3699FF !important;
+                    color: #ffffff !important;
+                }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.selected,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.selected,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.selected,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.selected,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.selected,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.selected {
+                    background: #E1F0FF;
+                    color: #3699FF;
+                }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.today,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.today,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.today,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.today,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.today,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.today {
+                    position: relative;
+                    background: #E1F0FF !important;
+                    color: #3699FF !important;
+                }
+
+                    .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.today:before,
+                    .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.today:before,
+                    .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.today:before,
+                    .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.today:before,
+                    .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.today:before,
+                    .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.today:before {
+                        content: '';
+                        display: inline-block;
+                        border: solid transparent;
+                        border-width: 0 7px 7px 0;
+                        border-bottom-color: #3699FF !important;
+                        border-top-color: #3699FF !important;
+                        position: absolute;
+                        bottom: 4px;
+                        left: 4px;
+                    }
+
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr td span.disabled,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-months table tr th span.disabled,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr td span.disabled,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-years table tr th span.disabled,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr td span.disabled,
+                .bootstrap-datetimepicker-widget .datepicker .datepicker-decades table tr th span.disabled {
+                    color: #B5B5C3;
+                    cursor: not-allowed;
+                }
+
+    .bootstrap-datetimepicker-widget .timepicker {
+        padding: 10px;
+    }
+
+        .bootstrap-datetimepicker-widget .timepicker .timepicker-picker table td {
+            width: auto;
+            height: auto;
+            text-align: center;
+            vertical-align: middle;
+            padding: 0;
+            line-height: 35px;
+        }
+
+            .bootstrap-datetimepicker-widget .timepicker .timepicker-picker table td a {
+                padding: 0;
+            }
+
+            .bootstrap-datetimepicker-widget .timepicker .timepicker-picker table td span {
+                -ms-flex-line-pack: center;
+                align-content: center;
+                display: -webkit-inline-box;
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                height: 35px;
+                width: 35px;
+                font-size: 0.8rem;
+                color: #7E8299;
+            }
+
+            .bootstrap-datetimepicker-widget .timepicker .timepicker-picker table td .timepicker-minute,
+            .bootstrap-datetimepicker-widget .timepicker .timepicker-picker table td .timepicker-hour {
+                font-size: 1rem;
+                color: #7E8299;
+                font-weight: 400;
+            }
+
+            .bootstrap-datetimepicker-widget .timepicker .timepicker-picker table td:hover span {
+                background: #F3F6F9;
+                color: #3699FF;
+            }
+
+        .bootstrap-datetimepicker-widget .timepicker .timepicker-minutes table,
+        .bootstrap-datetimepicker-widget .timepicker .timepicker-hours table {
+            width: auto;
+            margin: 0 auto;
+        }
+
+            .bootstrap-datetimepicker-widget .timepicker .timepicker-minutes table tr td,
+            .bootstrap-datetimepicker-widget .timepicker .timepicker-hours table tr td {
+                height: 35px;
+                width: 35px;
+                line-height: 35px;
+                font-size: 1rem;
+                font-weight: 400;
+                color: #7E8299;
+            }
+
+                .bootstrap-datetimepicker-widget .timepicker .timepicker-minutes table tr td:hover,
+                .bootstrap-datetimepicker-widget .timepicker .timepicker-hours table tr td:hover {
+                    background: #F3F6F9;
+                    color: #3699FF;
+                }
+
+    .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle {
+        padding: 10px;
+    }
+
+        .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle table {
+            padding: 0;
+        }
+
+            .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle table td {
+                padding: 0;
+                height: 35px;
+            }
+
+                .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle table td a {
+                    padding: 0;
+                    color: #3F4254;
+                    font-weight: 500;
+                }
+
+                    .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle table td a span {
+                        font-size: 1.1rem;
+                        color: #7E8299;
+                    }
+
+                .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle table td:hover {
+                    background: #F3F6F9 !important;
+                }
+
+                    .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle table td:hover a span {
+                        background: transparent;
+                        color: #3699FF;
+                    }
+
+    .bootstrap-datetimepicker-widget .collapse.show ~ .picker-switch.accordion-toggle {
+        padding-top: 0;
+    }
+
+    .bootstrap-datetimepicker-widget .picker-switch.accordion-toggle ~ .collapse.show .timepicker {
+        padding-top: 0;
+    }
