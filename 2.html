@@ -18,7 +18,7 @@
     }
     .login-card {
       background: #fff;
-      border-radius: 18px; /* Always keep this! */
+      border-radius: 18px;
       box-shadow: 0 2px 32px rgba(90,109,183,.085);
       width: 100%;
       max-width: 900px;
@@ -34,10 +34,10 @@
       align-items: center;
       justify-content: center;
       padding: 40px 24px;
-      box-shadow: 0 2px 32px rgba(90,109,183,.085);
       border-top-left-radius: 18px;
       border-top-right-radius: 18px;
       width: 100%;
+      /* No box-shadow here! */
     }
     .login-header img {
       max-width: 260px;
@@ -161,15 +161,15 @@
     }
     @media (max-width: 600px) {
       .login-card {
-        /* NO border-radius: 0;! Keep curves */
         max-width: 100vw;
         box-shadow: none;
+        /* NO border-radius: 0;! Keep curves */
       }
       .login-header {
         padding: 16px 4vw;
         border-top-left-radius: 18px;
         border-top-right-radius: 18px;
-        box-shadow: none;
+        /* No box-shadow here! */
       }
       .login-header img {
         max-width: 80vw;
