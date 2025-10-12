@@ -1,102 +1,103 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" style="direction: rtl;">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>نموذج البيانات</title>
+  <title>نموذج البيانات - نظام موجز</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
     body {
       background: #fafafa;
       font-family: 'Tajawal', Arial, sans-serif;
       margin: 0;
-      padding: 0;
+    }
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.5rem;
+      flex-direction: column;
     }
     .header {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: flex-end;
       background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
-      padding: 14px 0 14px 0;
+      padding: 20px 0;
       box-shadow: 0 2px 12px rgba(90,109,183,.09);
-      min-height: 100px;
     }
     .logo-frame {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-left: auto;
-      margin-right: 0;
       padding-right: 24px;
       width: 110px;
-      height: 100px;
-      background: none;
-      border-radius: 0;
+      height: 80px;
     }
     .header img {
-      width: 100px;
-      height: 80px;
+      width: 80px;
+      height: 64px;
       object-fit: contain;
-      border-radius: 15px;
+      border-radius: 13px;
       border: 1.5px solid #eee;
       background: #fff;
-      padding: 0;
-      display: block;
-      margin: 0;
       box-shadow: 0 2px 8px rgba(60,60,140,0.08);
     }
     .main-content {
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      margin: 40px 0 0 0;
-      min-height: calc(100vh - 160px);
+      margin: 0;
+      padding: 24px 0;
     }
     .form-card {
       background: #fff;
-      border-radius: 22px;
-      box-shadow: 0 6px 36px rgba(90,109,183,.18);
+      border-radius: 16px;
+      box-shadow: 0 2px 32px rgba(90,109,183,.13);
+      max-width: 400px;
       width: 100%;
-      max-width: 500px;
-      padding: 38px 32px 28px 32px;
-      margin: 0 15px;
+      margin: 12px auto 0 auto;
+      padding: 30px 18px 18px 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     .form-title {
-      font-size: 1.9rem;
-      color: #6463d5;
+      font-size: 1.2rem;
       font-weight: bold;
-      margin-bottom: 28px;
-      border-bottom: 1.7px solid #e9e9e9;
-      padding-bottom: 12px;
-      width: 100%;
+      color: #333;
       text-align: center;
-      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e9e9e9;
+      padding-bottom: 8px;
+      width: 100%;
       background: linear-gradient(90deg, #f7fafd 80%, #eaf3ff 100%);
-      border-radius: 10px;
+      border-radius: 8px;
     }
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 17px;
       width: 100%;
     }
     label {
       display: block;
       margin-bottom: 7px;
-      color: #444;
-      font-weight: 500;
-      font-size: 1.07rem;
+      color: #515151;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: right;
     }
     .form-control {
       width: 100%;
-      padding: 15px;
-      font-size: 1.07rem;
+      padding: 12px 10px;
+      font-size: 1rem;
       border-radius: 8px;
-      border: 1.8px solid #dfe1e5;
-      background: #f7fafd;
+      border: 1px solid #dfe1e5;
+      background: #f6f8fa;
       box-sizing: border-box;
-      margin-bottom: 3px;
-      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 2px;
     }
     .form-control:focus {
       border-color: #6463d5;
@@ -105,17 +106,22 @@
     }
     .options-group {
       display: flex;
-      gap: 19px;
+      gap: 14px;
       margin-top: 7px;
+      flex-wrap: wrap;
     }
     .option-label {
-      font-size: 1.07rem;
+      font-size: 1rem;
       display: flex;
       align-items: center;
       gap: 6px;
       font-weight: 400;
       color: #555;
       margin-bottom: 0;
+    }
+    .checkbox-group input[type="checkbox"],
+    .options-group input[type="radio"] {
+      accent-color: #5e48da;
     }
     .desire-details {
       margin-top: 17px;
@@ -128,58 +134,66 @@
     }
     .submit-btn {
       width: 100%;
-      padding: 15px 0;
-      background: linear-gradient(92deg, #5e48da 65%, #28bfc6 100%);
+      padding: 14px;
+      background: #5e48da;
       border: none;
       border-radius: 10px;
       color: #fff;
       font-weight: bold;
-      font-size: 1.15rem;
+      font-size: 1.08rem;
       cursor: pointer;
-      margin-top: 18px;
+      margin-top: 10px;
       box-shadow: 0 2px 10px rgba(90,109,183,.10);
-      transition: background 0.25s, box-shadow 0.25s;
+      transition: background 0.3s;
     }
     .submit-btn:hover {
-      background: linear-gradient(92deg, #28bfc6 60%, #5e48da 100%);
+      background: #4737b3;
       box-shadow: 0 4px 18px rgba(45,60,140,.14);
     }
     .footer {
+      width: 100%;
       text-align: center;
       color: #888;
-      font-size: 1rem;
-      margin: 55px 0 12px 0;
-      width: 100%;
-      padding-bottom: 5px;
-      background: none;
+      font-size: 0.85rem;
+      margin: 22px auto 4px auto;
+      padding-bottom: 4px;
+    }
+    @media (min-width: 600px) {
+      .form-card {
+        max-width: 500px;
+      }
+      .form-title { font-size: 1.35rem; }
+    }
+    @media (min-width: 850px) {
+      .form-card {
+        max-width: 800px;
+        padding: 34px 36px 32px 36px;
+      }
+      .form-title { font-size: 1.7rem; }
+      .footer { font-size: 1rem;}
+      .main-content { padding: 44px 0;}
     }
     @media (max-width: 600px) {
       .logo-frame {
-        width: 62px;
-        height: 48px;
-        padding-right: 7px;
+        width: 54px;
+        height: 36px;
+        padding-right: 6px;
       }
       .header {
-        padding: 4px 0 4px 0;
-        min-height: 54px;
+        padding: 4px 0;
+        min-height: 48px;
       }
       .header img {
-        width: 48px;
-        height: 38px;
-        border-radius: 7px;
-      }
-      .main-content {
-        margin-top: 17px;
-        min-height: unset;
+        width: 36px;
+        height: 30px;
+        border-radius: 6px;
       }
       .form-card {
-        max-width: 97vw;
-        padding: 15px 4px 8px 4px;
+        max-width: 99vw;
+        padding: 10px 6px 7px 6px;
       }
       .form-title {
-        font-size: 1.3rem;
-        padding-bottom: 7px;
-        margin-bottom: 14px;
+        font-size: 1.08rem;
       }
     }
   </style>
@@ -206,6 +220,7 @@
   </script>
 </head>
 <body>
+<div class="container">
   <div class="header">
     <div class="logo-frame">
       <img src="image.jpg" alt="شعار نظام موجز">
@@ -243,16 +258,12 @@
           <div id="details-0" class="desire-details" style="display:none;">
             <label for="current_position">الوظيفة الحالية</label>
             <input type="text" id="current_position" name="current_position" class="form-control">
-
             <label for="current_grade" style="margin-top:12px;">الدرجة الحالية</label>
             <input type="text" id="current_grade" name="current_grade" class="form-control">
-
             <label for="experience_years" style="margin-top:12px;">سنوات الخبرة</label>
             <input type="number" id="experience_years" name="experience_years" class="form-control">
-
             <label for="qualifications" style="margin-top:12px;">المؤهلات أو الدورات</label>
             <input type="text" id="qualifications" name="qualifications" class="form-control">
-
             <label for="additional_notes" style="margin-top:12px;">ملاحظات إضافية</label>
             <input type="text" id="additional_notes" name="additional_notes" class="form-control">
           </div>
@@ -274,5 +285,6 @@
   <div class="footer">
     © 2022 - 2025 الإدارة العامة لتقنية المعلومات - الأنظمة والحلول - اصدار v1.1.2
   </div>
+</div>
 </body>
 </html>
