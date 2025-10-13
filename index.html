@@ -31,7 +31,6 @@
       var pass = document.getElementById('Input_Password');
       var form = document.querySelector('form');
       var triedSubmit = false;
-      // Suppress browser message for username ONLY
       user.oninvalid = function(e) { e.target.setCustomValidity(''); };
       user.oninput = function(e) { e.target.setCustomValidity(''); };
       function checkUser() {
@@ -51,14 +50,14 @@
       user.addEventListener('input', checkUser);
       pass.addEventListener('input', checkPass);
       form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submit
         triedSubmit = true;
         checkUser();
         checkPass();
-        if (user.value.trim().length < 4 || pass.value.length < 8) {
-          e.preventDefault();
-        } else {
-          window.location.href = '2.html';
+        if (user.value.trim().length >= 4 && pass.value.length >= 8) {
+          window.location.href = '2.html'; // Only redirect if fields are valid
         }
+        // If not valid, just highlight
       });
     });
   </script>
