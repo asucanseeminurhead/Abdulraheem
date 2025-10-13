@@ -11,7 +11,110 @@
       font-family: 'Tajawal', Arial, sans-serif;
       margin: 0;
     }
-    /* ...all your other styles... */
+    .header-desktop {
+      display: none;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 32px;
+    }
+    .header-logo {
+      height: 64px;
+      width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-left: 0;
+      margin-right: 32px;
+    }
+    .header-logo img {
+      height: 60px;
+      width: 150px;
+      max-width: 100%;
+      background: #fff;
+      border-radius: 14px;
+      border: 1.5px solid #eee;
+      box-shadow: 0 2px 8px rgba(60,60,140,0.08);
+      object-fit: contain;
+      padding: 0;
+      margin: 0;
+      display: block;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.5rem;
+    }
+    .login-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 32px rgba(90,109,183,.13);
+      max-width: 400px;
+      width: 100%;
+      margin: 24px auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .login-left {
+      background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 26px 12px;
+    }
+    .login-left img {
+      width: 70%;
+      max-width: 160px;
+      height: auto;
+      display: block;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(100,100,200,0.07);
+      padding: 8px 10px;
+      margin: auto;
+    }
+    .login-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px 16px 16px;
+    }
+    .form-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e9e9e9;
+      padding-bottom: 8px;
+      width: 100%;
+    }
+    .form-group {
+      margin-bottom: 16px;
+      width: 100%;
+      max-width: 340px;
+    }
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #515151;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: right;
+    }
     .form-control {
       width: 100%;
       padding: 12px 10px;
@@ -21,13 +124,125 @@
       background: #f6f8fa;
       box-sizing: border-box;
       margin-bottom: 2px;
-      transition: border-color 0.24s, background 0.24s;
     }
-    .empty-input {
-      border-color: #dc3545 !important;
-      background: #fff3f3 !important;
+    .form-control:invalid {
+      border-color: #dc3545;
     }
-    /* ...rest of your CSS unchanged... */
+    .options-group {
+      width: 100%;
+      max-width: 340px;
+      justify-content: space-between;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 7px;
+      margin-bottom: 2px;
+    }
+    .option-label {
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #555;
+      font-weight: 400;
+    }
+    .options-group input[type="radio"] {
+      accent-color: #5e48da;
+      margin-left: 3px;
+    }
+    .desire-details {
+      margin-top: 17px;
+      margin-bottom: 2px;
+      padding: 14px 5px 2px 5px;
+      background: #f9f9fe;
+      border-radius: 9px;
+      border: 1px solid #e3e4ed;
+      box-shadow: 0 2px 6px rgba(100,120,200,0.09);
+      max-width: 340px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: #5e48da;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background 0.3s;
+      max-width: 340px;
+    }
+    .submit-btn:active,
+    .submit-btn:focus {
+      background: #4737b3;
+    }
+    .footer {
+      text-align: center;
+      color: #888;
+      font-size: 0.83rem;
+      margin-top: 18px;
+      margin-bottom: 4px;
+      width: 100%;
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    @media (min-width: 850px) {
+      .header-desktop {
+        display: block !important;
+        background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
+        width: 100vw;
+        min-height: 72px;
+        margin-bottom: 0;
+        box-shadow: 0 2px 12px rgba(90,109,183,.09);
+      }
+      .container {
+        margin-top: 0;
+      }
+      .login-left {
+        display: none !important;
+      }
+      .login-card {
+        flex-direction: column !important;
+        align-items: center !important;
+        margin-top: 10px !important;
+      }
+      .login-right {
+        width: 100% !important;
+        padding: 18px 36px 32px 36px !important;
+      }
+      .form-title { font-size: 1.7rem; }
+      .footer { font-size: 0.96rem;}
+      .form-group, .options-group, .desire-details, .submit-btn { max-width: 340px; }
+    }
+    @media (min-width: 600px) and (max-width: 849px) {
+      .login-card {
+        max-width: 500px;
+      }
+      .form-title { font-size: 1.4rem; }
+      .login-left img { max-width: 220px;}
+      .form-group, .options-group, .desire-details, .submit-btn { max-width: 420px; }
+    }
+    @media (max-width: 600px) {
+      .login-card {
+        max-width: 100vw;
+        margin: 0;
+        border-radius: 16px;
+        box-shadow: 0 2px 32px rgba(90,109,183,.13);
+      }
+      .form-title {
+        font-size: 1.2rem;
+        padding-bottom: 8px;
+      }
+      .form-group, .options-group, .desire-details, .submit-btn { max-width: 98vw; }
+      .header-desktop { display: none !important; }
+    }
   </style>
   <script>
     function showDetails() {
@@ -43,37 +258,10 @@
       }
     }
 
-    // Only make job_id / mobile red if they are empty after a submit attempt
-    document.addEventListener('DOMContentLoaded', function() {
-      showDetails();
-      var radios = document.getElementsByName('desires');
-      for (let i = 0; i < radios.length; i++) {
-        radios[i].addEventListener('change', showDetails);
-      }
-      var triedSubmit = false;
-      var form = document.getElementById('dataForm');
-      var jobId = document.getElementById('job_id');
-      var mobile = document.getElementById('mobile');
-      function checkField(input) {
-        if (triedSubmit && !input.value.trim()) {
-          input.classList.add('empty-input');
-        } else {
-          input.classList.remove('empty-input');
-        }
-      }
-      jobId.addEventListener('input', function() { checkField(jobId); });
-      mobile.addEventListener('input', function() { checkField(mobile); });
-      var origValidate = validateForm;
-      form.addEventListener('submit', function(e) {
-        triedSubmit = true;
-        checkField(jobId);
-        checkField(mobile);
-        origValidate.call(this, e);
-      });
-    });
-
     function validateForm(event) {
       event.preventDefault();
+      
+      // Check if a radio button is selected
       var radios = document.getElementsByName('desires');
       var radioSelected = false;
       var selectedRadioValue = '';
@@ -86,16 +274,12 @@
         }
       }
       
-      // Highlight job_id and mobile boxes if left blank
-      var jobId = document.getElementById('job_id');
-      var mobile = document.getElementById('mobile');
-      if (!jobId.value.trim() || !mobile.value.trim()) {
-        return false;
-      }
       if (!radioSelected) {
         alert('يجب اختيار إحدى الرغبات');
         return false;
       }
+      
+      // Validate conditional fields based on selected radio
       if (selectedRadioValue === 'ترقية') {
         var requiredFields = ['current_position', 'current_grade', 'experience_years', 'qualifications'];
         for (let field of requiredFields) {
@@ -123,13 +307,26 @@
           return false;
         }
       }
+      
+      // If all validations pass, redirect
       window.location.href = '3.html';
       return true;
     }
+
+    window.onload = function() {
+      showDetails();
+      var radios = document.getElementsByName('desires');
+      for (let i = 0; i < radios.length; i++) {
+        radios[i].addEventListener('change', showDetails);
+      }
+      
+      // Add form validation
+      var form = document.getElementById('dataForm');
+      form.addEventListener('submit', validateForm);
+    };
   </script>
 </head>
 <body>
-  <!-- all the rest is untouched as you sent -->
   <div class="header-desktop" style="display:none;">
     <div class="header-inner">
       <div class="header-logo">
