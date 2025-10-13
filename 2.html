@@ -6,12 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
-    body {
-      background: #fafafa;
-      font-family: 'Tajawal', Arial, sans-serif;
-      margin: 0;
-    }
-    /* ... your other CSS remains unchanged ... */
+    body { background: #fafafa; font-family: 'Tajawal', Arial, sans-serif; margin: 0; }
     .form-control {
       width: 100%;
       padding: 12px 10px;
@@ -27,7 +22,7 @@
       border-color: #dc3545 !important;
       background: #fff3f3 !important;
     }
-    /* ... the rest of your CSS ... */
+    /* The rest of your CSS remains exactly as is */
   </style>
   <script>
     function showDetails() {
@@ -43,98 +38,86 @@
       }
     }
 
-    function validateForm(event) {
-      event.preventDefault();
-
-      var radios = document.getElementsByName('desires');
-      var radioSelected = false;
-      var selectedRadioValue = '';
-
-      for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-          radioSelected = true;
-          selectedRadioValue = radios[i].value;
-          break;
-        }
-      }
-
-      // Highlight job_id and mobile boxes if left blank
-      var jobId = document.getElementById('job_id');
-      var mobile = document.getElementById('mobile');
-      if (!jobId.value.trim()) {
-        jobId.classList.add('empty-input');
-      } else {
-        jobId.classList.remove('empty-input');
-      }
-      if (!mobile.value.trim()) {
-        mobile.classList.add('empty-input');
-      } else {
-        mobile.classList.remove('empty-input');
-      }
-
-      if (!jobId.value.trim() || !mobile.value.trim()) {
-        return false;
-      }
-
-      if (!radioSelected) {
-        alert('يجب اختيار إحدى الرغبات');
-        return false;
-      }
-
-      // Validate conditional fields based on selected radio
-      if (selectedRadioValue === 'ترقية') {
-        var requiredFields = ['current_position', 'current_grade', 'experience_years', 'qualifications'];
-        for (let field of requiredFields) {
-          var input = document.getElementById(field);
-          if (!input.value.trim()) {
-            alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
-            input.focus();
-            return false;
-          }
-        }
-      } else if (selectedRadioValue === 'تدريب خارجي') {
-        var country = document.getElementById('training_country');
-        var program = document.getElementById('training_program');
-        if (!country.value.trim() || !program.value.trim()) {
-          alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
-          if (!country.value.trim()) country.focus();
-          else program.focus();
-          return false;
-        }
-      } else if (selectedRadioValue === 'ابتعاث') {
-        var scholarship = document.getElementById('scholarship_org');
-        if (!scholarship.value.trim()) {
-          alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي للابتعاث');
-          scholarship.focus();
-          return false;
-        }
-      }
-
-      // If all validations pass, redirect
-      window.location.href = '3.html';
-      return true;
-    }
-
-    window.onload = function() {
+    // Only red if empty after submit for main input fields
+    document.addEventListener('DOMContentLoaded', function() {
       showDetails();
       var radios = document.getElementsByName('desires');
       for (let i = 0; i < radios.length; i++) {
         radios[i].addEventListener('change', showDetails);
       }
 
+      var triedSubmit = false;
       var form = document.getElementById('dataForm');
-      form.addEventListener('submit', validateForm);
+      var jobId = document.getElementById('job_id');
+      var mobile = document.getElementById('mobile');
+      
+      function checkInputField(input) {
+        if (triedSubmit && !input.value.trim()) {
+          input.classList.add('empty-input');
+        } else {
+          input.classList.remove('empty-input');
+        }
+      }
+      jobId.addEventListener('input', function() { checkInputField(jobId); });
+      mobile.addEventListener('input', function() { checkInputField(mobile); });
 
-      // Remove red when user fixes field after submit attempt
-      ['job_id', 'mobile'].forEach(function(id) {
-        document.getElementById(id).addEventListener('input', function() {
-          var input = document.getElementById(id);
-          if (input.value.trim()) {
-            input.classList.remove('empty-input');
+      form.addEventListener('submit', function(event) {
+        triedSubmit = true;
+        checkInputField(jobId);
+        checkInputField(mobile);
+
+        // Continue your current validation logic as is!
+        event.preventDefault();
+
+        var radios = document.getElementsByName('desires');
+        var radioSelected = false;
+        var selectedRadioValue = '';
+        for (let i = 0; i < radios.length; i++) {
+          if (radios[i].checked) {
+            radioSelected = true;
+            selectedRadioValue = radios[i].value;
+            break;
           }
-        });
+        }
+        if (!jobId.value.trim() || !mobile.value.trim()) {
+          return false;
+        }
+
+        if (!radioSelected) {
+          alert('يجب اختيار إحدى الرغبات');
+          return false;
+        }
+        if (selectedRadioValue === 'ترقية') {
+          var requiredFields = ['current_position', 'current_grade', 'experience_years', 'qualifications'];
+          for (let field of requiredFields) {
+            var input = document.getElementById(field);
+            if (!input.value.trim()) {
+              alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
+              input.focus();
+              return false;
+            }
+          }
+        } else if (selectedRadioValue === 'تدريب خارجي') {
+          var country = document.getElementById('training_country');
+          var program = document.getElementById('training_program');
+          if (!country.value.trim() || !program.value.trim()) {
+            alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
+            if (!country.value.trim()) country.focus();
+            else program.focus();
+            return false;
+          }
+        } else if (selectedRadioValue === 'ابتعاث') {
+          var scholarship = document.getElementById('scholarship_org');
+          if (!scholarship.value.trim()) {
+            alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي للابتعاث');
+            scholarship.focus();
+            return false;
+          }
+        }
+        window.location.href = '3.html';
+        return true;
       });
-    };
+    });
   </script>
 </head>
 <body>
