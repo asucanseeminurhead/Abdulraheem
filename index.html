@@ -161,24 +161,31 @@
     document.addEventListener('DOMContentLoaded', function() {
       var user = document.getElementById('Input_Username');
       var pass = document.getElementById('Input_Password');
-      function checkInput(input, minLen) {
-        if (input.value.trim() === '') {
-          input.classList.add('empty-input');
-        } else if (input === pass && input.value.length < minLen) {
-          input.classList.add('empty-input');
+      var form = document.querySelector('form');
+      var triedSubmit = false;
+
+      function checkUser() {
+        if (triedSubmit && user.value.trim() === '') {
+          user.classList.add('empty-input');
         } else {
-          input.classList.remove('empty-input');
+          user.classList.remove('empty-input');
         }
       }
-      user.addEventListener('input', function() { checkInput(user, 1); });
-      pass.addEventListener('input', function() { checkInput(pass, 8); });
-      checkInput(user, 1);
-      checkInput(pass, 8);
-      var form = document.querySelector('form');
+      function checkPass() {
+        if (triedSubmit && pass.value.length < 8) {
+          pass.classList.add('empty-input');
+        } else {
+          pass.classList.remove('empty-input');
+        }
+      }
+      user.addEventListener('input', checkUser);
+      pass.addEventListener('input', checkPass);
+
       form.addEventListener('submit', function(e) {
-        checkInput(user, 1);
-        checkInput(pass, 8);
-        if (user.classList.contains('empty-input') || pass.classList.contains('empty-input')) {
+        triedSubmit = true;
+        checkUser();
+        checkPass();
+        if (user.value.trim() === '' || pass.value.length < 8) {
           e.preventDefault();
         }
       });
