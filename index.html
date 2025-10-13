@@ -153,6 +153,20 @@
       .footer { font-size: 0.96rem;}
     }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var pass = document.getElementById('Input_Password');
+      pass.oninvalid = function(e) {
+        // Suppress the default message if password too short
+        if (pass.value.length < 8) {
+          e.target.setCustomValidity('');
+        }
+      };
+      pass.oninput = function(e) {
+        e.target.setCustomValidity('');
+      };
+    });
+  </script>
 </head>
 <body>
 <div class="container">
@@ -165,11 +179,11 @@
         <div class="form-title">تسجيل الدخول</div>
         <div class="form-group">
           <label for="Input_Username">اسم المستخدم</label>
-          <input type="text" id="Input_Username" name="Input.Username" class="form-control" autocomplete="username">
+          <input type="text" id="Input_Username" name="Input.Username" class="form-control" autocomplete="username" required>
         </div>
         <div class="form-group">
           <label for="Input_Password">كلمة المرور</label>
-          <input type="password" id="Input_Password" name="Input.Password" class="form-control" autocomplete="current-password">
+          <input type="password" id="Input_Password" name="Input.Password" class="form-control" autocomplete="current-password" required minlength="8">
         </div>
         <div class="form-group checkbox-group">
           <input type="checkbox" id="Input_RememberMe" name="Input.RememberMe" value="true">
