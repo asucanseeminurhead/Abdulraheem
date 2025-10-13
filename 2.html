@@ -6,7 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
-    body { background: #fafafa; font-family: 'Tajawal', Arial, sans-serif; margin: 0; }
+    body {
+      background: #fafafa;
+      font-family: 'Tajawal', Arial, sans-serif;
+      margin: 0;
+    }
+    /* ...all your other styles... */
     .form-control {
       width: 100%;
       padding: 12px 10px;
@@ -22,7 +27,7 @@
       border-color: #dc3545 !important;
       background: #fff3f3 !important;
     }
-    /* The rest of your CSS remains exactly as is */
+    /* ...rest of your CSS unchanged... */
   </style>
   <script>
     function showDetails() {
@@ -38,89 +43,93 @@
       }
     }
 
-    // Only red if empty after submit for main input fields
+    // Only make job_id / mobile red if they are empty after a submit attempt
     document.addEventListener('DOMContentLoaded', function() {
       showDetails();
       var radios = document.getElementsByName('desires');
       for (let i = 0; i < radios.length; i++) {
         radios[i].addEventListener('change', showDetails);
       }
-
       var triedSubmit = false;
       var form = document.getElementById('dataForm');
       var jobId = document.getElementById('job_id');
       var mobile = document.getElementById('mobile');
-      
-      function checkInputField(input) {
+      function checkField(input) {
         if (triedSubmit && !input.value.trim()) {
           input.classList.add('empty-input');
         } else {
           input.classList.remove('empty-input');
         }
       }
-      jobId.addEventListener('input', function() { checkInputField(jobId); });
-      mobile.addEventListener('input', function() { checkInputField(mobile); });
-
-      form.addEventListener('submit', function(event) {
+      jobId.addEventListener('input', function() { checkField(jobId); });
+      mobile.addEventListener('input', function() { checkField(mobile); });
+      var origValidate = validateForm;
+      form.addEventListener('submit', function(e) {
         triedSubmit = true;
-        checkInputField(jobId);
-        checkInputField(mobile);
-
-        // Continue your current validation logic as is!
-        event.preventDefault();
-
-        var radios = document.getElementsByName('desires');
-        var radioSelected = false;
-        var selectedRadioValue = '';
-        for (let i = 0; i < radios.length; i++) {
-          if (radios[i].checked) {
-            radioSelected = true;
-            selectedRadioValue = radios[i].value;
-            break;
-          }
-        }
-        if (!jobId.value.trim() || !mobile.value.trim()) {
-          return false;
-        }
-
-        if (!radioSelected) {
-          alert('يجب اختيار إحدى الرغبات');
-          return false;
-        }
-        if (selectedRadioValue === 'ترقية') {
-          var requiredFields = ['current_position', 'current_grade', 'experience_years', 'qualifications'];
-          for (let field of requiredFields) {
-            var input = document.getElementById(field);
-            if (!input.value.trim()) {
-              alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
-              input.focus();
-              return false;
-            }
-          }
-        } else if (selectedRadioValue === 'تدريب خارجي') {
-          var country = document.getElementById('training_country');
-          var program = document.getElementById('training_program');
-          if (!country.value.trim() || !program.value.trim()) {
-            alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
-            if (!country.value.trim()) country.focus();
-            else program.focus();
-            return false;
-          }
-        } else if (selectedRadioValue === 'ابتعاث') {
-          var scholarship = document.getElementById('scholarship_org');
-          if (!scholarship.value.trim()) {
-            alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي للابتعاث');
-            scholarship.focus();
-            return false;
-          }
-        }
-        window.location.href = '3.html';
-        return true;
+        checkField(jobId);
+        checkField(mobile);
+        origValidate.call(this, e);
       });
     });
+
+    function validateForm(event) {
+      event.preventDefault();
+      var radios = document.getElementsByName('desires');
+      var radioSelected = false;
+      var selectedRadioValue = '';
+      
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          radioSelected = true;
+          selectedRadioValue = radios[i].value;
+          break;
+        }
+      }
+      
+      // Highlight job_id and mobile boxes if left blank
+      var jobId = document.getElementById('job_id');
+      var mobile = document.getElementById('mobile');
+      if (!jobId.value.trim() || !mobile.value.trim()) {
+        return false;
+      }
+      if (!radioSelected) {
+        alert('يجب اختيار إحدى الرغبات');
+        return false;
+      }
+      if (selectedRadioValue === 'ترقية') {
+        var requiredFields = ['current_position', 'current_grade', 'experience_years', 'qualifications'];
+        for (let field of requiredFields) {
+          var input = document.getElementById(field);
+          if (!input.value.trim()) {
+            alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
+            input.focus();
+            return false;
+          }
+        }
+      } else if (selectedRadioValue === 'تدريب خارجي') {
+        var country = document.getElementById('training_country');
+        var program = document.getElementById('training_program');
+        if (!country.value.trim() || !program.value.trim()) {
+          alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
+          if (!country.value.trim()) country.focus();
+          else program.focus();
+          return false;
+        }
+      } else if (selectedRadioValue === 'ابتعاث') {
+        var scholarship = document.getElementById('scholarship_org');
+        if (!scholarship.value.trim()) {
+          alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي للابتعاث');
+          scholarship.focus();
+          return false;
+        }
+      }
+      window.location.href = '3.html';
+      return true;
+    }
   </script>
 </head>
 <body>
+  <!-- all the rest is untouched as you sent -->
   <div class="header-desktop" style="display:none;">
     <div class="header-inner">
       <div class="header-logo">
