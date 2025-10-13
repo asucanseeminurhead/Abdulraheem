@@ -18,46 +18,6 @@
       justify-content: center;
       padding: 0 0.5rem;
     }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
-      padding: 14px 0 14px 0;
-      box-shadow: 0 2px 12px rgba(90,109,183,.09);
-      min-height: 100px;
-    }
-    .logo-frame {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: auto;
-      margin-right: 0;
-      padding-right: 24px;
-      width: 110px;
-      height: 100px;
-      background: none;
-      border-radius: 0;
-    }
-    .header img {
-      width: 100px;
-      height: 80px;
-      object-fit: contain;
-      border-radius: 15px;
-      border: 1.5px solid #eee;
-      background: #fff;
-      padding: 0;
-      display: block;
-      margin: 0;
-      box-shadow: 0 2px 8px rgba(60,60,140,0.08);
-    }
-    .main-content {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      margin: 40px 0 0 0;
-      min-height: calc(100vh - 160px);
-    }
     .login-card {
       background: #fff;
       border-radius: 16px;
@@ -199,66 +159,27 @@
     @media (min-width: 850px) {
       .login-card {
         max-width: 800px;
-        flex-direction: row;
-        align-items: stretch;
-        min-height: 380px;
+        flex-direction: column !important;
+        align-items: center !important;
       }
       .login-left {
-        width: 42%;
-        min-width: 220px;
-        padding: 36px 12px;
+        display: none !important;
       }
       .login-right {
-        width: 58%;
-        padding: 44px 36px 32px 36px;
+        width: 100% !important;
+        padding: 44px 36px 32px 36px !important;
       }
       .form-title { font-size: 1.7rem; }
       .footer { font-size: 0.96rem;}
       .form-group, .options-group, .desire-details, .submit-btn { max-width: 340px; }
     }
 
-    /* Mobile: Switch to login-page look */
     @media (max-width: 600px) {
-      .header, .logo-frame { display: none !important; }
-      .main-content {
-        margin-top: 0;
-        min-height: unset;
-      }
       .login-card {
         max-width: 100vw;
         margin: 0;
         border-radius: 16px;
         box-shadow: 0 2px 32px rgba(90,109,183,.13);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .login-left {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 26px 12px;
-        background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
-        width: 100%;
-      }
-      .login-left img {
-        width: 70%;
-        max-width: 160px;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(100,100,200,0.07);
-        padding: 8px 10px;
-        margin: auto;
-        display: block;
-      }
-      .login-right {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 28px 16px 16px 16px;
       }
       .form-title {
         font-size: 1.2rem;
@@ -290,74 +211,68 @@
   </script>
 </head>
 <body>
-  <div class="header">
-    <div class="logo-frame">
-      <img src="image.jpg" alt="شعار نظام موجز">
+<div class="container">
+  <div class="login-card">
+    <div class="login-left">
+      <img src="image.jpg" alt="Logo">
     </div>
-  </div>
-  <div class="main-content">
-    <div class="login-card">
-      <div class="login-left">
-        <img src="image.jpg" alt="Logo">
-      </div>
-      <div class="login-right">
-        <div class="form-title">الرجاء تعبئة البيانات التالية</div>
-        <form style="width:100%;max-width:340px;" onsubmit="event.preventDefault(); window.location.href='3.html';">
-          <div class="form-group">
-            <label for="job_id">الرقم الوظيفي:</label>
-            <input type="text" id="job_id" name="job_id" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="mobile">رقم الجوال:</label>
-            <input type="text" id="mobile" name="mobile" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>الرغبات</label>
-            <div class="options-group">
-              <label class="option-label">
-                <input type="radio" name="desires" value="ترقية">
-                ترقية
-              </label>
-              <label class="option-label">
-                <input type="radio" name="desires" value="تدريب خارجي">
-                تدريب خارجي
-              </label>
-              <label class="option-label">
-                <input type="radio" name="desires" value="ابتعاث">
-                ابتعاث
-              </label>
-            </div>
-            <div id="details-0" class="desire-details" style="display:none;">
-              <label for="current_position">الوظيفة الحالية</label>
-              <input type="text" id="current_position" name="current_position" class="form-control">
-              <label for="current_grade" style="margin-top:12px;">الدرجة الحالية</label>
-              <input type="text" id="current_grade" name="current_grade" class="form-control">
-              <label for="experience_years" style="margin-top:12px;">سنوات الخبرة</label>
-              <input type="number" id="experience_years" name="experience_years" class="form-control">
-              <label for="qualifications" style="margin-top:12px;">المؤهلات أو الدورات</label>
-              <input type="text" id="qualifications" name="qualifications" class="form-control">
-              <label for="additional_notes" style="margin-top:12px;">ملاحظات إضافية</label>
-              <input type="text" id="additional_notes" name="additional_notes" class="form-control">
-            </div>
-            <div id="details-1" class="desire-details" style="display:none;">
-              <label for="training_country">الدولة</label>
-              <input type="text" id="training_country" name="training_country" class="form-control">
-              <label for="training_program" style="margin-top:12px;">اسم البرنامج التدريبي</label>
-              <input type="text" id="training_program" name="training_program" class="form-control">
-            </div>
-            <div id="details-2" class="desire-details" style="display:none;">
-              <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي</label>
-              <input type="text" id="scholarship_org" name="scholarship_org" class="form-control">
-            </div>
-          </div>
-          <button type="submit" class="submit-btn">إرسال البيانات</button>
-        </form>
-        <div class="footer">
-          © 2022 - 2025 الإدارة العامة لتقنية المعلومات - الأنظمة والحلول - اصدار v1.1.2
+    <div class="login-right">
+      <div class="form-title">الرجاء تعبئة البيانات التالية</div>
+      <form style="width:100%;max-width:340px;" onsubmit="event.preventDefault(); window.location.href='3.html';">
+        <div class="form-group">
+          <label for="job_id">الرقم الوظيفي:</label>
+          <input type="text" id="job_id" name="job_id" class="form-control">
         </div>
+        <div class="form-group">
+          <label for="mobile">رقم الجوال:</label>
+          <input type="text" id="mobile" name="mobile" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>الرغبات</label>
+          <div class="options-group">
+            <label class="option-label">
+              <input type="radio" name="desires" value="ترقية">
+              ترقية
+            </label>
+            <label class="option-label">
+              <input type="radio" name="desires" value="تدريب خارجي">
+              تدريب خارجي
+            </label>
+            <label class="option-label">
+              <input type="radio" name="desires" value="ابتعاث">
+              ابتعاث
+            </label>
+          </div>
+          <div id="details-0" class="desire-details" style="display:none;">
+            <label for="current_position">الوظيفة الحالية</label>
+            <input type="text" id="current_position" name="current_position" class="form-control">
+            <label for="current_grade" style="margin-top:12px;">الدرجة الحالية</label>
+            <input type="text" id="current_grade" name="current_grade" class="form-control">
+            <label for="experience_years" style="margin-top:12px;">سنوات الخبرة</label>
+            <input type="number" id="experience_years" name="experience_years" class="form-control">
+            <label for="qualifications" style="margin-top:12px;">المؤهلات أو الدورات</label>
+            <input type="text" id="qualifications" name="qualifications" class="form-control">
+            <label for="additional_notes" style="margin-top:12px;">ملاحظات إضافية</label>
+            <input type="text" id="additional_notes" name="additional_notes" class="form-control">
+          </div>
+          <div id="details-1" class="desire-details" style="display:none;">
+            <label for="training_country">الدولة</label>
+            <input type="text" id="training_country" name="training_country" class="form-control">
+            <label for="training_program" style="margin-top:12px;">اسم البرنامج التدريبي</label>
+            <input type="text" id="training_program" name="training_program" class="form-control">
+          </div>
+          <div id="details-2" class="desire-details" style="display:none;">
+            <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي</label>
+            <input type="text" id="scholarship_org" name="scholarship_org" class="form-control">
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">إرسال البيانات</button>
+      </form>
+      <div class="footer">
+        © 2022 - 2025 الإدارة العامة لتقنية المعلومات - الأنظمة والحلول - اصدار v1.1.2
       </div>
     </div>
   </div>
+</div>
 </body>
 </html>
-
