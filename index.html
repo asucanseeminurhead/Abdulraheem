@@ -165,6 +165,7 @@
       };
       pass.oninput = function(e) {
         e.target.setCustomValidity('');
+        e.target.reportValidity();
       };
     });
   </script>
