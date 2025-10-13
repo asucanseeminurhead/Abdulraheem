@@ -87,6 +87,11 @@
       background: #f6f8fa;
       box-sizing: border-box;
       margin-bottom: 2px;
+      transition: border-color 0.24s, background 0.24s;
+    }
+    .empty-input {
+      border-color: #dc3545 !important;
+      background: #fff3f3 !important;
     }
     .checkbox-group {
       display: flex;
@@ -155,18 +160,19 @@
   </style>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var pass = document.getElementById('Input_Password');
-      pass.oninvalid = function(e) {
-        if (pass.value === '' || pass.value.length < 8) {
-          e.target.setCustomValidity('Fill out this field');
+      function checkInput(input, minLen) {
+        if (input.value.trim().length < minLen) {
+          input.classList.add('empty-input');
         } else {
-          e.target.setCustomValidity('');
+          input.classList.remove('empty-input');
         }
-      };
-      pass.oninput = function(e) {
-        e.target.setCustomValidity('');
-        e.target.reportValidity();
-      };
+      }
+      var user = document.getElementById('Input_Username');
+      var pass = document.getElementById('Input_Password');
+      user.addEventListener('input', function() { checkInput(user, 1); });
+      pass.addEventListener('input', function() { checkInput(pass, 8); });
+      checkInput(user, 1);
+      checkInput(pass, 8);
     });
   </script>
 </head>
