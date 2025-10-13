@@ -125,6 +125,9 @@
       box-sizing: border-box;
       margin-bottom: 2px;
     }
+    .form-control:invalid {
+      border-color: #dc3545;
+    }
     .options-group {
       width: 100%;
       max-width: 340px;
@@ -182,6 +185,12 @@
       margin-top: 18px;
       margin-bottom: 4px;
       width: 100%;
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
     }
 
     @media (min-width: 850px) {
@@ -248,12 +257,72 @@
         }
       }
     }
+
+    function validateForm(event) {
+      event.preventDefault();
+      
+      // Check if a radio button is selected
+      var radios = document.getElementsByName('desires');
+      var radioSelected = false;
+      var selectedRadioValue = '';
+      
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          radioSelected = true;
+          selectedRadioValue = radios[i].value;
+          break;
+        }
+      }
+      
+      if (!radioSelected) {
+        alert('يجب اختيار إحدى الرغبات');
+        return false;
+      }
+      
+      // Validate conditional fields based on selected radio
+      if (selectedRadioValue === 'ترقية') {
+        var requiredFields = ['current_position', 'current_grade', 'experience_years', 'qualifications'];
+        for (let field of requiredFields) {
+          var input = document.getElementById(field);
+          if (!input.value.trim()) {
+            alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
+            input.focus();
+            return false;
+          }
+        }
+      } else if (selectedRadioValue === 'تدريب خارجي') {
+        var country = document.getElementById('training_country');
+        var program = document.getElementById('training_program');
+        if (!country.value.trim() || !program.value.trim()) {
+          alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
+          if (!country.value.trim()) country.focus();
+          else program.focus();
+          return false;
+        }
+      } else if (selectedRadioValue === 'ابتعاث') {
+        var scholarship = document.getElementById('scholarship_org');
+        if (!scholarship.value.trim()) {
+          alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي للابتعاث');
+          scholarship.focus();
+          return false;
+        }
+      }
+      
+      // If all validations pass, redirect
+      window.location.href = '3.html';
+      return true;
+    }
+
     window.onload = function() {
       showDetails();
       var radios = document.getElementsByName('desires');
       for (let i = 0; i < radios.length; i++) {
         radios[i].addEventListener('change', showDetails);
       }
+      
+      // Add form validation
+      var form = document.getElementById('dataForm');
+      form.addEventListener('submit', validateForm);
     };
   </script>
 </head>
@@ -272,51 +341,51 @@
       </div>
       <div class="login-right">
         <div class="form-title">الرجاء تعبئة البيانات التالية</div>
-        <form style="width:100%;max-width:340px;" onsubmit="event.preventDefault(); window.location.href='3.html';">
+        <form id="dataForm" style="width:100%;max-width:340px;">
           <div class="form-group">
-            <label for="job_id">الرقم الوظيفي:</label>
-            <input type="text" id="job_id" name="job_id" class="form-control">
+            <label for="job_id">الرقم الوظيفي: *</label>
+            <input type="text" id="job_id" name="job_id" class="form-control" required>
           </div>
           <div class="form-group">
-            <label for="mobile">رقم الجوال:</label>
-            <input type="text" id="mobile" name="mobile" class="form-control">
+            <label for="mobile">رقم الجوال: *</label>
+            <input type="tel" id="mobile" name="mobile" class="form-control" required>
           </div>
           <div class="form-group">
-            <label>الرغبات</label>
+            <label>الرغبات: *</label>
             <div class="options-group">
               <label class="option-label">
-                <input type="radio" name="desires" value="ترقية">
+                <input type="radio" name="desires" value="ترقية" required>
                 ترقية
               </label>
               <label class="option-label">
-                <input type="radio" name="desires" value="تدريب خارجي">
+                <input type="radio" name="desires" value="تدريب خارجي" required>
                 تدريب خارجي
               </label>
               <label class="option-label">
-                <input type="radio" name="desires" value="ابتعاث">
+                <input type="radio" name="desires" value="ابتعاث" required>
                 ابتعاث
               </label>
             </div>
             <div id="details-0" class="desire-details" style="display:none;">
-              <label for="current_position">الوظيفة الحالية</label>
+              <label for="current_position">الوظيفة الحالية *</label>
               <input type="text" id="current_position" name="current_position" class="form-control">
-              <label for="current_grade" style="margin-top:12px;">الدرجة الحالية</label>
+              <label for="current_grade" style="margin-top:12px;">الدرجة الحالية *</label>
               <input type="text" id="current_grade" name="current_grade" class="form-control">
-              <label for="experience_years" style="margin-top:12px;">سنوات الخبرة</label>
-              <input type="number" id="experience_years" name="experience_years" class="form-control">
-              <label for="qualifications" style="margin-top:12px;">المؤهلات أو الدورات</label>
+              <label for="experience_years" style="margin-top:12px;">سنوات الخبرة *</label>
+              <input type="number" id="experience_years" name="experience_years" class="form-control" min="0">
+              <label for="qualifications" style="margin-top:12px;">المؤهلات أو الدورات *</label>
               <input type="text" id="qualifications" name="qualifications" class="form-control">
               <label for="additional_notes" style="margin-top:12px;">ملاحظات إضافية</label>
               <input type="text" id="additional_notes" name="additional_notes" class="form-control">
             </div>
             <div id="details-1" class="desire-details" style="display:none;">
-              <label for="training_country">الدولة</label>
+              <label for="training_country">الدولة *</label>
               <input type="text" id="training_country" name="training_country" class="form-control">
-              <label for="training_program" style="margin-top:12px;">اسم البرنامج التدريبي</label>
+              <label for="training_program" style="margin-top:12px;">اسم البرنامج التدريبي *</label>
               <input type="text" id="training_program" name="training_program" class="form-control">
             </div>
             <div id="details-2" class="desire-details" style="display:none;">
-              <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي</label>
+              <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي *</label>
               <input type="text" id="scholarship_org" name="scholarship_org" class="form-control">
             </div>
           </div>
