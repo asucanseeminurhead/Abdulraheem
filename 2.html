@@ -16,7 +16,7 @@
       align-items: center;
       justify-content: flex-end;
       background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
-      padding: 14px 0 14px 0;
+      padding: 14px 0;
       box-shadow: 0 2px 12px rgba(90,109,183,.09);
       min-height: 100px;
     }
@@ -166,28 +166,23 @@
         display: none;
       }
       .main-content {
-        margin-top: 17px;
+        margin-top: 0;
         min-height: unset;
       }
       .form-card {
         max-width: 97vw;
-        padding: 10px 4px 8px 4px;
+        padding: 8px 4px 8px 4px;
         border-radius: 14px;
       }
-      .form-title {
-        font-size: 1.3rem;
-        padding-bottom: 7px;
-        margin-bottom: 14px;
-      }
-      .form-group, .options-group, .desire-details, .submit-btn { max-width: 97vw; }
       .mobile-logo-box {
-        display: flex;
+        display: flex !important;
         justify-content: center;
         align-items: center;
         background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
-        border-radius: 12px;
+        border-radius: 14px;
         padding: 18px 5vw 10px 5vw;
         margin-bottom: 8px;
+        width: 100%;
       }
       .mobile-logo-box img {
         max-width: 180px;
@@ -200,6 +195,8 @@
         display: block;
         margin: auto;
       }
+      .form-title { font-size: 1.3rem; padding-bottom: 7px; margin-bottom: 14px; }
+      .form-group, .options-group, .desire-details, .submit-btn { max-width: 97vw; }
     }
   </style>
   <script>
@@ -232,8 +229,8 @@
   </div>
   <div class="main-content">
     <div class="form-card">
-      <!-- Mobile Logo: Only shown on phone screens -->
-      <div class="mobile-logo-box">
+      <!-- Mobile logo: Hidden desktop, shown on phone only -->
+      <div class="mobile-logo-box" style="display:none;">
         <img src="image.jpg" alt="شعار نظام موجز">
       </div>
       <div class="form-title">الرجاء تعبئة البيانات التالية</div>
