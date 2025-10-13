@@ -32,6 +32,14 @@
       var form = document.querySelector('form');
       var triedSubmit = false;
 
+      // Suppress browser message for username ONLY
+      user.oninvalid = function(e) {
+        e.target.setCustomValidity('');
+      };
+      user.oninput = function(e) {
+        e.target.setCustomValidity('');
+      };
+
       function checkUser() {
         if (triedSubmit && (user.value.trim().length < 4)) {
           user.classList.add('empty-input');
