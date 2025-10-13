@@ -157,14 +157,20 @@
     document.addEventListener('DOMContentLoaded', function() {
       var pass = document.getElementById('Input_Password');
       pass.oninvalid = function(e) {
-        // Suppress the default message if password too short
-        if (pass.value.length < 8) {
-          e.target.setCustomValidity('');
-        }
+        e.target.setCustomValidity('Fill out this field');
       };
       pass.oninput = function(e) {
         e.target.setCustomValidity('');
       };
+      var form = document.querySelector('form');
+      form.addEventListener('submit', function(e) {
+        if (pass.value.length > 0 && pass.value.length < 8) {
+          pass.value = '';
+          pass.setCustomValidity('Fill out this field');
+          pass.reportValidity();
+          e.preventDefault();
+        }
+      });
     });
   </script>
 </head>
