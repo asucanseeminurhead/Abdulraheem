@@ -4,122 +4,183 @@
   <meta charset="UTF-8">
   <title>نموذج البيانات - نظام آمر</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
-    .form-control {border: 1px solid #dfe1e5; background: #f6f8fa;}
-    .invalid-input, .invalid-select {border-color: #dc3545 !important; background: #fff3f3 !important;}
-    .field-error {color: #dc3545; font-size: 1rem; margin-top: 3px; text-align: right;}
+    body { background: #fafafa; font-family: 'Tajawal', Arial, sans-serif; margin: 0; }
+    .header-desktop { display: block; background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%); width: 100vw; min-height: 72px; box-shadow: 0 2px 12px rgba(90,109,183,.09);}
+    .header-inner { max-width: 1280px; margin: 0 auto; width: 100%; height: 72px; display: flex; align-items: center; justify-content: flex-start; padding: 0 32px; }
+    .header-logo { height: 64px; width: 200px; display: flex; align-items: center; justify-content: flex-start; margin-left: 0; margin-right: 32px; }
+    .header-logo img { height: 60px; width: 150px; max-width: 100%; background: #fff; border-radius: 14px; border: 1.5px solid #eee; box-shadow: 0 2px 8px rgba(60,60,140,0.08); object-fit: contain; display: block; }
+    .container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; background: #fafafa; }
+    .login-card { background: #fff; border-radius: 16px; box-shadow: 0 2px 32px rgba(90,109,183,.13); max-width: 400px; width: 100%; margin: 24px auto; overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
+    .login-left { background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%); display: flex; align-items: center; justify-content: center; padding: 26px 12px; }
+    .login-left img { width: 70%; max-width: 160px; height: auto; display: block; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(100,100,200,0.07); padding: 8px 10px; margin: auto; }
+    .login-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px 16px 16px 16px; }
+    .form-title { font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; margin-bottom: 16px; border-bottom: 1px solid #e9e9e9; padding-bottom: 8px; width: 100%; }
+    .form-group { margin-bottom: 16px; width: 100%; max-width: 340px; }
+    label { display: block; margin-bottom: 7px; color: #515151; font-weight: bold; font-size: 1rem; text-align: right; }
+    .form-control { width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa; box-sizing: border-box; margin-bottom: 2px; }
+    .form-control:invalid { border-color: #dfe1e5; background: #f6f8fa; }
+    .invalid-select, .invalid-input { border-color: #dc3545 !important; background: #fff3f3 !important; }
+    .field-error { color: #dc3545; font-size: 1rem; margin-top: 3px; text-align: right; min-height: 18px;}
+    .options-group { width: 100%; max-width: 340px; justify-content: space-between; display: flex; flex-wrap: wrap; gap: 20px; margin-top: 7px; margin-bottom: 2px; }
+    .option-label { font-size: 1rem; display: flex; align-items: center; gap: 6px; color: #555; font-weight: 400; }
+    .options-group input[type="radio"] { accent-color: #5e48da; margin-left: 3px; }
+    .desire-details { margin-top: 17px; margin-bottom: 2px; padding: 14px 5px 2px 5px; background: #f9f9fe; border-radius: 9px; border: 1px solid #e3e4ed; box-shadow: 0 2px 6px rgba(100,120,200,0.09); max-width: 340px; }
+    .submit-btn { width: 100%; padding: 12px; background: #5e48da; border: none; border-radius: 8px; color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 6px; transition: background 0.3s; max-width: 340px; }
+    .footer { text-align: center; color: #888; font-size: 0.83rem; margin-top: 18px; margin-bottom: 4px; width: 100%; }
+    @media (max-width: 600px) { .login-card, .form-group, .options-group, .desire-details, .submit-btn { max-width: 98vw !important; } }
   </style>
   <script>
-    function clearErrors() {
-      document.querySelectorAll('.field-error').forEach(e => e.textContent = '');
+    function showDetails() {
+      var radios = document.getElementsByName('desires');
+      var details = ['details-0', 'details-1', 'details-2'];
+      for (let i = 0; i < radios.length; i++) {
+        var el = document.getElementById(details[i]);
+        if (radios[i].checked) {
+          el.style.display = 'block';
+        } else {
+          el.style.display = 'none';
+        }
+      }
     }
-    function removeInvalidStyle(e) {
-      e.target.classList.remove('invalid-input');
-      e.target.classList.remove('invalid-select');
-      var errorDiv = e.target.parentNode.querySelector('.field-error');
-      if (errorDiv) errorDiv.textContent = '';
+    function removeInvalidStyle(evt) {
+      evt.target.classList.remove('invalid-input');
+      evt.target.classList.remove('invalid-select');
+      var errDiv = evt.target.parentNode.querySelector('.field-error');
+      if(errDiv) errDiv.innerHTML = '';
     }
-    function validateForm(e) {
-      e.preventDefault();
-      clearErrors();
-      let error = false;
-      // Job ID
+    function clearFieldErrors() {
+      var errs = document.querySelectorAll('.field-error');
+      errs.forEach(function(e) { e.innerHTML = ''; });
+    }
+    function validateForm(event) {
+      event.preventDefault();
+      clearFieldErrors();
+      document.getElementById('job_id').classList.remove('invalid-input');
+      document.getElementById('mobile').classList.remove('invalid-input');
+      document.getElementById('experience_years').classList.remove('invalid-select');
+      document.getElementById('years_in_center').classList.remove('invalid-select');
+      if (document.getElementById('current_position')) document.getElementById('current_position').classList.remove('invalid-input');
+      if (document.getElementById('current_grade')) document.getElementById('current_grade').classList.remove('invalid-input');
+      if (document.getElementById('training_country')) document.getElementById('training_country').classList.remove('invalid-input');
+      if (document.getElementById('training_program')) document.getElementById('training_program').classList.remove('invalid-input');
+      if (document.getElementById('scholarship_org')) document.getElementById('scholarship_org').classList.remove('invalid-input');
+      var radios = document.getElementsByName('desires');
+      var radioSelected = false;
+      var selectedRadioValue = '';
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          radioSelected = true;
+          selectedRadioValue = radios[i].value;
+          break;
+        }
+      }
+      let hasError = false;
+
       var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
         jobId.classList.add('invalid-input');
         jobId.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الرقم الوظيفي';
-        error = true;
+        hasError = true;
       }
-      // Mobile
       var mobile = document.getElementById('mobile');
       if (!mobile.value.trim()) {
         mobile.classList.add('invalid-input');
         mobile.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة رقم الجوال';
-        error = true;
+        hasError = true;
       }
-      // Radio
-      var radios = document.getElementsByName('desires');
-      var radioSelected = false, selectedValue = '';
-      for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) { radioSelected = true; selectedValue = radios[i].value; }
-      }
-      var radioError = document.getElementById('radio-error');
       if (!radioSelected) {
-        radioError.textContent = 'الرجاء اختيار إحدى الرغبات';
-        error = true;
+        document.getElementById('radio-error').textContent = 'الرجاء اختيار إحدى الرغبات';
+        hasError = true;
       } else {
-        radioError.textContent = '';
+        document.getElementById('radio-error').textContent = '';
       }
-      // "ترقية"
-      if (selectedValue === 'ترقية') {
-        var currPos = document.getElementById('current_position');
-        var currGrade = document.getElementById('current_grade');
+      if (selectedRadioValue === 'ترقية') {
+        var position = document.getElementById('current_position');
+        var grade    = document.getElementById('current_grade');
         var expYears = document.getElementById('experience_years');
-        if (!currPos.value.trim()) {
-          currPos.classList.add('invalid-input');
-          currPos.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الوظيفة الحالية';
-          error = true;
+        if (!position.value.trim()) {
+          position.classList.add('invalid-input');
+          position.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الوظيفة الحالية';
+          hasError = true;
         }
-        if (!currGrade.value.trim()) {
-          currGrade.classList.add('invalid-input');
-          currGrade.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدرجة الحالية';
-          error = true;
+        if (!grade.value.trim()) {
+          grade.classList.add('invalid-input');
+          grade.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدرجة الحالية';
+          hasError = true;
         }
         if (!expYears.value) {
           expYears.classList.add('invalid-select');
           expYears.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة سنوات الخبرة';
-          error = true;
+          hasError = true;
+        }
+      } else if (selectedRadioValue === 'تدريب خارجي') {
+        var country = document.getElementById('training_country');
+        var program = document.getElementById('training_program');
+        if (!country.value.trim()) {
+          country.classList.add('invalid-input');
+          country.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدولة';
+          hasError = true;
+        }
+        if (!program.value.trim()) {
+          program.classList.add('invalid-input');
+          program.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة اسم البرنامج التدريبي';
+          hasError = true;
+        }
+      } else if (selectedRadioValue === 'ابتعاث') {
+        var scholarship = document.getElementById('scholarship_org');
+        var years = document.getElementById('years_in_center');
+        if (!scholarship.value.trim()) {
+          scholarship.classList.add('invalid-input');
+          scholarship.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة المؤهل التعليمي والتخصص الدراسي';
+          hasError = true;
+        }
+        if (!years.value) {
+          years.classList.add('invalid-select');
+          years.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة عدد سنوات العمل في المركز';
+          hasError = true;
         }
       }
-      // "تدريب خارجي"
-      if (selectedValue === 'تدريب خارجي') {
-        var trainCountry = document.getElementById('training_country');
-        var trainProgram = document.getElementById('training_program');
-        if (!trainCountry.value.trim()) {
-          trainCountry.classList.add('invalid-input');
-          trainCountry.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدولة';
-          error = true;
-        }
-        if (!trainProgram.value.trim()) {
-          trainProgram.classList.add('invalid-input');
-          trainProgram.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة اسم البرنامج التدريبي';
-          error = true;
-        }
-      }
-      // "ابتعاث"
-      if (selectedValue === 'ابتعاث') {
-        var scholarOrg = document.getElementById('scholarship_org');
-        var yearsCenter = document.getElementById('years_in_center');
-        if (!scholarOrg.value.trim()) {
-          scholarOrg.classList.add('invalid-input');
-          scholarOrg.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة المؤهل التعليمي والتخصص الدراسي';
-          error = true;
-        }
-        if (!yearsCenter.value) {
-          yearsCenter.classList.add('invalid-select');
-          yearsCenter.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة عدد سنوات العمل في المركز';
-          error = true;
-        }
-      }
-      if (!error) window.location.href = '3.html';
+
+      if (hasError) return false;
+      window.location.href = '3.html';
+      return true;
     }
+
     window.onload = function() {
-      document.getElementById('dataForm').addEventListener('submit', validateForm);
+      showDetails();
+      var radios = document.getElementsByName('desires');
+      for (let i = 0; i < radios.length; i++) {
+        radios[i].addEventListener('change', showDetails);
+      }
+      var form = document.getElementById('dataForm');
+      form.addEventListener('submit', validateForm);
       document.getElementById('job_id').addEventListener('input', removeInvalidStyle);
       document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
       document.getElementById('experience_years').addEventListener('change', removeInvalidStyle);
       document.getElementById('years_in_center').addEventListener('change', removeInvalidStyle);
-      if(document.getElementById('current_position')) document.getElementById('current_position').addEventListener('input', removeInvalidStyle);
-      if(document.getElementById('current_grade')) document.getElementById('current_grade').addEventListener('input', removeInvalidStyle);
-      if(document.getElementById('training_country')) document.getElementById('training_country').addEventListener('input', removeInvalidStyle);
-      if(document.getElementById('training_program')) document.getElementById('training_program').addEventListener('input', removeInvalidStyle);
-      if(document.getElementById('scholarship_org')) document.getElementById('scholarship_org').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('current_position')) document.getElementById('current_position').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('current_grade')) document.getElementById('current_grade').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('training_country')) document.getElementById('training_country').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('training_program')) document.getElementById('training_program').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('scholarship_org')) document.getElementById('scholarship_org').addEventListener('input', removeInvalidStyle);
     };
   </script>
 </head>
 <body>
+  <div class="header-desktop">
+    <div class="header-inner">
+      <div class="header-logo">
+        <img src="image.jpg" alt="شعار نظام موجز">
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div class="login-card">
+      <div class="login-left">
+        <img src="image.jpg" alt="Logo">
+      </div>
       <div class="login-right">
         <div class="form-title">الرجاء تعبئة البيانات التالية</div>
         <form id="dataForm">
