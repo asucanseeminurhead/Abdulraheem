@@ -7,7 +7,7 @@
   <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
     body { background: #fafafa; font-family: 'Tajawal', Arial, sans-serif; margin: 0; }
-    .header-desktop { display: block !important; background: linear-gradient(135deg,#28bfc6 0%,#6463d5 100%); width: 100vw; min-height: 72px; margin-bottom: 0; box-shadow: 0 2px 12px rgba(90,109,183,.09); }
+    .header-desktop { display: block !important; background: linear-gradient(135deg,#28bfc6 0%,#6463d5 100%); width: 100vw; min-height: 72px; margin-bottom: 0; box-shadow: 0 2px 12px rgba(90,109,183,.09);}
     .header-inner { max-width: 1280px; margin: 0 auto; width: 100%; height: 72px; display: flex; align-items: center; justify-content: flex-start; padding: 0 32px; }
     .header-logo { height: 64px; width: 200px; display: flex; align-items: center; justify-content: flex-start; margin-left: 0; margin-right: 32px; }
     .header-logo img { height: 60px; width: 150px; max-width: 100%; background: #fff; border-radius: 14px; border: 1.5px solid #eee; box-shadow: 0 2px 8px rgba(60,60,140,0.08); object-fit: contain; padding: 0; margin: 0; display: block; }
@@ -58,13 +58,6 @@
       clearFieldErrors();
       document.getElementById('job_id').classList.remove('invalid-input');
       document.getElementById('mobile').classList.remove('invalid-input');
-      document.getElementById('experience_years').classList.remove('invalid-select');
-      document.getElementById('years_in_center').classList.remove('invalid-select');
-      if (document.getElementById('current_position')) document.getElementById('current_position').classList.remove('invalid-input');
-      if (document.getElementById('current_grade')) document.getElementById('current_grade').classList.remove('invalid-input');
-      if (document.getElementById('training_country')) document.getElementById('training_country').classList.remove('invalid-input');
-      if (document.getElementById('training_program')) document.getElementById('training_program').classList.remove('invalid-input');
-      if (document.getElementById('scholarship_org')) document.getElementById('scholarship_org').classList.remove('invalid-input');
       var radios = document.getElementsByName('desires');
       var radioSelected = false;
       var selectedRadioValue = '';
@@ -90,58 +83,32 @@
         mobile.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة رقم الجوال';
         hasError = true;
       }
-      // Radio group
       if (!radioSelected) {
-        document.getElementById('radio-error').textContent = 'الرجاء اختيار إحدى الرغبات';
-        hasError = true;
-      } else {
-        document.getElementById('radio-error').textContent = '';
+        alert('يجب اختيار إحدى الرغبات');
+        return false;
       }
-      // Details per desire
+      // Sectional validation (popup only)
       if (selectedRadioValue === 'ترقية') {
         var position = document.getElementById('current_position');
         var grade    = document.getElementById('current_grade');
         var expYears = document.getElementById('experience_years');
-        if (!position.value.trim()) {
-          position.classList.add('invalid-input');
-          position.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الوظيفة الحالية';
-          hasError = true;
-        }
-        if (!grade.value.trim()) {
-          grade.classList.add('invalid-input');
-          grade.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدرجة الحالية';
-          hasError = true;
-        }
-        if (!expYears.value) {
-          expYears.classList.add('invalid-select');
-          expYears.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة سنوات الخبرة';
-          hasError = true;
+        if (!position.value.trim() || !grade.value.trim() || !expYears.value) {
+          alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
+          return false;
         }
       } else if (selectedRadioValue === 'تدريب خارجي') {
         var country = document.getElementById('training_country');
         var program = document.getElementById('training_program');
-        if (!country.value.trim()) {
-          country.classList.add('invalid-input');
-          country.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدولة';
-          hasError = true;
-        }
-        if (!program.value.trim()) {
-          program.classList.add('invalid-input');
-          program.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة اسم البرنامج التدريبي';
-          hasError = true;
+        if (!country.value.trim() || !program.value.trim()) {
+          alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
+          return false;
         }
       } else if (selectedRadioValue === 'ابتعاث') {
         var scholarship = document.getElementById('scholarship_org');
         var years = document.getElementById('years_in_center');
-        if (!scholarship.value.trim()) {
-          scholarship.classList.add('invalid-input');
-          scholarship.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة المؤهل التعليمي والتخصص الدراسي';
-          hasError = true;
-        }
-        if (!years.value) {
-          years.classList.add('invalid-select');
-          years.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة عدد سنوات العمل في المركز';
-          hasError = true;
+        if (!scholarship.value.trim() || !years.value) {
+          alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي وعدد سنوات العمل في المركز للابتعاث');
+          return false;
         }
       }
       if (hasError) return false;
@@ -158,13 +125,6 @@
       form.addEventListener('submit', validateForm);
       document.getElementById('job_id').addEventListener('input', removeInvalidStyle);
       document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
-      document.getElementById('experience_years').addEventListener('change', removeInvalidStyle);
-      document.getElementById('years_in_center').addEventListener('change', removeInvalidStyle);
-      if (document.getElementById('current_position')) document.getElementById('current_position').addEventListener('input', removeInvalidStyle);
-      if (document.getElementById('current_grade')) document.getElementById('current_grade').addEventListener('input', removeInvalidStyle);
-      if (document.getElementById('training_country')) document.getElementById('training_country').addEventListener('input', removeInvalidStyle);
-      if (document.getElementById('training_program')) document.getElementById('training_program').addEventListener('input', removeInvalidStyle);
-      if (document.getElementById('scholarship_org')) document.getElementById('scholarship_org').addEventListener('input', removeInvalidStyle);
     };
   </script>
 </head>
@@ -207,14 +167,11 @@
                 <input type="radio" name="desires" value="ابتعاث"> ابتعاث
               </label>
             </div>
-            <div id="radio-error" class="field-error"></div>
             <div id="details-0" class="desire-details" style="display:none;">
               <label for="current_position">الوظيفة الحالية *</label>
               <input type="text" id="current_position" name="current_position" class="form-control">
-              <div class="field-error"></div>
               <label for="current_grade" style="margin-top:12px;">الدرجة الحالية *</label>
               <input type="text" id="current_grade" name="current_grade" class="form-control">
-              <div class="field-error"></div>
               <label for="experience_years" style="margin-top:12px;">سنوات الخبرة *</label>
               <select id="experience_years" name="experience_years" class="form-control" dir="rtl" style="text-align:right;">
                 <option value="">اختر</option>
@@ -250,15 +207,20 @@
                 <option value="29">29</option>
                 <option value="30">30</option>
               </select>
-              <div class="field-error"></div>
+              <label for="qualifications" style="margin-top:12px;">
+                المؤهلات أو الدورات <span style="color:#888; font-weight:normal;">(اختياري)</span>
+              </label>
+              <input type="text" id="qualifications" name="qualifications" class="form-control">
+              <label for="additional_notes" style="margin-top:12px;">
+                ملاحظات إضافية <span style="color:#888; font-weight:normal;">(اختياري)</span>
+              </label>
+              <input type="text" id="additional_notes" name="additional_notes" class="form-control">
             </div>
             <div id="details-1" class="desire-details" style="display:none;">
               <label for="training_country">الدولة *</label>
               <input type="text" id="training_country" name="training_country" class="form-control">
-              <div class="field-error"></div>
               <label for="training_program" style="margin-top:12px;">اسم البرنامج التدريبي *</label>
               <input type="text" id="training_program" name="training_program" class="form-control">
-              <div class="field-error"></div>
             </div>
             <div id="details-2" class="desire-details" style="display:none;">
               <label for="years_in_center">عدد سنوات العمل في المركز *</label>
@@ -276,10 +238,8 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-              <div class="field-error"></div>
               <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي *</label>
               <input type="text" id="scholarship_org" name="scholarship_org" class="form-control">
-              <div class="field-error"></div>
             </div>
           </div>
           <button type="submit" class="submit-btn">إرسال البيانات</button>
