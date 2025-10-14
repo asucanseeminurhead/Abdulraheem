@@ -23,7 +23,7 @@
       width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa;
       box-sizing: border-box; margin-bottom: 2px;
     }
-    /* Override browser invalid, force gray border unless JS sets red */
+    /* Override browser invalid pseudo-class to force gray border */
     .form-control:invalid { border-color: #dfe1e5; background: #f6f8fa; }
     .invalid-select, .invalid-input {
       border-color: #dc3545 !important;
@@ -62,10 +62,16 @@
     function validateForm(event) {
       event.preventDefault();
 
+      // Remove all previous invalid states
       document.getElementById('job_id').classList.remove('invalid-input');
       document.getElementById('mobile').classList.remove('invalid-input');
       document.getElementById('experience_years').classList.remove('invalid-select');
       document.getElementById('years_in_center').classList.remove('invalid-select');
+      if (document.getElementById('current_position')) document.getElementById('current_position').classList.remove('invalid-input');
+      if (document.getElementById('current_grade')) document.getElementById('current_grade').classList.remove('invalid-input');
+      if (document.getElementById('training_country')) document.getElementById('training_country').classList.remove('invalid-input');
+      if (document.getElementById('training_program')) document.getElementById('training_program').classList.remove('invalid-input');
+      if (document.getElementById('scholarship_org')) document.getElementById('scholarship_org').classList.remove('invalid-input');
 
       var radios = document.getElementsByName('desires');
       var radioSelected = false;
@@ -78,74 +84,69 @@
         }
       }
 
-      var jobId = document.getElementById('job_id');
-      var mobile = document.getElementById('mobile');
       let hasError = false;
 
+      // Main required fields
+      var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
         jobId.classList.add('invalid-input');
         hasError = true;
       }
+      var mobile = document.getElementById('mobile');
       if (!mobile.value.trim()) {
         mobile.classList.add('invalid-input');
         hasError = true;
       }
       if (!radioSelected) {
-        alert('يجب اختيار إحدى الرغبات');
+        alert('الرجاء تعبئة الخانة');
         return false;
       }
+
+      // Section-specific validation
       if (selectedRadioValue === 'ترقية') {
         var position = document.getElementById('current_position');
         var grade    = document.getElementById('current_grade');
         var expYears = document.getElementById('experience_years');
-        var missing = false;
-
         if (!position.value.trim()) {
-          position.focus(); missing = true;
+          position.classList.add('invalid-input');
+          hasError = true;
         }
         if (!grade.value.trim()) {
-          grade.focus(); missing = true;
+          grade.classList.add('invalid-input');
+          hasError = true;
         }
         if (!expYears.value) {
           expYears.classList.add('invalid-select');
-          expYears.focus(); missing = true;
-        }
-        if (missing) {
-          alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
           hasError = true;
         }
       } else if (selectedRadioValue === 'تدريب خارجي') {
         var country = document.getElementById('training_country');
         var program = document.getElementById('training_program');
-        var missing = false;
         if (!country.value.trim()) {
-          country.focus(); missing = true;
+          country.classList.add('invalid-input');
+          hasError = true;
         }
         if (!program.value.trim()) {
-          program.focus(); missing = true;
-        }
-        if (missing) {
-          alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
+          program.classList.add('invalid-input');
           hasError = true;
         }
       } else if (selectedRadioValue === 'ابتعاث') {
         var scholarship = document.getElementById('scholarship_org');
         var years = document.getElementById('years_in_center');
-        var missing = false;
         if (!scholarship.value.trim()) {
-          scholarship.focus(); missing = true;
+          scholarship.classList.add('invalid-input');
+          hasError = true;
         }
         if (!years.value) {
           years.classList.add('invalid-select');
-          years.focus(); missing = true;
-        }
-        if (missing) {
-          alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي وعدد سنوات العمل في المركز للابتعاث');
           hasError = true;
         }
       }
 
-      if (hasError) return false;
+      if (hasError) {
+        alert('الرجاء تعبئة الخانة');
+        return false;
+      }
       window.location.href = '3.html';
       return true;
     }
@@ -163,6 +164,12 @@
       document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
       document.getElementById('experience_years').addEventListener('change', removeInvalidStyle);
       document.getElementById('years_in_center').addEventListener('change', removeInvalidStyle);
+      // Section-specific listeners
+      if (document.getElementById('current_position')) document.getElementById('current_position').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('current_grade')) document.getElementById('current_grade').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('training_country')) document.getElementById('training_country').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('training_program')) document.getElementById('training_program').addEventListener('input', removeInvalidStyle);
+      if (document.getElementById('scholarship_org')) document.getElementById('scholarship_org').addEventListener('input', removeInvalidStyle);
     };
   </script>
 </head>
