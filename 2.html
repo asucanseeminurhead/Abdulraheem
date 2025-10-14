@@ -21,6 +21,10 @@
     label { display: block; margin-bottom: 7px; color: #515151; font-weight: bold; font-size: 1rem; text-align: right; }
     .form-control { width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa; box-sizing: border-box; margin-bottom: 2px; }
     .form-control:invalid { border-color: #dc3545; }
+    .invalid-select, .invalid-input {
+      border-color: #dc3545 !important;
+      background: #fff3f3 !important;
+    }
     .empty-input { border-color: #dc3545 !important; background: #fff3f3 !important; }
     .options-group { width: 100%; max-width: 340px; justify-content: space-between; display: flex; flex-wrap: wrap; gap: 20px; margin-top: 7px; margin-bottom: 2px; }
     .option-label { font-size: 1rem; display: flex; align-items: center; gap: 6px; color: #555; font-weight: 400; }
@@ -47,8 +51,21 @@
         }
       }
     }
+
+    function removeInvalidStyle(evt) {
+      evt.target.classList.remove('invalid-input');
+      evt.target.classList.remove('invalid-select');
+    }
+
     function validateForm(event) {
       event.preventDefault();
+
+      // Clear previous invalid styles
+      document.getElementById('job_id').classList.remove('invalid-input');
+      document.getElementById('mobile').classList.remove('invalid-input');
+      document.getElementById('experience_years').classList.remove('invalid-select');
+      document.getElementById('years_in_center').classList.remove('invalid-select');
+
       var radios = document.getElementsByName('desires');
       var radioSelected = false;
       var selectedRadioValue = '';
@@ -61,45 +78,83 @@
       }
       var jobId = document.getElementById('job_id');
       var mobile = document.getElementById('mobile');
-      if (!jobId.value.trim() || !mobile.value.trim()) {
-        return false;
+      let hasError = false;
+
+      if (!jobId.value.trim()) {
+        jobId.classList.add('invalid-input');
+        hasError = true;
+      }
+      if (!mobile.value.trim()) {
+        mobile.classList.add('invalid-input');
+        hasError = true;
       }
       if (!radioSelected) {
         alert('يجب اختيار إحدى الرغبات');
         return false;
       }
       if (selectedRadioValue === 'ترقية') {
-        var requiredFields = ['current_position', 'current_grade', 'experience_years'];
-        for (let field of requiredFields) {
-          var input = document.getElementById(field);
-          if (!input.value.trim()) {
-            alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
-            input.focus();
-            return false;
-          }
+        var position = document.getElementById('current_position');
+        var grade    = document.getElementById('current_grade');
+        var expYears = document.getElementById('experience_years');
+        var missing = false;
+
+        if (!position.value.trim()) {
+          position.focus();
+          missing = true;
+        }
+        if (!grade.value.trim()) {
+          grade.focus();
+          missing = true;
+        }
+        if (!expYears.value) {
+          expYears.classList.add('invalid-select');
+          expYears.focus();
+          missing = true;
+        }
+        if (missing) {
+          alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
+          hasError = true;
         }
       } else if (selectedRadioValue === 'تدريب خارجي') {
         var country = document.getElementById('training_country');
         var program = document.getElementById('training_program');
-        if (!country.value.trim() || !program.value.trim()) {
+        var missing = false;
+        if (!country.value.trim()) {
+          country.focus();
+          missing = true;
+        }
+        if (!program.value.trim()) {
+          program.focus();
+          missing = true;
+        }
+        if (missing) {
           alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
-          if (!country.value.trim()) country.focus();
-          else program.focus();
-          return false;
+          hasError = true;
         }
       } else if (selectedRadioValue === 'ابتعاث') {
         var scholarship = document.getElementById('scholarship_org');
         var years = document.getElementById('years_in_center');
-        if (!scholarship.value.trim() || !years.value) {
+        var missing = false;
+        if (!scholarship.value.trim()) {
+          scholarship.focus();
+          missing = true;
+        }
+        if (!years.value) {
+          years.classList.add('invalid-select');
+          years.focus();
+          missing = true;
+        }
+        if (missing) {
           alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي وعدد سنوات العمل في المركز للابتعاث');
-          if (!years.value) years.focus();
-          else scholarship.focus();
-          return false;
+          hasError = true;
         }
       }
+
+      if (hasError) return false;
       window.location.href = '3.html';
       return true;
     }
+
     window.onload = function() {
       showDetails();
       var radios = document.getElementsByName('desires');
@@ -108,6 +163,12 @@
       }
       var form = document.getElementById('dataForm');
       form.addEventListener('submit', validateForm);
+
+      // Remove invalid style on user input (for all required fields)
+      document.getElementById('job_id').addEventListener('input', removeInvalidStyle);
+      document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
+      document.getElementById('experience_years').addEventListener('change', removeInvalidStyle);
+      document.getElementById('years_in_center').addEventListener('change', removeInvalidStyle);
     };
   </script>
 </head>
