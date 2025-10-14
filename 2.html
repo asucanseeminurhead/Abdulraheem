@@ -23,18 +23,21 @@
       e.preventDefault();
       clearErrors();
       let error = false;
+      // Job ID
       var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
         jobId.classList.add('invalid-input');
         jobId.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الرقم الوظيفي';
         error = true;
       }
+      // Mobile
       var mobile = document.getElementById('mobile');
       if (!mobile.value.trim()) {
         mobile.classList.add('invalid-input');
         mobile.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة رقم الجوال';
         error = true;
       }
+      // Radio
       var radios = document.getElementsByName('desires');
       var radioSelected = false, selectedValue = '';
       for (let i = 0; i < radios.length; i++) {
@@ -47,6 +50,7 @@
       } else {
         radioError.textContent = '';
       }
+      // "ترقية"
       if (selectedValue === 'ترقية') {
         var currPos = document.getElementById('current_position');
         var currGrade = document.getElementById('current_grade');
@@ -67,6 +71,7 @@
           error = true;
         }
       }
+      // "تدريب خارجي"
       if (selectedValue === 'تدريب خارجي') {
         var trainCountry = document.getElementById('training_country');
         var trainProgram = document.getElementById('training_program');
@@ -81,6 +86,7 @@
           error = true;
         }
       }
+      // "ابتعاث"
       if (selectedValue === 'ابتعاث') {
         var scholarOrg = document.getElementById('scholarship_org');
         var yearsCenter = document.getElementById('years_in_center');
@@ -119,56 +125,107 @@
         <form id="dataForm">
           <div class="form-group">
             <label for="job_id">الرقم الوظيفي: *</label>
-            <input type="text" id="job_id" name="job_id" class="form-control" dir="ltr" style="text-align:left;"><div class="field-error"></div>
+            <input type="text" id="job_id" name="job_id" class="form-control" dir="ltr" style="text-align:left;">
+            <div class="field-error"></div>
           </div>
           <div class="form-group">
             <label for="mobile">رقم الجوال: *</label>
-            <input type="tel" id="mobile" name="mobile" class="form-control" dir="ltr" style="text-align:left;"><div class="field-error"></div>
+            <input type="tel" id="mobile" name="mobile" class="form-control" dir="ltr" style="text-align:left;">
+            <div class="field-error"></div>
           </div>
           <div class="form-group">
             <label>الرغبات: *</label>
             <div class="options-group">
-              <label class="option-label"><input type="radio" name="desires" value="ترقية"> ترقية</label>
-              <label class="option-label"><input type="radio" name="desires" value="تدريب خارجي"> تدريب خارجي</label>
-              <label class="option-label"><input type="radio" name="desires" value="ابتعاث"> ابتعاث</label>
+              <label class="option-label">
+                <input type="radio" name="desires" value="ترقية"> ترقية
+              </label>
+              <label class="option-label">
+                <input type="radio" name="desires" value="تدريب خارجي"> تدريب خارجي
+              </label>
+              <label class="option-label">
+                <input type="radio" name="desires" value="ابتعاث"> ابتعاث
+              </label>
             </div>
             <div id="radio-error" class="field-error"></div>
             <div id="details-0" class="desire-details" style="display:none;">
               <label for="current_position">الوظيفة الحالية *</label>
-              <input type="text" id="current_position" name="current_position" class="form-control"><div class="field-error"></div>
+              <input type="text" id="current_position" name="current_position" class="form-control">
+              <div class="field-error"></div>
               <label for="current_grade" style="margin-top:12px;">الدرجة الحالية *</label>
-              <input type="text" id="current_grade" name="current_grade" class="form-control"><div class="field-error"></div>
+              <input type="text" id="current_grade" name="current_grade" class="form-control">
+              <div class="field-error"></div>
               <label for="experience_years" style="margin-top:12px;">سنوات الخبرة *</label>
               <select id="experience_years" name="experience_years" class="form-control" dir="rtl" style="text-align:right;">
                 <option value="">اختر</option>
                 <option value="0">0</option>
-                <!-- ...up to 30... -->
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
                 <option value="30">30</option>
               </select>
               <div class="field-error"></div>
             </div>
             <div id="details-1" class="desire-details" style="display:none;">
               <label for="training_country">الدولة *</label>
-              <input type="text" id="training_country" name="training_country" class="form-control"><div class="field-error"></div>
+              <input type="text" id="training_country" name="training_country" class="form-control">
+              <div class="field-error"></div>
               <label for="training_program" style="margin-top:12px;">اسم البرنامج التدريبي *</label>
-              <input type="text" id="training_program" name="training_program" class="form-control"><div class="field-error"></div>
+              <input type="text" id="training_program" name="training_program" class="form-control">
+              <div class="field-error"></div>
             </div>
             <div id="details-2" class="desire-details" style="display:none;">
               <label for="years_in_center">عدد سنوات العمل في المركز *</label>
               <select id="years_in_center" name="years_in_center" class="form-control" dir="rtl" style="text-align:right;">
                 <option value="">اختر</option>
                 <option value="0">0</option>
-                <!-- ...up to 10... -->
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
                 <option value="10">10</option>
               </select>
               <div class="field-error"></div>
               <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي *</label>
-              <input type="text" id="scholarship_org" name="scholarship_org" class="form-control"><div class="field-error"></div>
+              <input type="text" id="scholarship_org" name="scholarship_org" class="form-control">
+              <div class="field-error"></div>
             </div>
           </div>
           <button type="submit" class="submit-btn">إرسال البيانات</button>
         </form>
-        <div class="footer">© 2022 - 2025 الإدارة العامة لتقنية المعلومات - الأنظمة والحلول - اصدار v1.1.2</div>
+        <div class="footer">
+          © 2022 - 2025 الإدارة العامة لتقنية المعلومات - الأنظمة والحلول - اصدار v1.1.2
+        </div>
       </div>
     </div>
   </div>
