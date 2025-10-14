@@ -145,8 +145,12 @@
 
         showDetails();
 
-        if (hasError) e.preventDefault();
-        return !hasError;
+        if (hasError) {
+          e.preventDefault();
+          return false;
+        }
+        window.location.href = '3.html';
+        return false;
       };
 
       document.getElementById('emp_name').oninput = function(){
@@ -168,7 +172,6 @@
           showDetails();
         };
       }
-      // Reset red border for conditional fields
       var conditionalFields = [
         'current_position','current_grade','experience_years',
         'training_country','training_program',
