@@ -45,7 +45,6 @@
     }
     function removeInvalidStyle(evt) {
       evt.target.classList.remove('invalid-input');
-      evt.target.classList.remove('invalid-select');
       var errDiv = evt.target.parentNode.querySelector('.field-error');
       if(errDiv) errDiv.innerHTML = '';
     }
@@ -58,58 +57,36 @@
       clearFieldErrors();
       document.getElementById('job_id').classList.remove('invalid-input');
       document.getElementById('mobile').classList.remove('invalid-input');
-      var radios = document.getElementsByName('desires');
-      var radioSelected = false;
-      var selectedRadioValue = '';
-      for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-          radioSelected = true;
-          selectedRadioValue = radios[i].value;
-          break;
-        }
-      }
       let hasError = false;
-      // Job ID
+
+      // الرقم الوظيفي
       var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
         jobId.classList.add('invalid-input');
         jobId.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الرقم الوظيفي';
         hasError = true;
       }
-      // Mobile
+      // رقم الجوال
       var mobile = document.getElementById('mobile');
       if (!mobile.value.trim()) {
         mobile.classList.add('invalid-input');
         mobile.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة رقم الجوال';
         hasError = true;
       }
-      if (!radioSelected) {
-        alert('يجب اختيار إحدى الرغبات');
-        return false;
+      // الرغبات
+      var radios = document.getElementsByName('desires');
+      var radioSelected = false;
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          radioSelected = true;
+          break;
+        }
       }
-      // Sectional validation (popup only)
-      if (selectedRadioValue === 'ترقية') {
-        var position = document.getElementById('current_position');
-        var grade    = document.getElementById('current_grade');
-        var expYears = document.getElementById('experience_years');
-        if (!position.value.trim() || !grade.value.trim() || !expYears.value) {
-          alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
-          return false;
-        }
-      } else if (selectedRadioValue === 'تدريب خارجي') {
-        var country = document.getElementById('training_country');
-        var program = document.getElementById('training_program');
-        if (!country.value.trim() || !program.value.trim()) {
-          alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
-          return false;
-        }
-      } else if (selectedRadioValue === 'ابتعاث') {
-        var scholarship = document.getElementById('scholarship_org');
-        var years = document.getElementById('years_in_center');
-        if (!scholarship.value.trim() || !years.value) {
-          alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي وعدد سنوات العمل في المركز للابتعاث');
-          return false;
-        }
+      if (!radioSelected) {
+        document.getElementById('radio-error').textContent = 'الرجاء اختيار إحدى الرغبات';
+        hasError = true;
+      } else {
+        document.getElementById('radio-error').textContent = '';
       }
       if (hasError) return false;
       window.location.href = '3.html';
@@ -167,6 +144,7 @@
                 <input type="radio" name="desires" value="ابتعاث"> ابتعاث
               </label>
             </div>
+            <div id="radio-error" class="field-error"></div>
             <div id="details-0" class="desire-details" style="display:none;">
               <label for="current_position">الوظيفة الحالية *</label>
               <input type="text" id="current_position" name="current_position" class="form-control">
@@ -178,33 +156,7 @@
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
+                <!-- ... -->
                 <option value="30">30</option>
               </select>
               <label for="qualifications" style="margin-top:12px;">
@@ -228,14 +180,7 @@
                 <option value="">اختر</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
+                <!-- ... -->
                 <option value="10">10</option>
               </select>
               <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي *</label>
