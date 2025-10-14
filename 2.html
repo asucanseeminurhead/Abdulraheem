@@ -56,6 +56,7 @@
     function validateForm(event) {
       event.preventDefault();
       clearFieldErrors();
+      document.getElementById('emp_name').classList.remove('invalid-input');
       document.getElementById('job_id').classList.remove('invalid-input');
       document.getElementById('mobile').classList.remove('invalid-input');
 
@@ -75,6 +76,12 @@
       });
 
       let hasError = false;
+      var empName = document.getElementById('emp_name');
+      if (!empName.value.trim()) {
+        empName.classList.add('invalid-input');
+        empName.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة اسم الموظف';
+        hasError = true;
+      }
       var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
         jobId.classList.add('invalid-input');
@@ -110,7 +117,6 @@
           var position = document.getElementById('current_position');
           if (!position.value.trim()) {
             position.classList.add('invalid-input');
-            // No error message displayed
             hasError = true;
           }
           var grade = document.getElementById('current_grade');
@@ -160,6 +166,7 @@
       }
       var form = document.getElementById('dataForm');
       form.addEventListener('submit', validateForm);
+      document.getElementById('emp_name').addEventListener('input', removeInvalidStyle);
       document.getElementById('job_id').addEventListener('input', removeInvalidStyle);
       document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
       var conditionalFields = [
@@ -196,6 +203,11 @@
       <div class="login-right">
         <div class="form-title">الرجاء تعبئة البيانات التالية</div>
         <form id="dataForm" style="width:100%;max-width:340px;">
+          <div class="form-group">
+            <label for="emp_name">اسم الموظف *</label>
+            <input type="text" id="emp_name" name="emp_name" class="form-control" dir="rtl" style="text-align:right;">
+            <div class="field-error"></div>
+          </div>
           <div class="form-group">
             <label for="job_id">الرقم الوظيفي: *</label>
             <input type="text" id="job_id" name="job_id" class="form-control" dir="ltr" style="text-align:left;">
