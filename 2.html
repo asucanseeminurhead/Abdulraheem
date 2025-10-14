@@ -23,7 +23,6 @@
       width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa;
       box-sizing: border-box; margin-bottom: 2px;
     }
-    /* Override browser invalid pseudo-class to force gray border */
     .form-control:invalid { border-color: #dfe1e5; background: #f6f8fa; }
     .invalid-select, .invalid-input {
       border-color: #dc3545 !important;
@@ -53,15 +52,12 @@
         }
       }
     }
-
     function removeInvalidStyle(evt) {
       evt.target.classList.remove('invalid-input');
       evt.target.classList.remove('invalid-select');
     }
-
     function validateForm(event) {
       event.preventDefault();
-
       // Remove all previous invalid states
       document.getElementById('job_id').classList.remove('invalid-input');
       document.getElementById('mobile').classList.remove('invalid-input');
@@ -72,7 +68,6 @@
       if (document.getElementById('training_country')) document.getElementById('training_country').classList.remove('invalid-input');
       if (document.getElementById('training_program')) document.getElementById('training_program').classList.remove('invalid-input');
       if (document.getElementById('scholarship_org')) document.getElementById('scholarship_org').classList.remove('invalid-input');
-
       var radios = document.getElementsByName('desires');
       var radioSelected = false;
       var selectedRadioValue = '';
@@ -83,9 +78,7 @@
           break;
         }
       }
-
       let hasError = false;
-
       // Main required fields
       var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
@@ -101,7 +94,6 @@
         alert('الرجاء تعبئة الخانة');
         return false;
       }
-
       // Section-specific validation
       if (selectedRadioValue === 'ترقية') {
         var position = document.getElementById('current_position');
@@ -142,7 +134,6 @@
           hasError = true;
         }
       }
-
       if (hasError) {
         alert('الرجاء تعبئة الخانة');
         return false;
@@ -150,7 +141,6 @@
       window.location.href = '3.html';
       return true;
     }
-
     window.onload = function() {
       showDetails();
       var radios = document.getElementsByName('desires');
@@ -159,12 +149,10 @@
       }
       var form = document.getElementById('dataForm');
       form.addEventListener('submit', validateForm);
-
       document.getElementById('job_id').addEventListener('input', removeInvalidStyle);
       document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
       document.getElementById('experience_years').addEventListener('change', removeInvalidStyle);
       document.getElementById('years_in_center').addEventListener('change', removeInvalidStyle);
-      // Section-specific listeners
       if (document.getElementById('current_position')) document.getElementById('current_position').addEventListener('input', removeInvalidStyle);
       if (document.getElementById('current_grade')) document.getElementById('current_grade').addEventListener('input', removeInvalidStyle);
       if (document.getElementById('training_country')) document.getElementById('training_country').addEventListener('input', removeInvalidStyle);
@@ -191,25 +179,25 @@
         <form id="dataForm" style="width:100%;max-width:340px;">
           <div class="form-group">
             <label for="job_id">الرقم الوظيفي: *</label>
-            <input type="text" id="job_id" name="job_id" class="form-control" required dir="ltr" style="text-align:left;">
+            <input type="text" id="job_id" name="job_id" class="form-control" dir="ltr" style="text-align:left;">
           </div>
           <div class="form-group">
             <label for="mobile">رقم الجوال: *</label>
-            <input type="tel" id="mobile" name="mobile" class="form-control" required dir="ltr" style="text-align:left;">
+            <input type="tel" id="mobile" name="mobile" class="form-control" dir="ltr" style="text-align:left;">
           </div>
           <div class="form-group">
             <label>الرغبات: *</label>
             <div class="options-group">
               <label class="option-label">
-                <input type="radio" name="desires" value="ترقية" required>
+                <input type="radio" name="desires" value="ترقية">
                 ترقية
               </label>
               <label class="option-label">
-                <input type="radio" name="desires" value="تدريب خارجي" required>
+                <input type="radio" name="desires" value="تدريب خارجي">
                 تدريب خارجي
               </label>
               <label class="option-label">
-                <input type="radio" name="desires" value="ابتعاث" required>
+                <input type="radio" name="desires" value="ابتعاث">
                 ابتعاث
               </label>
             </div>
@@ -219,7 +207,7 @@
               <label for="current_grade" style="margin-top:12px;">الدرجة الحالية *</label>
               <input type="text" id="current_grade" name="current_grade" class="form-control">
               <label for="experience_years" style="margin-top:12px;">سنوات الخبرة *</label>
-              <select id="experience_years" name="experience_years" class="form-control" required dir="rtl" style="text-align:right;">
+              <select id="experience_years" name="experience_years" class="form-control" dir="rtl" style="text-align:right;">
                 <option value="">اختر</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -270,7 +258,7 @@
             </div>
             <div id="details-2" class="desire-details" style="display:none;">
               <label for="years_in_center">عدد سنوات العمل في المركز *</label>
-              <select id="years_in_center" name="years_in_center" class="form-control" required dir="rtl" style="text-align:right;">
+              <select id="years_in_center" name="years_in_center" class="form-control" dir="rtl" style="text-align:right;">
                 <option value="">اختر</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
