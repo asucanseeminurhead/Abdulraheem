@@ -104,51 +104,45 @@
         document.getElementById('radio-error').textContent = '';
       }
 
-      // Conditional required validation, with error display below each field
+      // Conditional required validation, only apply red border
       if (radioSelected) {
         if (selectedRadioValue === 'ترقية') {
           var position = document.getElementById('current_position');
           if (!position.value.trim()) {
             position.classList.add('invalid-input');
-            position.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الوظيفة الحالية';
+            // No error message displayed
             hasError = true;
           }
           var grade = document.getElementById('current_grade');
           if (!grade.value.trim()) {
             grade.classList.add('invalid-input');
-            grade.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدرجة الحالية';
             hasError = true;
           }
           var expYears = document.getElementById('experience_years');
           if (!expYears.value) {
             expYears.classList.add('invalid-select');
-            expYears.parentNode.querySelector('.field-error').textContent = 'الرجاء تحديد سنوات الخبرة';
             hasError = true;
           }
         } else if (selectedRadioValue === 'تدريب خارجي') {
           var country = document.getElementById('training_country');
           if (!country.value.trim()) {
             country.classList.add('invalid-input');
-            country.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الدولة';
             hasError = true;
           }
           var program = document.getElementById('training_program');
           if (!program.value.trim()) {
             program.classList.add('invalid-input');
-            program.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة اسم البرنامج التدريبي';
             hasError = true;
           }
         } else if (selectedRadioValue === 'ابتعاث') {
           var years = document.getElementById('years_in_center');
           if (!years.value) {
             years.classList.add('invalid-select');
-            years.parentNode.querySelector('.field-error').textContent = 'الرجاء تحديد عدد سنوات العمل في المركز';
             hasError = true;
           }
           var scholarship = document.getElementById('scholarship_org');
           if (!scholarship.value.trim()) {
             scholarship.classList.add('invalid-input');
-            scholarship.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة المؤهل التعليمي - التخصص الدراسي';
             hasError = true;
           }
         }
