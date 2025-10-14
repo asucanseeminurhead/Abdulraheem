@@ -6,381 +6,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
+    @font-face {
+      font-family: 'Bahij';
+      src: url('Bahij.ttf') format('truetype'); /* <-- Make sure this file exists in your project directory! */
+      font-weight: normal;
+      font-style: normal;
+    }
     body {
       background: #fafafa;
-      font-family: 'Tajawal', Arial, sans-serif;
+      font-family: 'Bahij', 'Tajawal', Arial, sans-serif;
       margin: 0;
     }
-    .header-desktop {
-      display: none;
-    }
-    .header-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      width: 100%;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 0 32px;
-    }
-    .header-logo {
-      height: 64px;
-      width: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-left: 0;
-      margin-right: 32px;
-    }
-    .header-logo img {
-      height: 60px;
-      width: 150px;
-      max-width: 100%;
-      background: #fff;
-      border-radius: 14px;
-      border: 1.5px solid #eee;
-      box-shadow: 0 2px 8px rgba(60,60,140,0.08);
-      object-fit: contain;
-      padding: 0;
-      margin: 0;
-      display: block;
-    }
-    .container {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 0.5rem;
-    }
-    .login-card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 32px rgba(90,109,183,.13);
-      max-width: 400px;
-      width: 100%;
-      margin: 24px auto;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-    .login-left {
-      background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 26px 12px;
-    }
-    .login-left img {
-      width: 70%;
-      max-width: 160px;
-      height: auto;
-      display: block;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(100,100,200,0.07);
-      padding: 8px 10px;
-      margin: auto;
-    }
-    .login-right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 28px 16px 16px 16px;
-    }
-    .form-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
-      margin-bottom: 16px;
-      border-bottom: 1px solid #e9e9e9;
-      padding-bottom: 8px;
-      width: 100%;
-    }
-    .form-group {
-      margin-bottom: 16px;
-      width: 100%;
-      max-width: 340px;
-    }
-    label {
-      display: block;
-      margin-bottom: 7px;
-      color: #515151;
-      font-weight: bold;
-      font-size: 1rem;
-      text-align: right;
-    }
-    .form-control {
-      width: 100%;
-      padding: 12px 10px;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #dfe1e5;
-      background: #f6f8fa;
-      box-sizing: border-box;
-      margin-bottom: 2px;
-    }
-    .form-control:invalid {
-      border-color: #dc3545;
-    }
-    .invalid-select, .invalid-input, .empty-input {
-      border-color: #dc3545 !important;
-      background: #fff3f3 !important;
-    }
-    .options-group {
-      width: 100%;
-      max-width: 340px;
-      justify-content: space-between;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 7px;
-      margin-bottom: 2px;
-    }
-    .option-label {
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: #555;
-      font-weight: 400;
-    }
-    .options-group input[type="radio"] {
-      accent-color: #5e48da;
-      margin-left: 3px;
-    }
-    .desire-details {
-      margin-top: 17px;
-      margin-bottom: 2px;
-      padding: 14px 5px 2px 5px;
-      background: #f9f9fe;
-      border-radius: 9px;
-      border: 1px solid #e3e4ed;
-      box-shadow: 0 2px 6px rgba(100,120,200,0.09);
-      max-width: 340px;
-    }
-    .submit-btn {
-      width: 100%;
-      padding: 12px;
-      background: #5e48da;
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 6px;
-      transition: background 0.3s;
-      max-width: 340px;
-    }
-    .submit-btn:active,
-    .submit-btn:focus {
-      background: #4737b3;
-    }
-    .footer {
-      text-align: center;
-      color: #888;
-      font-size: 0.83rem;
-      margin-top: 18px;
-      margin-bottom: 4px;
-      width: 100%;
-    }
-    @media (min-width: 850px) {
-      .header-desktop {
-        display: block !important;
-        background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%);
-        width: 100vw;
-        min-height: 72px;
-        margin-bottom: 0;
-        box-shadow: 0 2px 12px rgba(90,109,183,.09);
-      }
-      .container {
-        margin-top: 0;
-      }
-      .login-left {
-        display: none !important;
-      }
-      .login-card {
-        flex-direction: column !important;
-        align-items: center !important;
-        margin-top: 10px !important;
-      }
-      .login-right {
-        width: 100% !important;
-        padding: 18px 36px 32px 36px !important;
-      }
-      .form-title { font-size: 1.7rem; }
-      .footer { font-size: 0.96rem;}
-      .form-group, .options-group, .desire-details, .submit-btn { max-width: 340px; }
-    }
-    @media (min-width: 600px) and (max-width: 849px) {
-      .login-card {
-        max-width: 500px;
-      }
-      .form-title { font-size: 1.4rem; }
-      .login-left img { max-width: 220px;}
-      .form-group, .options-group, .desire-details, .submit-btn { max-width: 420px; }
-    }
-    @media (max-width: 600px) {
-      .login-card {
-        max-width: 100vw;
-        margin: 0;
-        border-radius: 16px;
-        box-shadow: 0 2px 32px rgba(90,109,183,.13);
-      }
-      .form-title {
-        font-size: 1.2rem;
-        padding-bottom: 8px;
-      }
-      .form-group, .options-group, .desire-details, .submit-btn { max-width: 98vw; }
-      .header-desktop { display: none !important; }
-    }
+    .header-desktop { display: none; }
+    .header-inner { max-width: 1280px; margin: 0 auto; width: 100%; height: 72px; display: flex; align-items: center; justify-content: flex-start; padding: 0 32px; }
+    .header-logo { height: 64px; width: 200px; display: flex; align-items: center; justify-content: flex-start; margin-left: 0; margin-right: 32px; }
+    .header-logo img { height: 60px; width: 150px; max-width: 100%; background: #fff; border-radius: 14px; border: 1.5px solid #eee; box-shadow: 0 2px 8px rgba(60,60,140,0.08); object-fit: contain; padding: 0; margin: 0; display: block; }
+    .container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 0.5rem;}
+    .login-card { background: #fff; border-radius: 16px; box-shadow: 0 2px 32px rgba(90,109,183,.13); max-width: 400px; width: 100%; margin: 24px auto; overflow: hidden; display: flex; flex-direction: column; align-items: stretch;}
+    .login-left { background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%); display: flex; align-items: center; justify-content: center; padding: 26px 12px;}
+    .login-left img { width: 70%; max-width: 160px; height: auto; display: block; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(100,100,200,0.07); padding: 8px 10px; margin: auto;}
+    .login-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px 16px 16px 16px;}
+    .form-title { font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; margin-bottom: 16px; border-bottom: 1px solid #e9e9e9; padding-bottom: 8px; width: 100%;}
+    .form-group { margin-bottom: 16px; width: 100%; max-width: 340px;}
+    label { display: block; margin-bottom: 7px; color: #515151; font-weight: bold; font-size: 1rem; text-align: right;}
+    .form-control { width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa; box-sizing: border-box; margin-bottom: 2px;}
+    .invalid-input { border-color: #dc3545 !important; background: #fff3f3 !important;}
+    .field-error { color: #dc3545; font-size: 0.96rem; margin-top: 4px; min-height: 18px; text-align: right;}
+    .options-group { width: 100%; max-width: 340px; justify-content: space-between; display: flex; flex-wrap: wrap; gap: 20px; margin-top: 7px; margin-bottom: 2px;}
+    .option-label { font-size: 1rem; display: flex; align-items: center; gap: 6px; color: #555; font-weight: 400;}
+    .options-group input[type="radio"] { accent-color: #5e48da; margin-left: 3px;}
+    .submit-btn { width: 100%; padding: 12px; background: #5e48da; border: none; border-radius: 8px; color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 6px; transition: background 0.3s; max-width: 340px;}
+    .footer { text-align: center; color: #888; font-size: 0.83rem; margin-top: 18px; margin-bottom: 4px; width: 100%;}
   </style>
   <script>
-    function showDetails() {
-      var radios = document.getElementsByName('desires');
-      var details = ['details-0', 'details-1', 'details-2'];
-      for (let i = 0; i < radios.length; i++) {
-        var el = document.getElementById(details[i]);
-        if (radios[i].checked) {
-          el.style.display = 'block';
-        } else {
-          el.style.display = 'none';
-        }
-      }
+    function removeInvalidInput(e) {
+      e.target.classList.remove('invalid-input');
+      var errDiv = e.target.parentNode.querySelector('.field-error');
+      if (errDiv) errDiv.textContent = '';
     }
-    function removeInvalidStyle(evt) {
-      evt.target.classList.remove('invalid-input');
-      evt.target.classList.remove('invalid-select');
-      evt.target.classList.remove('empty-input');
+    function removeRadioError() {
+      document.getElementById('radio-error').textContent = "";
     }
-    function clearFieldErrors() {
-      var errs = document.querySelectorAll('.field-error');
-      errs.forEach(function(e) { e.innerHTML = ''; });
+    function clearAllErrors() {
+      var allFields = document.querySelectorAll('.invalid-input');
+      allFields.forEach(function(f){ f.classList.remove('invalid-input'); });
+      var errors = document.querySelectorAll('.field-error');
+      errors.forEach(function(e){ e.textContent = ''; });
+      removeRadioError();
     }
     function validateForm(event) {
       event.preventDefault();
-      document.getElementById('emp_name').classList.remove('invalid-input');
-      document.getElementById('job_id').classList.remove('invalid-input');
-      document.getElementById('mobile').classList.remove('invalid-input');
-
-      var conditionalFields = [
-        'current_position','current_grade','experience_years',
-        'training_country','training_program',
-        'years_in_center','scholarship_org'
-      ];
-      conditionalFields.forEach(function(id){
-        var fld = document.getElementById(id);
-        if(fld) { fld.classList.remove('invalid-input'); fld.classList.remove('invalid-select'); fld.classList.remove('empty-input'); }
-      });
-
+      clearAllErrors();
       let hasError = false;
+
       var empName = document.getElementById('emp_name');
       if (!empName.value.trim()) {
         empName.classList.add('invalid-input');
+        empName.parentNode.querySelector('.field-error').textContent = "الرجاء تعبئة اسم الموظف";
         hasError = true;
       }
       var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
         jobId.classList.add('invalid-input');
+        jobId.parentNode.querySelector('.field-error').textContent = "الرجاء تعبئة الرقم الوظيفي";
         hasError = true;
       }
       var mobile = document.getElementById('mobile');
       if (!mobile.value.trim()) {
         mobile.classList.add('invalid-input');
+        mobile.parentNode.querySelector('.field-error').textContent = "الرجاء تعبئة رقم الجوال";
         hasError = true;
       }
       var radios = document.getElementsByName('desires');
       var radioSelected = false;
-      var selectedRadioValue = '';
       for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-          radioSelected = true;
-          selectedRadioValue = radios[i].value;
-          break;
-        }
+        if (radios[i].checked) { radioSelected = true; break; }
       }
       if (!radioSelected) {
+        document.getElementById('radio-error').textContent = "الرجاء اختيار إحدى الرغبات";
         hasError = true;
       }
-      // Conditional required validation, only apply red border
-      if (radioSelected) {
-        if (selectedRadioValue === 'ترقية') {
-          var position = document.getElementById('current_position');
-          if (!position.value.trim()) {
-            position.classList.add('invalid-input');
-            hasError = true;
-          }
-          var grade = document.getElementById('current_grade');
-          if (!grade.value.trim()) {
-            grade.classList.add('invalid-input');
-            hasError = true;
-          }
-          var expYears = document.getElementById('experience_years');
-          if (!expYears.value) {
-            expYears.classList.add('invalid-select');
-            hasError = true;
-          }
-        } else if (selectedRadioValue === 'تدريب خارجي') {
-          var country = document.getElementById('training_country');
-          if (!country.value.trim()) {
-            country.classList.add('invalid-input');
-            hasError = true;
-          }
-          var program = document.getElementById('training_program');
-          if (!program.value.trim()) {
-            program.classList.add('invalid-input');
-            hasError = true;
-          }
-        } else if (selectedRadioValue === 'ابتعاث') {
-          var years = document.getElementById('years_in_center');
-          if (!years.value) {
-            years.classList.add('invalid-select');
-            hasError = true;
-          }
-          var scholarship = document.getElementById('scholarship_org');
-          if (!scholarship.value.trim()) {
-            scholarship.classList.add('invalid-input');
-            hasError = true;
-          }
-        }
-      }
-
       if (hasError) return false;
       window.location.href = '3.html';
       return true;
     }
     window.onload = function() {
-      showDetails();
-      var radios = document.getElementsByName('desires');
-      for (let i = 0; i < radios.length; i++) {
-        radios[i].addEventListener('change', showDetails);
-      }
       var form = document.getElementById('dataForm');
       form.addEventListener('submit', validateForm);
-      document.getElementById('emp_name').addEventListener('input', removeInvalidStyle);
-      document.getElementById('job_id').addEventListener('input', removeInvalidStyle);
-      document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
-      var conditionalFields = [
-        'current_position','current_grade','experience_years',
-        'training_country','training_program',
-        'years_in_center','scholarship_org'
-      ];
-      conditionalFields.forEach(function(id){
-        var fld = document.getElementById(id);
-        if(fld) {
-          if (fld.tagName.toLowerCase() === 'select') {
-            fld.addEventListener('change', removeInvalidStyle);
-          } else {
-            fld.addEventListener('input', removeInvalidStyle);
-          }
-        }
-      });
-    };
+      document.getElementById('emp_name').addEventListener('input', removeInvalidInput);
+      document.getElementById('job_id').addEventListener('input', removeInvalidInput);
+      document.getElementById('mobile').addEventListener('input', removeInvalidInput);
+      var radios = document.getElementsByName('desires');
+      for (let i = 0; i < radios.length; i++) {
+        radios[i].addEventListener('change', removeRadioError);
+      }
+    }
   </script>
 </head>
 <body>
@@ -428,55 +148,6 @@
               </label>
             </div>
             <div id="radio-error" class="field-error"></div>
-            <div id="details-0" class="desire-details" style="display:none;">
-              <label for="current_position">الوظيفة الحالية *</label>
-              <input type="text" id="current_position" name="current_position" class="form-control">
-              <div class="field-error"></div>
-              <label for="current_grade" style="margin-top:12px;">الدرجة الحالية *</label>
-              <input type="text" id="current_grade" name="current_grade" class="form-control">
-              <div class="field-error"></div>
-              <label for="experience_years" style="margin-top:12px;">سنوات الخبرة *</label>
-              <select id="experience_years" name="experience_years" class="form-control" dir="rtl" style="text-align:right;">
-                <option value="">اختر</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <!-- ... -->
-                <option value="30">30</option>
-              </select>
-              <div class="field-error"></div>
-              <label for="qualifications" style="margin-top:12px;">
-                المؤهلات أو الدورات <span style="color:#888; font-weight:normal;">(اختياري)</span>
-              </label>
-              <input type="text" id="qualifications" name="qualifications" class="form-control">
-              <label for="additional_notes" style="margin-top:12px;">
-                ملاحظات إضافية <span style="color:#888; font-weight:normal;">(اختياري)</span>
-              </label>
-              <input type="text" id="additional_notes" name="additional_notes" class="form-control">
-            </div>
-            <div id="details-1" class="desire-details" style="display:none;">
-              <label for="training_country">الدولة *</label>
-              <input type="text" id="training_country" name="training_country" class="form-control">
-              <div class="field-error"></div>
-              <label for="training_program" style="margin-top:12px;">اسم البرنامج التدريبي *</label>
-              <input type="text" id="training_program" name="training_program" class="form-control">
-              <div class="field-error"></div>
-            </div>
-            <div id="details-2" class="desire-details" style="display:none;">
-              <label for="years_in_center">عدد سنوات العمل في المركز *</label>
-              <select id="years_in_center" name="years_in_center" class="form-control" dir="rtl" style="text-align:right;">
-                <option value="">اختر</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <!-- ... -->
-                <option value="10">10</option>
-              </select>
-              <div class="field-error"></div>
-              <label for="scholarship_org">المؤهل التعليمي - التخصص الدراسي *</label>
-              <input type="text" id="scholarship_org" name="scholarship_org" class="form-control">
-              <div class="field-error"></div>
-            </div>
           </div>
           <button type="submit" class="submit-btn">إرسال البيانات</button>
         </form>
