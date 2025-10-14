@@ -7,13 +7,13 @@
   <link rel="icon" href="image.jpg" type="image/jpeg">
   <style>
     body { background: #fafafa; font-family: 'Tajawal', Arial, sans-serif; margin: 0; }
-    .header-desktop { display: block; background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%); width: 100vw; min-height: 72px; box-shadow: 0 2px 12px rgba(90,109,183,.09);}
+    .header-desktop { display: block !important; background: linear-gradient(135deg,#28bfc6 0%,#6463d5 100%); width: 100vw; min-height: 72px; margin-bottom: 0; box-shadow: 0 2px 12px rgba(90,109,183,.09); }
     .header-inner { max-width: 1280px; margin: 0 auto; width: 100%; height: 72px; display: flex; align-items: center; justify-content: flex-start; padding: 0 32px; }
     .header-logo { height: 64px; width: 200px; display: flex; align-items: center; justify-content: flex-start; margin-left: 0; margin-right: 32px; }
-    .header-logo img { height: 60px; width: 150px; max-width: 100%; background: #fff; border-radius: 14px; border: 1.5px solid #eee; box-shadow: 0 2px 8px rgba(60,60,140,0.08); object-fit: contain; display: block; }
-    .container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; background: #fafafa; }
+    .header-logo img { height: 60px; width: 150px; max-width: 100%; background: #fff; border-radius: 14px; border: 1.5px solid #eee; box-shadow: 0 2px 8px rgba(60,60,140,0.08); object-fit: contain; padding: 0; margin: 0; display: block; }
+    .container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; }
     .login-card { background: #fff; border-radius: 16px; box-shadow: 0 2px 32px rgba(90,109,183,.13); max-width: 400px; width: 100%; margin: 24px auto; overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
-    .login-left { background: linear-gradient(135deg, #28bfc6 0%, #6463d5 100%); display: flex; align-items: center; justify-content: center; padding: 26px 12px; }
+    .login-left { background: linear-gradient(135deg,#28bfc6 0%,#6463d5 100%); display: flex; align-items: center; justify-content: center; padding: 26px 12px; }
     .login-left img { width: 70%; max-width: 160px; height: auto; display: block; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(100,100,200,0.07); padding: 8px 10px; margin: auto; }
     .login-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px 16px 16px 16px; }
     .form-title { font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; margin-bottom: 16px; border-bottom: 1px solid #e9e9e9; padding-bottom: 8px; width: 100%; }
@@ -22,14 +22,13 @@
     .form-control { width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa; box-sizing: border-box; margin-bottom: 2px; }
     .form-control:invalid { border-color: #dfe1e5; background: #f6f8fa; }
     .invalid-select, .invalid-input { border-color: #dc3545 !important; background: #fff3f3 !important; }
-    .field-error { color: #dc3545; font-size: 1rem; margin-top: 3px; text-align: right; min-height: 18px;}
+    .field-error { color: #dc3545; font-size: 1rem; margin-top: 4px; min-height: 18px; text-align: right; }
     .options-group { width: 100%; max-width: 340px; justify-content: space-between; display: flex; flex-wrap: wrap; gap: 20px; margin-top: 7px; margin-bottom: 2px; }
     .option-label { font-size: 1rem; display: flex; align-items: center; gap: 6px; color: #555; font-weight: 400; }
     .options-group input[type="radio"] { accent-color: #5e48da; margin-left: 3px; }
     .desire-details { margin-top: 17px; margin-bottom: 2px; padding: 14px 5px 2px 5px; background: #f9f9fe; border-radius: 9px; border: 1px solid #e3e4ed; box-shadow: 0 2px 6px rgba(100,120,200,0.09); max-width: 340px; }
     .submit-btn { width: 100%; padding: 12px; background: #5e48da; border: none; border-radius: 8px; color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 6px; transition: background 0.3s; max-width: 340px; }
     .footer { text-align: center; color: #888; font-size: 0.83rem; margin-top: 18px; margin-bottom: 4px; width: 100%; }
-    @media (max-width: 600px) { .login-card, .form-group, .options-group, .desire-details, .submit-btn { max-width: 98vw !important; } }
   </style>
   <script>
     function showDetails() {
@@ -77,25 +76,28 @@
         }
       }
       let hasError = false;
-
+      // Job ID
       var jobId = document.getElementById('job_id');
       if (!jobId.value.trim()) {
         jobId.classList.add('invalid-input');
         jobId.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة الرقم الوظيفي';
         hasError = true;
       }
+      // Mobile
       var mobile = document.getElementById('mobile');
       if (!mobile.value.trim()) {
         mobile.classList.add('invalid-input');
         mobile.parentNode.querySelector('.field-error').textContent = 'الرجاء تعبئة رقم الجوال';
         hasError = true;
       }
+      // Radio group
       if (!radioSelected) {
         document.getElementById('radio-error').textContent = 'الرجاء اختيار إحدى الرغبات';
         hasError = true;
       } else {
         document.getElementById('radio-error').textContent = '';
       }
+      // Details per desire
       if (selectedRadioValue === 'ترقية') {
         var position = document.getElementById('current_position');
         var grade    = document.getElementById('current_grade');
@@ -142,12 +144,10 @@
           hasError = true;
         }
       }
-
       if (hasError) return false;
       window.location.href = '3.html';
       return true;
     }
-
     window.onload = function() {
       showDetails();
       var radios = document.getElementsByName('desires');
@@ -183,7 +183,7 @@
       </div>
       <div class="login-right">
         <div class="form-title">الرجاء تعبئة البيانات التالية</div>
-        <form id="dataForm">
+        <form id="dataForm" style="width:100%;max-width:340px;">
           <div class="form-group">
             <label for="job_id">الرقم الوظيفي: *</label>
             <input type="text" id="job_id" name="job_id" class="form-control" dir="ltr" style="text-align:left;">
