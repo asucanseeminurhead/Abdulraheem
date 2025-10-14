@@ -82,6 +82,7 @@
       document.getElementById('dataForm').onsubmit = function(e) {
         let hasError = false;
 
+        // Main fields with red error + message
         var emp = document.getElementById('emp_name');
         var empErr = emp.parentNode.querySelector('.field-error');
         if (!emp.value.trim()) {
@@ -99,9 +100,48 @@
         } else { mob.classList.remove('invalid-input'); mobErr.textContent = ""; }
         var radios = document.getElementsByName('desires');
         var radioErr = document.getElementById('radio-error');
-        var checked = false; for(let i=0;i<radios.length;i++){if(radios[i].checked){checked=true;break;}}
+        var checked = false, selected_value = '';
+        for(let i=0;i<radios.length;i++){
+          if(radios[i].checked){checked=true; selected_value=radios[i].value;}
+        }
         if (!checked) { radioErr.textContent = "الرجاء اختيار إحدى الرغبات"; hasError = true; }
         else { radioErr.textContent = ""; }
+
+        // Conditional required fields (red border only, no text)
+        if (selected_value==='ترقية') {
+          ["current_position","current_grade"].forEach(function(id){
+            var el = document.getElementById(id);
+            if (el && !el.value.trim()) {
+              el.classList.add('invalid-input'); hasError=true;
+            } else if (el) {
+              el.classList.remove('invalid-input');
+            }
+          });
+          var sel = document.getElementById('experience_years');
+          if (sel && !sel.value) { sel.classList.add('invalid-input'); hasError=true;}
+          else if (sel) { sel.classList.remove('invalid-input'); }
+        }
+        if (selected_value==='تدريب خارجي') {
+          ["training_country","training_program"].forEach(function(id){
+            var el = document.getElementById(id);
+            if (el && !el.value.trim()) {
+              el.classList.add('invalid-input'); hasError=true;
+            } else if (el) {
+              el.classList.remove('invalid-input');
+            }
+          });
+        }
+        if (selected_value==='ابتعاث') {
+          var sel2 = document.getElementById('years_in_center');
+          if (sel2 && !sel2.value) { sel2.classList.add('invalid-input'); hasError=true;}
+          else if (sel2) { sel2.classList.remove('invalid-input'); }
+          var schl = document.getElementById('scholarship_org');
+          if (schl && !schl.value.trim()) {
+            schl.classList.add('invalid-input'); hasError=true;
+          } else if (schl) {
+            schl.classList.remove('invalid-input');
+          }
+        }
 
         showDetails();
 
@@ -128,6 +168,18 @@
           showDetails();
         };
       }
+      // Reset red border for conditional fields
+      var conditionalFields = [
+        'current_position','current_grade','experience_years',
+        'training_country','training_program',
+        'years_in_center','scholarship_org'
+      ];
+      conditionalFields.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el){
+          el.oninput = el.onchange = function(){ this.classList.remove('invalid-input'); };
+        }
+      });
     };
   </script>
 </head>
