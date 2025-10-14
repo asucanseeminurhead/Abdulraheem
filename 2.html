@@ -19,8 +19,12 @@
     .form-title { font-size: 1.2rem; font-weight: bold; color: #333; text-align: center; margin-bottom: 16px; border-bottom: 1px solid #e9e9e9; padding-bottom: 8px; width: 100%; }
     .form-group { margin-bottom: 16px; width: 100%; max-width: 340px; }
     label { display: block; margin-bottom: 7px; color: #515151; font-weight: bold; font-size: 1rem; text-align: right; }
-    .form-control { width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa; box-sizing: border-box; margin-bottom: 2px; }
-    /* .form-control:invalid { border-color: #dc3545; } <-- REMOVED! */
+    .form-control {
+      width: 100%; padding: 12px 10px; font-size: 1rem; border-radius: 8px; border: 1px solid #dfe1e5; background: #f6f8fa;
+      box-sizing: border-box; margin-bottom: 2px;
+    }
+    /* Override browser invalid, force gray border unless JS sets red */
+    .form-control:invalid { border-color: #dfe1e5; background: #f6f8fa; }
     .invalid-select, .invalid-input {
       border-color: #dc3545 !important;
       background: #fff3f3 !important;
@@ -58,7 +62,6 @@
     function validateForm(event) {
       event.preventDefault();
 
-      // Clear previous invalid styles
       document.getElementById('job_id').classList.remove('invalid-input');
       document.getElementById('mobile').classList.remove('invalid-input');
       document.getElementById('experience_years').classList.remove('invalid-select');
@@ -74,6 +77,7 @@
           break;
         }
       }
+
       var jobId = document.getElementById('job_id');
       var mobile = document.getElementById('mobile');
       let hasError = false;
@@ -97,17 +101,14 @@
         var missing = false;
 
         if (!position.value.trim()) {
-          position.focus();
-          missing = true;
+          position.focus(); missing = true;
         }
         if (!grade.value.trim()) {
-          grade.focus();
-          missing = true;
+          grade.focus(); missing = true;
         }
         if (!expYears.value) {
           expYears.classList.add('invalid-select');
-          expYears.focus();
-          missing = true;
+          expYears.focus(); missing = true;
         }
         if (missing) {
           alert('يجب تعبئة جميع الحقول المطلوبة للترقية');
@@ -118,12 +119,10 @@
         var program = document.getElementById('training_program');
         var missing = false;
         if (!country.value.trim()) {
-          country.focus();
-          missing = true;
+          country.focus(); missing = true;
         }
         if (!program.value.trim()) {
-          program.focus();
-          missing = true;
+          program.focus(); missing = true;
         }
         if (missing) {
           alert('يجب تعبئة جميع الحقول المطلوبة للتدريب الخارجي');
@@ -134,13 +133,11 @@
         var years = document.getElementById('years_in_center');
         var missing = false;
         if (!scholarship.value.trim()) {
-          scholarship.focus();
-          missing = true;
+          scholarship.focus(); missing = true;
         }
         if (!years.value) {
           years.classList.add('invalid-select');
-          years.focus();
-          missing = true;
+          years.focus(); missing = true;
         }
         if (missing) {
           alert('يجب تعبئة المؤهل التعليمي والتخصص الدراسي وعدد سنوات العمل في المركز للابتعاث');
@@ -162,7 +159,6 @@
       var form = document.getElementById('dataForm');
       form.addEventListener('submit', validateForm);
 
-      // Remove invalid style on user input (for all required fields)
       document.getElementById('job_id').addEventListener('input', removeInvalidStyle);
       document.getElementById('mobile').addEventListener('input', removeInvalidStyle);
       document.getElementById('experience_years').addEventListener('change', removeInvalidStyle);
